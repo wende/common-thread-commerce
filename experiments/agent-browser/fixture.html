@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Agent Shopping Test</title>
+<style>body{font:18px system-ui;background:#f0f4f1;color:#18382c;margin:60px auto;max-width:820px}article,section{background:white;padding:24px;border-radius:12px;margin:20px 0}button,input{font:inherit;padding:10px;margin:8px}button{background:#235b45;color:white;border:0;border-radius:5px}</style>
+<h1>Shopping test</h1><p id="identity"></p><label>Search products <input id="search" type="search"></label><button id="searchButton">Search</button>
+<main id="products"></main><button id="openCart">Open cart</button><section id="cart" hidden><h2>Your cart</h2><div id="items"></div><p id="total"></p></section>
+<script>
+const assignment=new URLSearchParams(location.search).get('assignment');
+const catalog=[{id:'mug',name:'Blue Ceramic Mug',price:12},{id:'bag',name:'Canvas Tote Bag',price:18}];
+const saved=JSON.parse(localStorage.getItem('cart')||'[]');
+let cart=saved;
+document.cookie='owner='+encodeURIComponent(assignment)+'; path=/; SameSite=Strict';
+localStorage.setItem('owner',assignment);sessionStorage.setItem('owner',assignment);
+identity.textContent='Assigned session: '+assignment;
+function render(){products.replaceChildren();for(const p of catalog.filter(p=>p.name.toLowerCase().includes(search.value.toLowerCase()))){const a=document.createElement('article');a.innerHTML=`<h2>${p.name}</h2><p>$${p.price.toFixed(2)}</p><label>Quantity for ${p.name} <input type="number" min="1" max="9" value="1"></label><button>Add ${p.name} to cart</button>`;a.querySelector('button').onclick=()=>{cart=[{...p,quantity:Number(a.querySelector('input').value)}];localStorage.setItem('cart',JSON.stringify(cart));a.querySelector('button').textContent='Added to cart';};products.append(a);}}
+searchButton.onclick=render;openCart.onclick=()=>{document.getElementById('cart').hidden=false;items.textContent=cart.map(p=>`${p.name} — quantity ${p.quantity} — $${(p.price*p.quantity).toFixed(2)}`).join('\n');total.textContent='Total: $'+cart.reduce((s,p)=>s+p.quantity*p.price,0).toFixed(2);};render();
+</script></html>

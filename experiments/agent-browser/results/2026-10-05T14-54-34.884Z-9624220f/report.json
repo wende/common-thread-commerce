@@ -1,0 +1,1554 @@
+{
+  "runId": "2026-10-05T14-54-34.884Z-9624220f",
+  "model": "gpt-6-luna",
+  "effort": "xhigh",
+  "tooling": "commerce-api-with-browser-fallback",
+  "agentsPerTarget": 2,
+  "agentsPerSession": 6,
+  "targets": [
+    {
+      "name": "woocommerce",
+      "url": "http://localhost:8091/"
+    },
+    {
+      "name": "prestashop",
+      "url": "http://localhost:8092/"
+    },
+    {
+      "name": "magento",
+      "url": "http://localhost:8093/"
+    }
+  ],
+  "sharedTaskPrompt": "I don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.",
+  "sessions": 1,
+  "wallSeconds": 286.127,
+  "status": "FAIL",
+  "tokens": 1316061,
+  "tokenAccounting": "Codex cumulative thread usage. Each worker has one fresh thread. Cached input is a subset of input; reasoning output is a subset of output.",
+  "tokenSummary": {
+    "totalIncludingCached": 1316061,
+    "cachedInput": 1028096,
+    "uncachedInput": 234596,
+    "outputIncludingReasoning": 53369,
+    "reasoningOutput": 35382,
+    "totalExcludingCached": 287965
+  },
+  "commerceSummary": {
+    "agentToolCalls": 80,
+    "commerceToolCalls": 73,
+    "browserFallbackCalls": 7,
+    "manualPageInteractionCalls": 7,
+    "apiRequests": 58,
+    "apiWriteRequests": 12,
+    "nativeMutationOperations": 18,
+    "measurementNote": "Tool calls, explicit API requests, native mutation suboperations, and internal browser evaluations/navigation are distinct units. Phase annotations are tool calls. HTTP asset requests and automatic storefront traffic are excluded. Manual page interaction calls match the baseline snapshot/click/fill/press definition."
+  },
+  "identicalPromptsExceptHandles": true,
+  "exportNote": "Portable measurement snapshot. Browser/session identifiers, storage, raw model messages, detailed agent transcripts and protocol events are omitted. The original raw report remains in local output.",
+  "sourceReportSha256": "562b29fb77102eaf315fad272dc7c560bf6410c879b703328f5189c8cd653a50",
+  "results": [
+    {
+      "id": "woocommerce-session-1-agent-2",
+      "target": "woocommerce",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "FAIL",
+      "turnStatus": "completed",
+      "seconds": 151.365,
+      "totalSeconds": 153.825,
+      "handoffSeconds": 75.202,
+      "tokens": {
+        "totalIncludingCached": 134715,
+        "cachedInput": 99584,
+        "uncachedInput": 27532,
+        "outputIncludingReasoning": 7599,
+        "reasoningOutput": 4891,
+        "totalExcludingCached": 35131
+      },
+      "usage": {
+        "totalTokens": 134715,
+        "inputTokens": 127116,
+        "cachedInputTokens": 99584,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 7599,
+        "reasoningOutputTokens": 4891
+      },
+      "timing": {
+        "wallSeconds": 151.365,
+        "browserToolSeconds": 3.662,
+        "outsideBrowserToolsSeconds": 147.703,
+        "toolCalls": 11,
+        "failedToolCalls": 0,
+        "commerceToolCalls": 11,
+        "browserFallbackCalls": 0,
+        "manualPageInteractions": 0,
+        "apiRequests": 7,
+        "apiWriteRequests": 1,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 0.538,
+        "internalBrowser": {
+          "evaluations": 1,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.007,
+            "browserToolSeconds": 0.236,
+            "outsideBrowserToolsSeconds": 9.771,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 43.091,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 43.09,
+            "calls": 3,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 12.381,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 12.381,
+            "calls": 2,
+            "failures": 0
+          },
+          "cart": {
+            "wallSeconds": 4.427,
+            "browserToolSeconds": 0.211,
+            "outsideBrowserToolsSeconds": 4.216,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 5.296,
+            "browserToolSeconds": 3.214,
+            "outsideBrowserToolsSeconds": 2.082,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 76.163,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 76.163,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/cart/",
+            "durationSeconds": 3.156,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.236,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.211,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.058,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.001,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Reviewing the complete storefront catalog and checking for a red-ish tee, mug, and discounted warm winter item.",
+            "elapsedSeconds": 10.007
+          },
+          {
+            "phase": "comparison",
+            "note": "Comparing in-stock everyday tee and alternatives; checking exact attributes, mug availability, and the strongest discounted winter option.",
+            "elapsedSeconds": 53.098
+          },
+          {
+            "phase": "cart",
+            "note": "Adding one each of the chosen tee, practical available accessory substitute, and discounted warm winter beanie.",
+            "elapsedSeconds": 65.479
+          },
+          {
+            "phase": "verification",
+            "note": "Checking that all three chosen quantities and prices are present before leaving the cart open.",
+            "elapsedSeconds": 69.906
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": false,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Coast Cotton Cap",
+            "sku": "CT-023",
+            "quantity": 1,
+            "unitPrice": 29,
+            "category": "Headwear",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 70.6,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "PARTIAL",
+      "actionCounts": {
+        "basket_sync": 1,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 1,
+        "search_many": 2,
+        "verify": 1
+      }
+    },
+    {
+      "id": "woocommerce-session-1-agent-1",
+      "target": "woocommerce",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 178.592,
+      "totalSeconds": 182.403,
+      "handoffSeconds": 94.865,
+      "tokens": {
+        "totalIncludingCached": 197810,
+        "cachedInput": 161024,
+        "uncachedInput": 27969,
+        "outputIncludingReasoning": 8817,
+        "reasoningOutput": 5763,
+        "totalExcludingCached": 36786
+      },
+      "usage": {
+        "totalTokens": 197810,
+        "inputTokens": 188993,
+        "cachedInputTokens": 161024,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 8817,
+        "reasoningOutputTokens": 5763
+      },
+      "timing": {
+        "wallSeconds": 178.592,
+        "browserToolSeconds": 3.305,
+        "outsideBrowserToolsSeconds": 175.287,
+        "toolCalls": 11,
+        "failedToolCalls": 0,
+        "commerceToolCalls": 11,
+        "browserFallbackCalls": 0,
+        "manualPageInteractions": 0,
+        "apiRequests": 7,
+        "apiWriteRequests": 1,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 0.476,
+        "internalBrowser": {
+          "evaluations": 1,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 7.74,
+            "browserToolSeconds": 0.145,
+            "outsideBrowserToolsSeconds": 7.595,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 44.575,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 44.574,
+            "calls": 3,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 27.275,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 27.275,
+            "calls": 2,
+            "failures": 0
+          },
+          "cart": {
+            "wallSeconds": 7.772,
+            "browserToolSeconds": 0.19,
+            "outsideBrowserToolsSeconds": 7.581,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 7.504,
+            "browserToolSeconds": 2.969,
+            "outsideBrowserToolsSeconds": 4.535,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 83.727,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 83.727,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/cart/",
+            "durationSeconds": 2.882,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.19,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.145,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.087,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.001,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Inspect complete catalog; checking tees, mug, and winter warmth options.",
+            "elapsedSeconds": 7.74
+          },
+          {
+            "phase": "comparison",
+            "note": "Compare in-stock tee candidates, practical substitutes, and discounted cold-weather options.",
+            "elapsedSeconds": 52.315
+          },
+          {
+            "phase": "cart",
+            "note": "Add three one-unit choices together: everyday tee, size-adjustable cap as the only practical non-drinkware substitute, and discounted warm beanie.",
+            "elapsedSeconds": 79.59
+          },
+          {
+            "phase": "verification",
+            "note": "Verify the three cart lines, quantities, and merchandise subtotal before leaving the cart page open.",
+            "elapsedSeconds": 87.361
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Coast Cotton Cap",
+            "sku": "CT-023",
+            "quantity": 1,
+            "unitPrice": 29,
+            "category": "Headwear",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 70.6,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "basket_sync": 1,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 1,
+        "search_many": 2,
+        "verify": 1
+      }
+    },
+    {
+      "id": "magento-session-1-agent-2",
+      "target": "magento",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 180.544,
+      "totalSeconds": 184.35,
+      "handoffSeconds": 94.407,
+      "tokens": {
+        "totalIncludingCached": 166980,
+        "cachedInput": 128000,
+        "uncachedInput": 29874,
+        "outputIncludingReasoning": 9106,
+        "reasoningOutput": 6183,
+        "totalExcludingCached": 38980
+      },
+      "usage": {
+        "totalTokens": 166980,
+        "inputTokens": 157874,
+        "cachedInputTokens": 128000,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 9106,
+        "reasoningOutputTokens": 6183
+      },
+      "timing": {
+        "wallSeconds": 180.544,
+        "browserToolSeconds": 3.283,
+        "outsideBrowserToolsSeconds": 177.261,
+        "toolCalls": 13,
+        "failedToolCalls": 1,
+        "commerceToolCalls": 13,
+        "browserFallbackCalls": 0,
+        "manualPageInteractions": 0,
+        "apiRequests": 13,
+        "apiWriteRequests": 2,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 1.654,
+        "internalBrowser": {
+          "evaluations": 2,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.725,
+            "browserToolSeconds": 0.246,
+            "outsideBrowserToolsSeconds": 10.478,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 22.474,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 22.473,
+            "calls": 2,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 52.217,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 52.217,
+            "calls": 5,
+            "failures": 1
+          },
+          "cart": {
+            "wallSeconds": 4.43,
+            "browserToolSeconds": 0.967,
+            "outsideBrowserToolsSeconds": 3.464,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 4.561,
+            "browserToolSeconds": 2.068,
+            "outsideBrowserToolsSeconds": 2.493,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 86.137,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 86.137,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/checkout/cart/",
+            "durationSeconds": 1.839,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.967,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.246,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.229,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.001,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Inspect full 30-product catalog and check requested categories/colors.",
+            "elapsedSeconds": 10.725
+          },
+          {
+            "phase": "comparison",
+            "note": "Initial catalog searches found no red confirmation or drinkware; broaden search and compare sale warm options and tees.",
+            "elapsedSeconds": 33.198
+          },
+          {
+            "phase": "cart",
+            "note": "Selected an available basic tee and two useful in-stock winter items; no drinkware exists, so beanie is only a transparent fallback.",
+            "elapsedSeconds": 85.416
+          },
+          {
+            "phase": "verification",
+            "note": "Check synced basket contents, quantities, and displayed total before handoff.",
+            "elapsedSeconds": 89.846
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 99.2,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "basket_sync": 1,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 1,
+        "search_many": 4,
+        "verify": 1
+      }
+    },
+    {
+      "id": "magento-session-1-agent-1",
+      "target": "magento",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 223.403,
+      "totalSeconds": 226.408,
+      "handoffSeconds": 130.65,
+      "tokens": {
+        "totalIncludingCached": 192647,
+        "cachedInput": 150272,
+        "uncachedInput": 32047,
+        "outputIncludingReasoning": 10328,
+        "reasoningOutput": 7250,
+        "totalExcludingCached": 42375
+      },
+      "usage": {
+        "totalTokens": 192647,
+        "inputTokens": 182319,
+        "cachedInputTokens": 150272,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 10328,
+        "reasoningOutputTokens": 7250
+      },
+      "timing": {
+        "wallSeconds": 223.403,
+        "browserToolSeconds": 2.803,
+        "outsideBrowserToolsSeconds": 220.6,
+        "toolCalls": 14,
+        "failedToolCalls": 1,
+        "commerceToolCalls": 14,
+        "browserFallbackCalls": 0,
+        "manualPageInteractions": 0,
+        "apiRequests": 13,
+        "apiWriteRequests": 2,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 1.439,
+        "internalBrowser": {
+          "evaluations": 2,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 9.637,
+            "browserToolSeconds": 0.356,
+            "outsideBrowserToolsSeconds": 9.281,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 16.71,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 16.71,
+            "calls": 2,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 95.517,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 95.516,
+            "calls": 6,
+            "failures": 1
+          },
+          "cart": {
+            "wallSeconds": 4.549,
+            "browserToolSeconds": 0.681,
+            "outsideBrowserToolsSeconds": 3.868,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 4.236,
+            "browserToolSeconds": 1.765,
+            "outsideBrowserToolsSeconds": 2.471,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 92.753,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 92.753,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/checkout/cart/",
+            "durationSeconds": 1.561,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.681,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.356,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0.204,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/",
+            "durationSeconds": 0,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Inspect complete catalog; check for red-ish tee, coffee mug, and discounted winter-warm option.",
+            "elapsedSeconds": 9.637
+          },
+          {
+            "phase": "comparison",
+            "note": "Compare available tees and warm sale layers; check closest catalog alternative because no mug matched.",
+            "elapsedSeconds": 26.348
+          },
+          {
+            "phase": "cart",
+            "note": "Add one tee, a practical headwear alternative to unavailable drinkware, and the discounted fleece hoodie.",
+            "elapsedSeconds": 121.865
+          },
+          {
+            "phase": "verification",
+            "note": "Check the three intended one-unit lines and observed merchandise subtotal before handing over the cart.",
+            "elapsedSeconds": 126.414
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Coast Cotton Cap",
+            "sku": "CT-023",
+            "quantity": 1,
+            "unitPrice": 29,
+            "category": "Headwear",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 110.6,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "basket_sync": 1,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 2,
+        "search_many": 4,
+        "verify": 1
+      }
+    },
+    {
+      "id": "prestashop-session-1-agent-1",
+      "target": "prestashop",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 230.503,
+      "totalSeconds": 232.962,
+      "handoffSeconds": 144.571,
+      "tokens": {
+        "totalIncludingCached": 416780,
+        "cachedInput": 341504,
+        "uncachedInput": 64953,
+        "outputIncludingReasoning": 10323,
+        "reasoningOutput": 7071,
+        "totalExcludingCached": 75276
+      },
+      "usage": {
+        "totalTokens": 416780,
+        "inputTokens": 406457,
+        "cachedInputTokens": 341504,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 10323,
+        "reasoningOutputTokens": 7071
+      },
+      "timing": {
+        "wallSeconds": 230.503,
+        "browserToolSeconds": 2.559,
+        "outsideBrowserToolsSeconds": 227.944,
+        "toolCalls": 19,
+        "failedToolCalls": 2,
+        "commerceToolCalls": 12,
+        "browserFallbackCalls": 7,
+        "manualPageInteractions": 7,
+        "apiRequests": 9,
+        "apiWriteRequests": 3,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 0.996,
+        "internalBrowser": {
+          "evaluations": 2,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.495,
+            "browserToolSeconds": 0.189,
+            "outsideBrowserToolsSeconds": 10.306,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 25.1,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 25.099,
+            "calls": 3,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 98.436,
+            "browserToolSeconds": 0.807,
+            "outsideBrowserToolsSeconds": 97.63,
+            "calls": 10,
+            "failures": 2
+          },
+          "cart": {
+            "wallSeconds": 5.693,
+            "browserToolSeconds": 0.633,
+            "outsideBrowserToolsSeconds": 5.06,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 4.846,
+            "browserToolSeconds": 0.93,
+            "outsideBrowserToolsSeconds": 3.916,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 85.933,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 85.933,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/cart?action=show",
+            "durationSeconds": 0.831,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "durationSeconds": 0.633,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "click",
+            "name": "Harbor Everyday Tee",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "durationSeconds": 0.249,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "click",
+            "name": "Common Thread",
+            "urlBefore": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.222,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "click",
+            "name": "Tide V-Neck Tee",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "durationSeconds": 0.192,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.189,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "durationSeconds": 0.1,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "click",
+            "name": "Product Details",
+            "urlBefore": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/24-tide-v-neck-tee.html",
+            "durationSeconds": 0.044,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "snapshot",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.04,
+            "success": true
+          },
+          {
+            "tool": "assigned_browser",
+            "action": "click",
+            "name": "Tide V-Neck Tee",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.034,
+            "success": false,
+            "error": "locator.click: Error: strict mode violation: getByRole('link', { name: 'Tide V-Neck Tee', exact: true }) resolved to 2 elements:\n    1) <a class=\"thumbnail product-thumbnail\" href=\"http://localhost:8092/24-tide-v-neck-tee.html\">\u2026</a> aka getByRole('link', { name: 'Tide V-Neck Tee' }).first()\n    2) <a href=\"http://localhost:8092/24-tide-v-neck-tee.html\" content=\"http://localhost:8092/24-tide-v-neck-tee.html\">Tide V-Neck Tee</a> aka getByText('Tide V-Neck Tee')\n\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: 'Tide V-Neck Tee', exact: true })\u001b[22m\n"
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Inspect catalog and search requested item categories",
+            "elapsedSeconds": 10.495
+          },
+          {
+            "phase": "comparison",
+            "note": "Inspect tee colors/details and compare sale winter items",
+            "elapsedSeconds": 35.595
+          },
+          {
+            "phase": "cart",
+            "note": "Add one tee candidate, an everyday accessory in lieu of unavailable drinkware, and a discounted fleece hoodie",
+            "elapsedSeconds": 134.031
+          },
+          {
+            "phase": "verification",
+            "note": "Verify three cart lines, quantities, and observed total before handoff",
+            "elapsedSeconds": 139.724
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Tide V-Neck Tee",
+            "sku": "CT-005",
+            "quantity": 1,
+            "unitPrice": 26,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Compass Everyday Cap",
+            "sku": "CT-022",
+            "quantity": 1,
+            "unitPrice": 27,
+            "category": "Headwear",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 110.6,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "basket_sync": 1,
+        "click": 6,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 1,
+        "search_many": 3,
+        "snapshot": 1,
+        "verify": 1
+      }
+    },
+    {
+      "id": "prestashop-session-1-agent-2",
+      "target": "prestashop",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 282.424,
+      "totalSeconds": 284.883,
+      "handoffSeconds": 209.803,
+      "tokens": {
+        "totalIncludingCached": 207129,
+        "cachedInput": 147712,
+        "uncachedInput": 52221,
+        "outputIncludingReasoning": 7196,
+        "reasoningOutput": 4224,
+        "totalExcludingCached": 59417
+      },
+      "usage": {
+        "totalTokens": 207129,
+        "inputTokens": 199933,
+        "cachedInputTokens": 147712,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 7196,
+        "reasoningOutputTokens": 4224
+      },
+      "timing": {
+        "wallSeconds": 282.424,
+        "browserToolSeconds": 1.79,
+        "outsideBrowserToolsSeconds": 280.634,
+        "toolCalls": 12,
+        "failedToolCalls": 1,
+        "commerceToolCalls": 12,
+        "browserFallbackCalls": 0,
+        "manualPageInteractions": 0,
+        "apiRequests": 9,
+        "apiWriteRequests": 3,
+        "nativeMutationOperations": 3,
+        "apiSeconds": 1.037,
+        "internalBrowser": {
+          "evaluations": 2,
+          "navigations": 1,
+          "clicksOrFills": 0
+        },
+        "phases": {
+          "orientation": {
+            "wallSeconds": 27.034,
+            "browserToolSeconds": 0.266,
+            "outsideBrowserToolsSeconds": 26.768,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 65.596,
+            "browserToolSeconds": 0.001,
+            "outsideBrowserToolsSeconds": 65.595,
+            "calls": 4,
+            "failures": 1
+          },
+          "comparison": {
+            "wallSeconds": 58.353,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 58.353,
+            "calls": 2,
+            "failures": 0
+          },
+          "cart": {
+            "wallSeconds": 31.584,
+            "browserToolSeconds": 0.646,
+            "outsideBrowserToolsSeconds": 30.938,
+            "calls": 2,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 27.236,
+            "browserToolSeconds": 0.877,
+            "outsideBrowserToolsSeconds": 26.359,
+            "calls": 2,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 72.621,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 72.621,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "tool": "assigned_shop",
+            "action": "handoff",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/cart?action=show",
+            "durationSeconds": 0.793,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "basket_sync",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.646,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "inspect",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.266,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "verify",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0.084,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "products",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "search_many",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": false,
+            "error": "queries must be up to 10 strings"
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": true
+          },
+          {
+            "tool": "assigned_shop",
+            "action": "phase",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/",
+            "durationSeconds": 0,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Reviewing complete catalog and searching requested tee, mug, and winter-warmth categories.",
+            "elapsedSeconds": 27.034
+          },
+          {
+            "phase": "comparison",
+            "note": "Comparing a versatile tee and discounted fleece and beanie; color and sizing data are sparse.",
+            "elapsedSeconds": 92.63
+          },
+          {
+            "phase": "cart",
+            "note": "Adding one unit each of the selected tee, sale fleece hoodie, and sale winter beanie.",
+            "elapsedSeconds": 150.983
+          },
+          {
+            "phase": "verification",
+            "note": "Checking the final basket and its observed price totals before handoff.",
+            "elapsedSeconds": 182.567
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. browserToolSeconds is the legacy name for time in all assigned tools, including commerce API helpers. Time outside tools includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 99.2,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "basket_sync": 1,
+        "handoff": 1,
+        "inspect": 1,
+        "phase": 4,
+        "products": 1,
+        "search_many": 3,
+        "verify": 1
+      }
+    }
+  ]
+}

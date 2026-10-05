@@ -1,5 +1,7 @@
 # Common Thread — three native e-commerce examples
 
+The [shopping-agent experiment summary](experiments/agent-browser/EXPERIMENT_SUMMARY_2026-10-05.md) compares browser-only shopping with session-bound API tools and catalog reuse on these three stores. It includes per-platform timings, token usage and interaction counts. The [benchmark instructions](experiments/agent-browser/README.md) describe the harness and reproduction commands.
+
 The same invented catalog of **30 products in 5 categories**, running in three independent, real e-commerce engines:
 
 | Store | Framework / native theme | Local URL |

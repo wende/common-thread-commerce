@@ -1,0 +1,1338 @@
+{
+  "runId": "2026-10-05T13-21-59.909Z-4ffa6cab",
+  "model": "gpt-6-luna",
+  "effort": "xhigh",
+  "agentsPerTarget": 2,
+  "agentsPerSession": 6,
+  "targets": [
+    {
+      "name": "woocommerce",
+      "url": "http://localhost:8091/"
+    },
+    {
+      "name": "prestashop",
+      "url": "http://localhost:8092/"
+    },
+    {
+      "name": "magento",
+      "url": "http://localhost:8093/"
+    }
+  ],
+  "sharedTaskPrompt": "I don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.",
+  "sessions": 1,
+  "wallSeconds": 603.218,
+  "status": "FAIL",
+  "tokens": 8611561,
+  "tokenAccounting": "Codex cumulative thread usage. Each worker has one fresh thread. Cached input is a subset of input; reasoning output is a subset of output.",
+  "tokenSummary": {
+    "totalIncludingCached": 8611561,
+    "cachedInput": 7866624,
+    "uncachedInput": 684110,
+    "outputIncludingReasoning": 60827,
+    "reasoningOutput": 39238,
+    "totalExcludingCached": 744937
+  },
+  "identicalPromptsExceptHandles": true,
+  "exportNote": "Portable measurement snapshot. Browser/session identifiers, storage, raw model messages, detailed agent transcripts and protocol events are omitted. The original raw report remains in local output.",
+  "sourceReportSha256": "4a5bef3a69a82308df7e0ce7620cef804826f403ae369b62a40e2411fcbc5357",
+  "results": [
+    {
+      "id": "magento-session-1-agent-1",
+      "target": "magento",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 283.853,
+      "totalSeconds": 286.556,
+      "handoffSeconds": 205.754,
+      "tokens": {
+        "totalIncludingCached": 1178553,
+        "cachedInput": 1072896,
+        "uncachedInput": 95642,
+        "outputIncludingReasoning": 10015,
+        "reasoningOutput": 5730,
+        "totalExcludingCached": 105657
+      },
+      "usage": {
+        "totalTokens": 1178553,
+        "inputTokens": 1168538,
+        "cachedInputTokens": 1072896,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 10015,
+        "reasoningOutputTokens": 5730
+      },
+      "timing": {
+        "wallSeconds": 283.853,
+        "browserToolSeconds": 14.216,
+        "outsideBrowserToolsSeconds": 269.637,
+        "toolCalls": 37,
+        "failedToolCalls": 2,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.37,
+            "browserToolSeconds": 0.047,
+            "outsideBrowserToolsSeconds": 10.323,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 50.24,
+            "browserToolSeconds": 11.484,
+            "outsideBrowserToolsSeconds": 38.756,
+            "calls": 8,
+            "failures": 1
+          },
+          "comparison": {
+            "wallSeconds": 73.823,
+            "browserToolSeconds": 1.559,
+            "outsideBrowserToolsSeconds": 72.264,
+            "calls": 10,
+            "failures": 1
+          },
+          "cart": {
+            "wallSeconds": 52.436,
+            "browserToolSeconds": 0.689,
+            "outsideBrowserToolsSeconds": 51.747,
+            "calls": 14,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 18.885,
+            "browserToolSeconds": 0.436,
+            "outsideBrowserToolsSeconds": 18.449,
+            "calls": 3,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 78.099,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 78.099,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "urlAfter": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "durationSeconds": 10.006,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: 'Tees', exact: true })\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Accessories",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/accessories.html",
+            "durationSeconds": 0.768,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "urlAfter": "http://localhost:8093/tees.html",
+            "durationSeconds": 0.343,
+            "success": true
+          },
+          {
+            "action": "press",
+            "name": "\ue615 Search",
+            "urlBefore": "http://localhost:8093/accessories.html",
+            "urlAfter": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "durationSeconds": 0.333,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Hoodies",
+            "urlBefore": "http://localhost:8093/catalogsearch/result/?q=red",
+            "urlAfter": "http://localhost:8093/hoodies.html",
+            "durationSeconds": 0.318,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "View and Edit Cart",
+            "urlBefore": "http://localhost:8093/trail-pocket-hoodie.html",
+            "urlAfter": "http://localhost:8093/checkout/cart/",
+            "durationSeconds": 0.297,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie",
+            "urlBefore": "http://localhost:8093/hoodies.html",
+            "urlAfter": "http://localhost:8093/trail-pocket-hoodie.html",
+            "durationSeconds": 0.288,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Harbor Everyday Tee",
+            "urlBefore": "http://localhost:8093/tees.html",
+            "urlAfter": "http://localhost:8093/harbor-everyday-tee.html",
+            "durationSeconds": 0.279,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Foundry Leather Belt",
+            "urlBefore": "http://localhost:8093/accessories.html",
+            "urlAfter": "http://localhost:8093/foundry-leather-belt.html",
+            "durationSeconds": 0.277,
+            "success": true
+          },
+          {
+            "action": "press",
+            "name": "\ue615 Search",
+            "urlBefore": "http://localhost:8093/harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8093/catalogsearch/result/?q=red",
+            "durationSeconds": 0.211,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Reviewed the 30-item storefront collection and available categories; checking mug availability and item options.",
+            "elapsedSeconds": 10.37
+          },
+          {
+            "phase": "discovery",
+            "note": "Accessories category lists only belts/sunglasses; storefront search for mug returned no results. Checking available tee and winterwear options.",
+            "elapsedSeconds": 36.153
+          },
+          {
+            "phase": "comparison",
+            "note": "Comparing tee detail-page colors/sizes and sale warm-layer candidates after category discovery.",
+            "elapsedSeconds": 60.61
+          },
+          {
+            "phase": "cart",
+            "note": "Selected an in-stock tee, sale fleece hoodie, and a practical accessory substitution for the unavailable mug; now adding one of each.",
+            "elapsedSeconds": 134.433
+          },
+          {
+            "phase": "verification",
+            "note": "All three selected items show successful add-to-cart confirmations; opening full cart to verify quantities and total.",
+            "elapsedSeconds": 186.87
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Foundry Leather Belt",
+            "sku": "CT-025",
+            "quantity": 1,
+            "unitPrice": 39,
+            "category": "Accessories",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 120.6,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "click": 18,
+        "fill": 2,
+        "handoff": 1,
+        "phase": 5,
+        "press": 2,
+        "snapshot": 9
+      }
+    },
+    {
+      "id": "woocommerce-session-1-agent-1",
+      "target": "woocommerce",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 307.845,
+      "totalSeconds": 310.574,
+      "handoffSeconds": 239.125,
+      "tokens": {
+        "totalIncludingCached": 1228594,
+        "cachedInput": 1112576,
+        "uncachedInput": 106132,
+        "outputIncludingReasoning": 9886,
+        "reasoningOutput": 5852,
+        "totalExcludingCached": 116018
+      },
+      "usage": {
+        "totalTokens": 1228594,
+        "inputTokens": 1218708,
+        "cachedInputTokens": 1112576,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 9886,
+        "reasoningOutputTokens": 5852
+      },
+      "timing": {
+        "wallSeconds": 307.845,
+        "browserToolSeconds": 13.45,
+        "outsideBrowserToolsSeconds": 294.395,
+        "toolCalls": 35,
+        "failedToolCalls": 3,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.713,
+            "browserToolSeconds": 0.039,
+            "outsideBrowserToolsSeconds": 10.674,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 32.187,
+            "browserToolSeconds": 10.145,
+            "outsideBrowserToolsSeconds": 22.042,
+            "calls": 4,
+            "failures": 1
+          },
+          "comparison": {
+            "wallSeconds": 142.311,
+            "browserToolSeconds": 2.109,
+            "outsideBrowserToolsSeconds": 140.202,
+            "calls": 18,
+            "failures": 2
+          },
+          "cart": {
+            "wallSeconds": 38.301,
+            "browserToolSeconds": 0.558,
+            "outsideBrowserToolsSeconds": 37.742,
+            "calls": 8,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 15.614,
+            "browserToolSeconds": 0.599,
+            "outsideBrowserToolsSeconds": 15.014,
+            "calls": 3,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 68.721,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 68.72,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "Search",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 10.002,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Search', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"\" type=\"submit\" value=\"Search\">Search</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    20 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "$77.40 3 items \uf291",
+            "urlBefore": "http://localhost:8091/product-category/accessories/",
+            "urlAfter": "http://localhost:8091/cart/",
+            "durationSeconds": 0.345,
+            "success": true
+          },
+          {
+            "action": "handoff",
+            "urlBefore": "http://localhost:8091/cart/",
+            "urlAfter": "http://localhost:8091/cart/",
+            "durationSeconds": 0.244,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Headwear",
+            "urlBefore": "http://localhost:8091/product/foundry-leather-belt/",
+            "urlAfter": "http://localhost:8091/product-category/headwear/",
+            "durationSeconds": 0.188,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Add to cart",
+            "urlBefore": "http://localhost:8091/product/ridge-ribbed-beanie/",
+            "urlAfter": "http://localhost:8091/product/ridge-ribbed-beanie/",
+            "durationSeconds": 0.18,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Signal Graphic Tee Signal Graphic Tee $28.00",
+            "urlBefore": "http://localhost:8091/product/canyon-v-neck-tee/",
+            "urlAfter": "http://localhost:8091/product/signal-graphic-tee/",
+            "durationSeconds": 0.179,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Shop all",
+            "urlBefore": "http://localhost:8091/?s=mug&post_type=product",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.175,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Canyon V-Neck Tee Canyon V-Neck Tee Sale! Original price was: $26.00. Current price is: $20.80.",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/product/canyon-v-neck-tee/",
+            "durationSeconds": 0.171,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Accessories",
+            "urlBefore": "http://localhost:8091/product-category/tees/",
+            "urlAfter": "http://localhost:8091/product-category/accessories/",
+            "durationSeconds": 0.165,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Foundry Leather Belt Foundry Leather Belt $39.00",
+            "urlBefore": "http://localhost:8091/product-category/accessories/",
+            "urlAfter": "http://localhost:8091/product/foundry-leather-belt/",
+            "durationSeconds": 0.162,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Survey storefront and check for requested T-shirt, mug, and warm winter item.",
+            "elapsedSeconds": 10.713
+          },
+          {
+            "phase": "comparison",
+            "note": "Mug search yielded no matching product; inspect red-toned tee choices and sale cold-weather options.",
+            "elapsedSeconds": 42.9
+          },
+          {
+            "phase": "cart",
+            "note": "Selected a sale winter beanie, a likely warm-toned sale tee, and an everyday accessory in place of unavailable drinkware; begin adding one each.",
+            "elapsedSeconds": 185.211
+          },
+          {
+            "phase": "verification",
+            "note": "All three distinct products added; open the full cart to verify the item lines, quantities, and total.",
+            "elapsedSeconds": 223.511
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Canyon V-Neck Tee",
+            "sku": "CT-003",
+            "quantity": 1,
+            "unitPrice": 20.8,
+            "category": "Tees",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Foundry Leather Belt",
+            "sku": "CT-025",
+            "quantity": 1,
+            "unitPrice": 39,
+            "category": "Accessories",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 77.4,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "click": 22,
+        "fill": 2,
+        "handoff": 1,
+        "phase": 4,
+        "press": 2,
+        "snapshot": 4
+      }
+    },
+    {
+      "id": "prestashop-session-1-agent-1",
+      "target": "prestashop",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 349.725,
+      "totalSeconds": 352.032,
+      "handoffSeconds": 273.205,
+      "tokens": {
+        "totalIncludingCached": 2179971,
+        "cachedInput": 2012672,
+        "uncachedInput": 152924,
+        "outputIncludingReasoning": 14375,
+        "reasoningOutput": 9831,
+        "totalExcludingCached": 167299
+      },
+      "usage": {
+        "totalTokens": 2179971,
+        "inputTokens": 2165596,
+        "cachedInputTokens": 2012672,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 14375,
+        "reasoningOutputTokens": 9831
+      },
+      "timing": {
+        "wallSeconds": 349.725,
+        "browserToolSeconds": 23.565,
+        "outsideBrowserToolsSeconds": 326.159,
+        "toolCalls": 43,
+        "failedToolCalls": 4,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 8.817,
+            "browserToolSeconds": 0.04,
+            "outsideBrowserToolsSeconds": 8.777,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 37.56,
+            "browserToolSeconds": 0.85,
+            "outsideBrowserToolsSeconds": 36.709,
+            "calls": 7,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 140.995,
+            "browserToolSeconds": 1.652,
+            "outsideBrowserToolsSeconds": 139.343,
+            "calls": 15,
+            "failures": 2
+          },
+          "cart": {
+            "wallSeconds": 74.566,
+            "browserToolSeconds": 20.767,
+            "outsideBrowserToolsSeconds": 53.799,
+            "calls": 16,
+            "failures": 2
+          },
+          "verification": {
+            "wallSeconds": 11.267,
+            "browserToolSeconds": 0.256,
+            "outsideBrowserToolsSeconds": 11.011,
+            "calls": 3,
+            "failures": 0
+          },
+          "reporting": {
+            "wallSeconds": 76.52,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 76.52,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "Continue shopping",
+            "urlBefore": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "urlAfter": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "durationSeconds": 10.007,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continue shopping', exact: true })\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Close",
+            "urlBefore": "http://localhost:8092/22-canyon-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/22-canyon-v-neck-tee.html",
+            "durationSeconds": 10.002,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Close', exact: true })\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8092/",
+            "urlAfter": "http://localhost:8092/10-tees",
+            "durationSeconds": 0.375,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie",
+            "urlBefore": "http://localhost:8092/11-hoodies",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 0.243,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Canyon V-Neck Tee",
+            "urlBefore": "http://localhost:8092/10-tees",
+            "urlAfter": "http://localhost:8092/22-canyon-v-neck-tee.html",
+            "durationSeconds": 0.215,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Accessories",
+            "urlBefore": "http://localhost:8092/search?controller=search&s=red",
+            "urlAfter": "http://localhost:8092/14-accessories",
+            "durationSeconds": 0.187,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie",
+            "urlBefore": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 0.182,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Hoodies",
+            "urlBefore": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8092/11-hoodies",
+            "durationSeconds": 0.178,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Ridge Ribbed Beanie",
+            "urlBefore": "http://localhost:8092/22-canyon-v-neck-tee.html",
+            "urlAfter": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "durationSeconds": 0.178,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Ridge Ribbed Beanie",
+            "urlBefore": "http://localhost:8092/search?controller=search&s=coffee",
+            "urlAfter": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "durationSeconds": 0.175,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Starting storefront scan for the three requested categories; homepage shows tees, hoodies and accessories.",
+            "elapsedSeconds": 8.817
+          },
+          {
+            "phase": "comparison",
+            "note": "Narrowing exact item variants and confirming the mug gap; the Accessories category lists belts and sunglasses only.",
+            "elapsedSeconds": 46.377
+          },
+          {
+            "phase": "cart",
+            "note": "Selected a red-leaning Canyon V-neck tee guess, the discounted fleece Trail Pocket Hoodie, and a discounted beanie as the closest everyday coffee-run accessory since drinkware is absent.",
+            "elapsedSeconds": 187.372
+          },
+          {
+            "phase": "verification",
+            "note": "All three items now register in the cart; opening the cart summary only (not placing an order) to verify quantities and totals.",
+            "elapsedSeconds": 261.938
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Canyon V-Neck Tee",
+            "sku": "CT-003",
+            "quantity": 1,
+            "unitPrice": 20.8,
+            "category": "Tees",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 96,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "click": 23,
+        "fill": 4,
+        "handoff": 1,
+        "phase": 4,
+        "press": 4,
+        "snapshot": 7
+      }
+    },
+    {
+      "id": "prestashop-session-1-agent-2",
+      "target": "prestashop",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "PASS",
+      "turnStatus": "completed",
+      "seconds": 392.24,
+      "totalSeconds": 394.165,
+      "handoffSeconds": 294.915,
+      "tokens": {
+        "totalIncludingCached": 2621351,
+        "cachedInput": 2459136,
+        "uncachedInput": 148823,
+        "outputIncludingReasoning": 13392,
+        "reasoningOutput": 8495,
+        "totalExcludingCached": 162215
+      },
+      "usage": {
+        "totalTokens": 2621351,
+        "inputTokens": 2607959,
+        "cachedInputTokens": 2459136,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 13392,
+        "reasoningOutputTokens": 8495
+      },
+      "timing": {
+        "wallSeconds": 392.24,
+        "browserToolSeconds": 33.392,
+        "outsideBrowserToolsSeconds": 358.849,
+        "toolCalls": 47,
+        "failedToolCalls": 5,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.351,
+            "browserToolSeconds": 0.035,
+            "outsideBrowserToolsSeconds": 10.317,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 35.462,
+            "browserToolSeconds": 0.626,
+            "outsideBrowserToolsSeconds": 34.835,
+            "calls": 8,
+            "failures": 0
+          },
+          "comparison": {
+            "wallSeconds": 124.267,
+            "browserToolSeconds": 1.802,
+            "outsideBrowserToolsSeconds": 122.466,
+            "calls": 17,
+            "failures": 2
+          },
+          "cart": {
+            "wallSeconds": 70.403,
+            "browserToolSeconds": 10.603,
+            "outsideBrowserToolsSeconds": 59.799,
+            "calls": 13,
+            "failures": 1
+          },
+          "verification": {
+            "wallSeconds": 54.432,
+            "browserToolSeconds": 20.325,
+            "outsideBrowserToolsSeconds": 34.107,
+            "calls": 7,
+            "failures": 2
+          },
+          "reporting": {
+            "wallSeconds": 97.325,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 97.325,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "\ue876 Proceed to checkout",
+            "urlBefore": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 10.008,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: '\ue876 Proceed to checkout', exact: true })\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Shopping cart link containing 3 product(s)",
+            "urlBefore": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 10.007,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('link', { name: 'Shopping cart link containing 3 product(s)', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <a rel=\"nofollow\" href=\"//localhost:8092/cart?action=show\" aria-label=\"Shopping cart link containing 3 product(s)\">\u2026</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div tabindex=\"-1\" role=\"dialog\" id=\"blockcart-modal\" class=\"modal fade in\" aria-labelledby=\"myModalLabel\">\u2026</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div tabindex=\"-1\" role=\"dialog\" id=\"blockcart-modal\" class=\"modal fade in\" aria-labelledby=\"myModalLabel\">\u2026</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    19 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div tabindex=\"-1\" role=\"dialog\" id=\"blockcart-modal\" class=\"modal fade in\" aria-labelledby=\"myModalLabel\">\u2026</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Continue shopping",
+            "urlBefore": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "durationSeconds": 10.001,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Continue shopping', exact: true })\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Ridge Ribbed Beanie",
+            "urlBefore": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "durationSeconds": 0.205,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8092/search?controller=search&s=coffee",
+            "urlAfter": "http://localhost:8092/10-tees",
+            "durationSeconds": 0.188,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Canyon V-Neck Tee",
+            "urlBefore": "http://localhost:8092/search?controller=search&s=red",
+            "urlAfter": "http://localhost:8092/22-canyon-v-neck-tee.html",
+            "durationSeconds": 0.18,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie",
+            "urlBefore": "http://localhost:8092/11-hoodies",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 0.173,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Shopping cart link containing 3 product(s)",
+            "urlBefore": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "urlAfter": "http://localhost:8092/cart?action=show",
+            "durationSeconds": 0.171,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie",
+            "urlBefore": "http://localhost:8092/38-ridge-ribbed-beanie.html",
+            "urlAfter": "http://localhost:8092/30-trail-pocket-hoodie.html",
+            "durationSeconds": 0.165,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Harbor Everyday Tee",
+            "urlBefore": "http://localhost:8092/10-tees",
+            "urlAfter": "http://localhost:8092/20-harbor-everyday-tee.html",
+            "durationSeconds": 0.163,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Surveying storefront categories and searching requested tee, mug, and winter warmth items",
+            "elapsedSeconds": 10.351
+          },
+          {
+            "phase": "comparison",
+            "note": "Inspecting tee colors and product details, plus selecting a discounted winter layer",
+            "elapsedSeconds": 45.813
+          },
+          {
+            "phase": "cart",
+            "note": "Adding one versatile tee, a beanie alternative for unavailable mugware, and a discounted fleece hoodie",
+            "elapsedSeconds": 170.08
+          },
+          {
+            "phase": "verification",
+            "note": "Opening the full cart and confirming all three one-unit selections, line prices, and totals; stopping before checkout",
+            "elapsedSeconds": 240.483
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "handedOver": true,
+      "reportError": null,
+      "verifiedHandoff": true,
+      "endOfRunVerified": true,
+      "verification": {
+        "ok": true,
+        "items": [
+          {
+            "name": "Harbor Everyday Tee",
+            "sku": "CT-001",
+            "quantity": 1,
+            "unitPrice": 24,
+            "category": "Tees",
+            "discounted": false,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Ridge Ribbed Beanie",
+            "sku": "CT-019",
+            "quantity": 1,
+            "unitPrice": 17.6,
+            "category": "Headwear",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          },
+          {
+            "name": "Trail Pocket Hoodie",
+            "sku": "CT-011",
+            "quantity": 1,
+            "unitPrice": 57.6,
+            "category": "Hoodies",
+            "discounted": true,
+            "inStock": true,
+            "priceVisible": true
+          }
+        ],
+        "merchandiseSubtotal": 99.2,
+        "expected": {
+          "distinctItems": 3,
+          "quantityPerItem": 1
+        }
+      },
+      "agentRecommendationStatus": "SUCCESS",
+      "actionCounts": {
+        "click": 26,
+        "fill": 4,
+        "handoff": 1,
+        "phase": 4,
+        "press": 4,
+        "snapshot": 8
+      }
+    },
+    {
+      "id": "woocommerce-session-1-agent-2",
+      "target": "woocommerce",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "FAIL",
+      "error": "Agent timeout",
+      "totalSeconds": 602.053,
+      "tokens": {
+        "totalIncludingCached": 741662,
+        "cachedInput": 634112,
+        "uncachedInput": 100203,
+        "outputIncludingReasoning": 7347,
+        "reasoningOutput": 5344,
+        "totalExcludingCached": 107550
+      },
+      "usage": {
+        "totalTokens": 741662,
+        "inputTokens": 734315,
+        "cachedInputTokens": 634112,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 7347,
+        "reasoningOutputTokens": 5344
+      },
+      "timing": {
+        "wallSeconds": 600.128,
+        "browserToolSeconds": 12.877,
+        "outsideBrowserToolsSeconds": 587.251,
+        "toolCalls": 28,
+        "failedToolCalls": 2,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 10.701,
+            "browserToolSeconds": 0.038,
+            "outsideBrowserToolsSeconds": 10.663,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 71.674,
+            "browserToolSeconds": 10.141,
+            "outsideBrowserToolsSeconds": 61.533,
+            "calls": 4,
+            "failures": 1
+          },
+          "comparison": {
+            "wallSeconds": 517.752,
+            "browserToolSeconds": 2.697,
+            "outsideBrowserToolsSeconds": 515.055,
+            "calls": 22,
+            "failures": 1
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "Search",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 10.005,
+            "success": false,
+            "error": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Search', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"\" type=\"submit\" value=\"Search\">Search</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    20 \u00d7 waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <header id=\"masthead\" role=\"banner\" class=\"site-header\">\u2026</header> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+          },
+          {
+            "action": "click",
+            "name": "Shop all",
+            "urlBefore": "http://localhost:8091/product/studio-everyday-polo/",
+            "urlAfter": "http://localhost:8091/",
+            "durationSeconds": 0.19,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Grove V-Neck Tee Grove V-Neck Tee $26.00",
+            "urlBefore": "http://localhost:8091/product/signal-graphic-tee/",
+            "urlAfter": "http://localhost:8091/product/grove-v-neck-tee/",
+            "durationSeconds": 0.184,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Studio Everyday Polo Studio Everyday Polo $46.00",
+            "urlBefore": "http://localhost:8091/?s=red&post_type=product",
+            "urlAfter": "http://localhost:8091/product/studio-everyday-polo/",
+            "durationSeconds": 0.182,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Accessories",
+            "urlBefore": "http://localhost:8091/product/harbor-everyday-tee/",
+            "urlAfter": "http://localhost:8091/product-category/accessories/",
+            "durationSeconds": 0.175,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Trail Pocket Hoodie Trail Pocket Hoodie Sale! Original price was: $72.00. Current price is: $57.60.",
+            "urlBefore": "http://localhost:8091/",
+            "urlAfter": "http://localhost:8091/product/trail-pocket-hoodie/",
+            "durationSeconds": 0.174,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Signal Graphic Tee Signal Graphic Tee $28.00",
+            "urlBefore": "http://localhost:8091/product-category/tees/",
+            "urlAfter": "http://localhost:8091/product/signal-graphic-tee/",
+            "durationSeconds": 0.171,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Canyon V-Neck Tee Canyon V-Neck Tee Sale! Original price was: $26.00. Current price is: $20.80.",
+            "urlBefore": "http://localhost:8091/product-category/tees/",
+            "urlAfter": "http://localhost:8091/product/canyon-v-neck-tee/",
+            "durationSeconds": 0.168,
+            "success": true
+          },
+          {
+            "action": "press",
+            "name": "Search for:",
+            "urlBefore": "http://localhost:8091/product/tide-v-neck-tee/",
+            "urlAfter": "http://localhost:8091/product/tide-v-neck-tee/",
+            "durationSeconds": 0.167,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Harbor Everyday Tee Harbor Everyday Tee $24.00",
+            "urlBefore": "http://localhost:8091/product/grove-v-neck-tee/",
+            "urlAfter": "http://localhost:8091/product/harbor-everyday-tee/",
+            "durationSeconds": 0.159,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Surveyed 30-item Common Thread storefront; checking requested mug, red tee, and winter warmth options.",
+            "elapsedSeconds": 10.701
+          },
+          {
+            "phase": "comparison",
+            "note": "Mug search returned no matching products; comparing tee colors/sizes and discounted winter options.",
+            "elapsedSeconds": 82.375
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "verifiedHandoff": false,
+      "endOfRunVerified": false,
+      "actionCounts": {
+        "click": 15,
+        "fill": 5,
+        "phase": 2,
+        "press": 5,
+        "snapshot": 1
+      }
+    },
+    {
+      "id": "magento-session-1-agent-2",
+      "target": "magento",
+      "model": "gpt-6-luna",
+      "effort": "xhigh",
+      "status": "FAIL",
+      "error": "Agent timeout",
+      "totalSeconds": 602.054,
+      "tokens": {
+        "totalIncludingCached": 661430,
+        "cachedInput": 575232,
+        "uncachedInput": 80386,
+        "outputIncludingReasoning": 5812,
+        "reasoningOutput": 3986,
+        "totalExcludingCached": 86198
+      },
+      "usage": {
+        "totalTokens": 661430,
+        "inputTokens": 655618,
+        "cachedInputTokens": 575232,
+        "cacheWriteInputTokens": 0,
+        "outputTokens": 5812,
+        "reasoningOutputTokens": 3986
+      },
+      "timing": {
+        "wallSeconds": 600.129,
+        "browserToolSeconds": 2.641,
+        "outsideBrowserToolsSeconds": 597.488,
+        "toolCalls": 27,
+        "failedToolCalls": 1,
+        "phases": {
+          "orientation": {
+            "wallSeconds": 44.853,
+            "browserToolSeconds": 0.033,
+            "outsideBrowserToolsSeconds": 44.82,
+            "calls": 2,
+            "failures": 0
+          },
+          "discovery": {
+            "wallSeconds": 162.138,
+            "browserToolSeconds": 0.615,
+            "outsideBrowserToolsSeconds": 161.523,
+            "calls": 8,
+            "failures": 1
+          },
+          "comparison": {
+            "wallSeconds": 257.312,
+            "browserToolSeconds": 1.488,
+            "outsideBrowserToolsSeconds": 255.824,
+            "calls": 11,
+            "failures": 0
+          },
+          "cart": {
+            "wallSeconds": 130.557,
+            "browserToolSeconds": 0.505,
+            "outsideBrowserToolsSeconds": 130.052,
+            "calls": 6,
+            "failures": 0
+          },
+          "verification": {
+            "wallSeconds": 5.269,
+            "browserToolSeconds": 0,
+            "outsideBrowserToolsSeconds": 5.269,
+            "calls": 0,
+            "failures": 0
+          }
+        },
+        "slowestCalls": [
+          {
+            "action": "click",
+            "name": "Ridge Ribbed Beanie",
+            "urlBefore": "http://localhost:8093/headwear.html",
+            "urlAfter": "http://localhost:8093/ridge-ribbed-beanie.html",
+            "durationSeconds": 0.428,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Headwear",
+            "urlBefore": "http://localhost:8093/canyon-v-neck-tee.html",
+            "urlAfter": "http://localhost:8093/headwear.html",
+            "durationSeconds": 0.392,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Compass Everyday Cap",
+            "urlBefore": "http://localhost:8093/headwear.html",
+            "urlAfter": "http://localhost:8093/compass-everyday-cap.html",
+            "durationSeconds": 0.292,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Signal Graphic Tee",
+            "urlBefore": "http://localhost:8093/tees.html",
+            "urlAfter": "http://localhost:8093/signal-graphic-tee.html",
+            "durationSeconds": 0.256,
+            "success": true
+          },
+          {
+            "action": "press",
+            "name": "\ue615 Search",
+            "urlBefore": "http://localhost:8093/harbor-everyday-tee.html",
+            "urlAfter": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "durationSeconds": 0.23,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8093/signal-graphic-tee.html",
+            "urlAfter": "http://localhost:8093/tees.html",
+            "durationSeconds": 0.177,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Tees",
+            "urlBefore": "http://localhost:8093/catalogsearch/result/?q=mug",
+            "urlAfter": "http://localhost:8093/tees.html",
+            "durationSeconds": 0.16,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Harbor Everyday Tee",
+            "urlBefore": "http://localhost:8093/",
+            "urlAfter": "http://localhost:8093/harbor-everyday-tee.html",
+            "durationSeconds": 0.153,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Headwear",
+            "urlBefore": "http://localhost:8093/ridge-ribbed-beanie.html",
+            "urlAfter": "http://localhost:8093/headwear.html",
+            "durationSeconds": 0.142,
+            "success": true
+          },
+          {
+            "action": "click",
+            "name": "Canyon V-Neck Tee",
+            "urlBefore": "http://localhost:8093/tees.html",
+            "urlAfter": "http://localhost:8093/canyon-v-neck-tee.html",
+            "durationSeconds": 0.112,
+            "success": true
+          }
+        ],
+        "notes": [
+          {
+            "phase": "discovery",
+            "note": "Surveying the 30-item collection and checking for T-shirts, drinkware, and warm winter items.",
+            "elapsedSeconds": 44.853
+          },
+          {
+            "phase": "comparison",
+            "note": "Comparing tee details and checking candidate winter-value products after confirming no mug search result.",
+            "elapsedSeconds": 206.991
+          },
+          {
+            "phase": "cart",
+            "note": "Adding one tee and discounted beanie; selecting a practical accessory alternative because no mug is sold.",
+            "elapsedSeconds": 464.303
+          },
+          {
+            "phase": "verification",
+            "note": "Opening the full cart to verify all three one-unit selections and the subtotal without checking out.",
+            "elapsedSeconds": 594.86
+          }
+        ],
+        "measurementNote": "Phase boundaries are marked by the worker; elapsed durations and tool execution durations are measured by the controller. Time outside browser calls includes model generation, transport, scheduling and orchestration; it is not a pure reasoning-time measurement."
+      },
+      "verifiedHandoff": false,
+      "endOfRunVerified": false,
+      "actionCounts": {
+        "click": 13,
+        "fill": 2,
+        "phase": 4,
+        "press": 2,
+        "snapshot": 6
+      }
+    }
+  ]
+}

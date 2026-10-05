@@ -5,5 +5,8 @@ node_modules/
 .DS_Store
 __pycache__/
 *.pyc
-# Unrelated experiments in the shared workspace are outside this demo repository.
-experiments/
+# Keep unrelated workspace experiments local; retain this repository's browser benchmark.
+experiments/*
+!experiments/agent-browser/
+# Generated browser profiles, session state, protocol logs and screenshots remain local.
+output/

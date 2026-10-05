@@ -1,0 +1,160 @@
+{
+  "model": "gpt-6-luna",
+  "reasoningEffort": "xhigh",
+  "baseInstructions": "You are a shopping task worker. Use assigned_shop for programmatic work in your assigned browser session, with assigned_browser only when needed. Complete the user task then hand over the page.",
+  "developerInstructions": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.",
+  "dynamicTools": [
+    {
+      "type": "function",
+      "name": "assigned_shop",
+      "description": "Operate only your assigned shop session. inspect returns the catalog, full available descriptions, category counts, attributes, coverage and basket revision; use it once. When coverage is complete, choose directly from that catalog. Search and detail actions are unnecessary and are not exposed. Requested types absent from complete coverage require an alternative; unavailable color/size remains unknown. basket_sync sets desired quantities for specified simple products, preserves other lines, batches writes, and returns verified API basket state; provide items, ifRevision from inspect, and a unique operationId. Never infer color/size from names or unviewed images. phase records discovery/comparison/cart/verification timing. verify reads basket. handoff renders and independently verifies the native cart, takes a screenshot, revokes ALL tools, and ends your turn automatically; call it when ready. Include a brief choice/substitution explanation in basket_sync note. Do not generate a final report. No checkout/purchase operation.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "handle",
+          "action"
+        ],
+        "properties": {
+          "handle": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "inspect",
+              "basket_sync",
+              "verify",
+              "phase",
+              "handoff"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "product",
+                "quantity"
+              ],
+              "properties": {
+                "product": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10
+                }
+              }
+            }
+          },
+          "ifRevision": {
+            "type": "string"
+          },
+          "operationId": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "discovery",
+              "comparison",
+              "cart",
+              "verification"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "name": "assigned_browser",
+      "description": "Operate only your assigned page. snapshot returns its accessible DOM and URL. click uses exact accessible role/name. fill uses role/name if supplied, otherwise exact input label (or placeholder), with text in value. press uses the same locator and key in value (e.g. Enter). Optional zero-based index selects among duplicated matching elements; inspect the snapshot first. Page actions return a new snapshot. Call snapshot again if AJAX is loading. phase records a workflow phase and note for measured timing (discovery, comparison, cart, verification), without changing the page. handoff verifies the task, returns measured timing, and revokes your page access; leave the browser open.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "handle": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "snapshot",
+              "click",
+              "fill",
+              "press",
+              "phase",
+              "handoff"
+            ]
+          },
+          "role": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "discovery",
+              "comparison",
+              "cart",
+              "verification"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "handle",
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "outputSchema": null,
+  "workers": [
+    {
+      "id": "magento-session-1-agent-1",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    },
+    {
+      "id": "magento-session-1-agent-2",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    },
+    {
+      "id": "prestashop-session-1-agent-1",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    },
+    {
+      "id": "prestashop-session-1-agent-2",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    },
+    {
+      "id": "woocommerce-session-1-agent-1",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    },
+    {
+      "id": "woocommerce-session-1-agent-2",
+      "userPrompt": "You control exactly one assigned browser context. Never inspect, switch to, interact with, navigate, close, or modify any tab, window, target, or browser context outside your assigned context. Never use global browser/tab controls. Only act through the page/session handles provided to you. If an action would require accessing anything outside your assigned context, stop and return `BLOCKED: outside assigned browser context`.\n\nAssigned page/session handle: ASSIGNED_HANDLE\nI don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.\nUse assigned_shop for structured discovery, batched search/details, and basket_sync. Call inspect first. Choose products yourself from the returned storefront data; no product candidates are predetermined. Submit the three desired items together with the basket revision and a unique operationId. Use assigned_browser only if the commerce tools cannot complete an operation. Do not use shell, files, external tools, other agents, global controls, or arbitrary JavaScript. Call assigned_shop handoff once complete. The controller measures tokens and wall time. Do not estimate them.\nInitial inspect includes all available descriptions and category/attribute summaries. Use this catalog directly. Do not repeat searches, detail requests, or browse listings when coverage is complete. Do not chase missing color or size with synonym searches. If a requested type is absent from complete coverage, select a sensible alternative. Use the assigned browser only when incomplete coverage or an operation genuinely requires it.\nTo measure your work, call assigned_shop action phase with phase and a short note whenever you move between discovery, comparison, cart, and verification. Use discovery to find the range and check requested items; comparison to inspect product attributes and decide; cart to add/update items; verification to check the final cart. You can return to an earlier phase as needed. The controller measures elapsed durations, including failed tool calls.\nAfter selecting, put a brief explanation of choices, substitutions and unknown fit/color in basket_sync note (at most two sentences). The controller ends your turn immediately after successful handoff. Do not produce an agent report or final answer; measured results come from the controller."
+    }
+  ],
+  "controllerBehavior": "Immediately request turn/interrupt after a successful independently verified handoff; revoke tools and retain the browser. This behavior is controller code, not an additional model instruction.",
+  "provenance": "Reconstructed from the archived harness and exact saved prompts for this measured run; full tool descriptions and input schemas are included. Assigned session handles are normalized to ASSIGNED_HANDLE in this committed copy."
+}

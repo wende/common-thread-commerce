@@ -1,0 +1,9 @@
+{
+  "prompt": "I don't really know what this shop has. I'm after a red-ish T-shirt that would suit me, maybe a mug for my coffee, and some good deal on something that'll keep me warm in winter. Could you pick three things you'd recommend? I'm not sure about brands or sizes and I haven't really got a budget in mind. If they don't sell one of those things, choose a sensible alternative and explain it. Put one of each in the cart so I can look at your choices, then leave it for me. Don't buy anything.",
+  "detailedReport": true,
+  "targets": [
+    {"name":"woocommerce","url":"http://localhost:8091/","cart":{"distinctItems":3,"quantityPerItem":1}},
+    {"name":"prestashop","url":"http://localhost:8092/","cart":{"distinctItems":3,"quantityPerItem":1}},
+    {"name":"magento","url":"http://localhost:8093/","cart":{"distinctItems":3,"quantityPerItem":1}}
+  ]
+}

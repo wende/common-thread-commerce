@@ -1,0 +1,8 @@
+{
+  "prompt": "Find Canyon V-Neck Tee (SKU CT-003) in the assigned store. Open its product page and verify that the current unit price is $20.80. Add exactly two units to an otherwise empty cart. Open the full shopping cart page and verify that it contains only Canyon V-Neck Tee, quantity 2, with a merchandise subtotal of $41.60 before shipping. Leave that cart page open and hand over the browser. Do not proceed with an order or payment.",
+  "targets": [
+    {"name":"woocommerce","url":"http://localhost:8091/","cart":{"product":"Canyon V-Neck Tee","quantity":2,"unitPrice":20.8}},
+    {"name":"prestashop","url":"http://localhost:8092/","cart":{"product":"Canyon V-Neck Tee","quantity":2,"unitPrice":20.8}},
+    {"name":"magento","url":"http://localhost:8093/","cart":{"product":"Canyon V-Neck Tee","quantity":2,"unitPrice":20.8}}
+  ]
+}

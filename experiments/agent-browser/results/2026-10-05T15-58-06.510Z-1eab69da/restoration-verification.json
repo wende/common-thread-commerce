@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "measurementNote": "Post-run readback is separate from the measured agent turn and its API counts. The original handed-off contexts remain live; only these restored verification contexts are closed.",
+  "distinctSessions": [
+    {
+      "target": "woocommerce",
+      "distinctCookieJars": true
+    },
+    {
+      "target": "prestashop",
+      "distinctCookieJars": true
+    },
+    {
+      "target": "magento",
+      "distinctCookieJars": true
+    }
+  ],
+  "results": [
+    {
+      "id": "prestashop-session-1-agent-2",
+      "target": "prestashop",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    },
+    {
+      "id": "prestashop-session-1-agent-1",
+      "target": "prestashop",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    },
+    {
+      "id": "woocommerce-session-1-agent-1",
+      "target": "woocommerce",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    },
+    {
+      "id": "magento-session-1-agent-1",
+      "target": "magento",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    },
+    {
+      "id": "woocommerce-session-1-agent-2",
+      "target": "woocommerce",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    },
+    {
+      "id": "magento-session-1-agent-2",
+      "target": "magento",
+      "ok": true,
+      "apiVerified": true,
+      "uiVerified": true
+    }
+  ]
+}
