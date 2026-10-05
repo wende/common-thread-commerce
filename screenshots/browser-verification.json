@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-05T12:07:23.195768+00:00",
+  "platforms": {
+    "woocommerce": {
+      "desktop_width": 1280,
+      "desktop_document_width": 1280,
+      "mobile_width": 390,
+      "mobile_document_width": 390,
+      "rendered_products": 30,
+      "sale_cart_product": "CT-003",
+      "sale_cart_unit_price": 20.8,
+      "add_to_cart": "passed",
+      "remove_from_cart": "passed",
+      "checkout_form": "reached",
+      "orders_placed": 0
+    },
+    "prestashop": {
+      "desktop_width": 1280,
+      "desktop_document_width": 1280,
+      "mobile_width": 390,
+      "mobile_document_width": 390,
+      "rendered_products": 30,
+      "sale_cart_product": "CT-003",
+      "sale_cart_unit_price": 20.8,
+      "add_to_cart": "passed",
+      "remove_from_cart": "passed",
+      "checkout_form": "reached",
+      "orders_placed": 0
+    },
+    "magento": {
+      "desktop_width": 1280,
+      "desktop_document_width": 1280,
+      "mobile_width": 390,
+      "mobile_document_width": 390,
+      "rendered_products": 30,
+      "sale_cart_product": "CT-003",
+      "sale_cart_unit_price": 20.8,
+      "add_to_cart": "passed",
+      "remove_from_cart": "passed",
+      "checkout_form": "reached",
+      "orders_placed": 0
+    }
+  }
+}

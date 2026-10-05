@@ -1,0 +1,14 @@
+{
+  "name": "common-thread-commerce-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The same 30-product catalog in native WooCommerce, PrestaShop and Magento Open Source storefronts.",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "status": "docker compose ps",
+    "verify": "docker compose --profile tools run --rm -T bootstrap verify",
+    "catalog": "docker compose --profile tools run --rm -T bootstrap catalog"
+  }
+}

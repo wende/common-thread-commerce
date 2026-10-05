@@ -1,0 +1,3 @@
+Illustrative product images from the official WooCommerce sample catalog.
+Source: https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/sample-data/sample_products.csv
+Downloaded from the URLs in that source. Product names, descriptions, prices and stock are invented for this local demo.

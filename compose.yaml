@@ -1,0 +1,122 @@
+name: common-thread-commerce
+services:
+  db:
+    image: mariadb:11.4@sha256:1292844148b311e4ed4300022a996d39083f415a963e970cf47cad1b3b18e3a6
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-}
+      MARIADB_USER: demo
+      MARIADB_PASSWORD: ${DB_PASSWORD:-}
+      MARIADB_DATABASE: woo
+    volumes:
+      - database:/var/lib/mysql
+      - ./docker/database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  woocommerce:
+    image: wordpress:7.1.2-php8.3-apache@sha256:4abf7a450ee477dde967584f8174d7e03221d224c4971a0c38d84e7254426e64
+    ports: ["127.0.0.1:${WOO_PORT:-8091}:80"]
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: woo
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+      WORDPRESS_DB_USER: demo
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-}
+    depends_on:
+      db: {condition: service_healthy}
+    volumes:
+      - wordpress:/var/www/html
+      - ./catalog:/catalog:ro
+      - ./scripts:/demo-scripts:ro
+  wpcli:
+    image: wordpress:cli-php8.3@sha256:36243da432a0f0a3b56dc3240ecee9b159108d71305e7c064d987a20a465bfde
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: woo
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+      WORDPRESS_DB_USER: demo
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-}
+    volumes:
+      - wordpress:/var/www/html
+      - ./catalog:/catalog:ro
+      - ./scripts:/demo-scripts:ro
+    profiles: [tools]
+  prestashop:
+    image: prestashop/prestashop:9.2.0-6.0-classic@sha256:2b8f90176b3fad68f8f5c7fbdeaa137f2f05578d2ccff92ab581efa6b317c1d8
+    ports: ["127.0.0.1:${PRESTA_PORT:-8092}:80"]
+    environment:
+      DB_SERVER: db
+      DB_NAME: presta
+      DB_USER: demo
+      DB_PASSWD: ${DB_PASSWORD:-}
+      PS_INSTALL_AUTO: "1"
+      PS_ERASE_DB: "0"
+      PS_DOMAIN: localhost:${PRESTA_PORT:-8092}
+      PS_LANGUAGE: en
+      PS_COUNTRY: US
+      PS_FOLDER_ADMIN: admin-dev
+      PS_FOLDER_INSTALL: install-disabled
+      ADMIN_MAIL: admin@example.test
+      ADMIN_PASSWD: ${ADMIN_PASSWORD:-}
+    depends_on:
+      db: {condition: service_healthy}
+    volumes:
+      - prestashop:/var/www/html
+      - ./catalog:/catalog:ro
+      - ./scripts:/demo-scripts:ro
+  opensearch:
+    image: opensearchproject/opensearch:2.19.3@sha256:e96cc6ae1500a073d973c0906f30f7cf4d9c461f32f855f9242a2da933660cdd
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+    ulimits:
+      memlock: {soft: -1, hard: -1}
+      nofile: {soft: 65536, hard: 65536}
+    volumes:
+      - search:/usr/share/opensearch/data
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://localhost:9200/_cluster/health >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 40
+  magento:
+    build: ./docker/magento
+    ports: ["127.0.0.1:${MAGENTO_PORT:-8093}:80"]
+    depends_on:
+      db: {condition: service_healthy}
+      opensearch: {condition: service_healthy}
+    environment:
+      COMPOSER_ALLOW_SUPERUSER: "1"
+      COMPOSER_MEMORY_LIMIT: -1
+    volumes:
+      - magento:/var/www/html
+      - composer-cache:/root/.composer/cache
+      - ./catalog:/catalog:ro
+      - ./scripts:/demo-scripts:ro
+  bootstrap:
+    build: ./docker/bootstrap
+    profiles: [tools]
+    environment:
+      COMMON_THREAD_BOOTSTRAP: "1"
+      PYTHONUNBUFFERED: "1"
+      WOO_PORT: ${WOO_PORT:-8091}
+      PRESTA_PORT: ${PRESTA_PORT:-8092}
+      MAGENTO_PORT: ${MAGENTO_PORT:-8093}
+    volumes:
+      - .:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /workspace
+    entrypoint: [python3, /workspace/scripts/manage.py]
+    command: [setup]
+volumes:
+  database:
+  wordpress:
+  prestashop:
+  magento:
+  search:
+  composer-cache:

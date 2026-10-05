@@ -1,0 +1,9 @@
+.env*
+!.env.example
+.runtime/
+node_modules/
+.DS_Store
+__pycache__/
+*.pyc
+# Unrelated experiments in the shared workspace are outside this demo repository.
+experiments/
