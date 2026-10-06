@@ -14,6 +14,8 @@
   const sessionId = seed?.sessionId || identifier(), startedAt = seed?.startedAt || new Date().toISOString();
   const events = seed?.events || [], receipts = new Map((seed?.receipts || []).map(receipt => [receipt.id, receipt]));
   const baselines = new Map((seed?.baselines || []).map(baseline => [baseline.store.id, baseline]));
+  // Import replay survives reinjection in this document; a full reload loses the journal.
+  const imports = new Map((seed?.imports || []).map(entry => [entry.id, entry]));
   let droppedEvents = seed?.droppedEvents || 0;
   function record(operation, input, result, status, start) {
     const end = Date.now();
@@ -507,6 +509,9 @@
           getReport: { input: '{refresh?:false, notes?:string[]}', mutates: false },
           prepareBasketScreenshot: { input: '{refresh?:true}', mutates: false },
           getBasketEvidence: { input: '{refresh?:true}', mutates: false },
+          exportBasket: { input: 'none; fresh portable product quantities and choices, without credentials', mutates: false },
+          importBasket: { input: '{basket: exported basket}; preserves existing quantities; replay in this document does not write again; full reload loses replay history', mutates: true },
+          verifyBasketImport: { input: '{id: exported basket id}; fresh destination quantities compared with the import baseline', mutates: false },
           panel: { methods: ['show', 'hide', 'state', 'collapse'], show: '{dock?:left|right,collapsed?:boolean}' },
         } };
     },
@@ -519,7 +524,7 @@
         cartReady: !!sdk, productSearchReady: !!context, addToBasketReady: !!context && typeof sdk?.addProduct === 'function',
         store: context ? storeSummary(context.store) : null, mutationPending,
         methods: ['search', 'suggest', 'searchProducts', 'searchMany', 'getProduct', 'addToBasket', 'addMany', 'removeFromBasket', 'removeMany',
-          'getStoreCart', 'getCart', 'getReceipts', 'getReport', 'getOperationLog', 'getBasketEvidence', 'prepareBasketScreenshot', 'recordArtifact', 'describe', 'inspect', 'uninstall'],
+          'getStoreCart', 'getCart', 'getReceipts', 'getReport', 'getOperationLog', 'getBasketEvidence', 'prepareBasketScreenshot', 'exportBasket', 'importBasket', 'verifyBasketImport', 'recordArtifact', 'describe', 'inspect', 'uninstall'],
         panel: panel.state(), sessionId,
         searchImplementation: props ? 'React component onSelectSuggestion callback' : null };
     },
@@ -580,6 +585,70 @@
       return { added: true, ...result.results[0], implementation: 'Glovo native cart SDK addProduct', basket: result.basket };
     },
     addMany(input) { return performAdds(input, 'addMany'); },
+    async exportBasket() {
+      if (mutationPending) throw new Error('Wait for the basket update before exporting.');
+      const basket = await this.getStoreCart({ refresh: true });
+      if (!basket.lineCount || basket.lineCount > 20) throw new Error('Export requires 1–20 basket lines.');
+      return { schema: 'glovo-basket/v1', id: identifier(), sourceSessionId: sessionId,
+        store: basket.store, items: basket.products.map(product => ({ productId: product.productId,
+          quantity: positiveQuantity(product.quantity), choices: product.customizations.map(choice => ({
+            group: choice.group, name: choice.name, quantity: positiveQuantity(choice.quantity, 100),
+          })) })) };
+    },
+    async importBasket(input) {
+      const portable = input?.basket, { store } = storeContext();
+      if (portable?.schema !== 'glovo-basket/v1' || typeof portable.id !== 'string' ||
+          !portable.id.trim() || portable.id.length > 128) throw new Error('Pass a basket returned by exportBasket.');
+      if (portable.sourceSessionId === sessionId) throw new Error('Import into a different browser session.');
+      if (String(portable.store?.id) !== String(store.id) ||
+          String(portable.store?.addressId) !== String(store.addressId)) throw new Error('Open the same store branch before importing.');
+      // Only validated menu identities, quantities and choices enter this session's native SDK.
+      const prepared = prepareAdds(batchItems(portable), storeContext());
+      const items = prepared.map((item, index) => ({ productId: String(item.data.id), quantity: item.quantity,
+        choices: portable.items[index].choices ?? [] }));
+      const fingerprint = JSON.stringify(prepared.map(item => ({ productId: String(item.data.id),
+        quantity: item.quantity, choices: signature(item.selections) })));
+      const prior = imports.get(portable.id);
+      if (prior) {
+        if (prior.fingerprint !== fingerprint) throw new Error('This basket ID already belongs to a different import.');
+        return { ...clone(prior.result || { status: 'unknown' }), replayed: true,
+          verification: await this.verifyBasketImport({ id: portable.id }) };
+      }
+      if (imports.size >= 100) throw new Error('This document has reached its import limit.');
+      if (mutationPending) throw new Error('Wait for the current basket update before importing.');
+      const before = await this.getStoreCart({ refresh: true });
+      // Another import may have reserved this ID while the fresh read was pending.
+      if (imports.has(portable.id) || mutationPending) throw new Error('An import or basket update started; read its result before retrying.');
+      const entry = { id: portable.id, fingerprint, before, items: prepared.map(item => ({
+        productId: String(item.data.id), quantity: item.quantity, customizations: item.selections.map(choice => ({
+          group: choice.groupName || choice.name, name: choice.customizationName, quantity: choice.quantity.increments,
+        })) })), result: { status: 'unknown', importId: portable.id } };
+      imports.set(portable.id, entry);
+      try {
+        entry.result = { ...await performAdds({ items }, 'importBasket'), importId: portable.id };
+        return { ...clone(entry.result), verification: await this.verifyBasketImport({ id: portable.id }) };
+      } catch (error) {
+        entry.result.error = error.message;
+        throw error;
+      }
+    },
+    async verifyBasketImport(input) {
+      const entry = imports.get(input?.id);
+      if (!entry) throw new Error('This session has no import with that ID.');
+      const basket = await this.getStoreCart({ refresh: true });
+      const key = product => JSON.stringify([product.productId, product.customizations.map(choice =>
+        [normalize(choice.group), normalize(choice.name), choice.quantity]).sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))]);
+      const quantities = products => {
+        const map = new Map();
+        for (const product of products) map.set(key(product), (map.get(key(product)) || 0) + product.quantity);
+        return map;
+      };
+      const expected = quantities([...entry.before.products, ...entry.items]), actual = quantities(basket.products);
+      const matches = !mutationPending && basket.store.id === entry.before.store.id &&
+        basket.store.addressId === entry.before.store.addressId && expected.size === actual.size &&
+        [...expected].every(([identity, quantity]) => actual.get(identity) === quantity);
+      return { importId: entry.id, matches, mutationPending, basket };
+    },
     async removeFromBasket(input) {
       const result = await performRemovals({ items: [input] }, 'removeFromBasket');
       if (result.status !== 'complete') throw Object.assign(new Error(result.results.find(item => item.error)?.error || 'The batch did not complete.'),
@@ -591,7 +660,7 @@
       if (!input || typeof input !== 'object' || Array.isArray(input) || (input.activeOnly !== undefined && typeof input.activeOnly !== 'boolean')) throw new Error('Pass {activeOnly?:boolean}.');
       return clone([...receipts.values()].filter(receipt => input.activeOnly === false || receipt.quantityRemaining > 0));
     },
-    getOperationLog() { return clone({ version: this.version, sessionId, startedAt, events, droppedEvents, receipts: [...receipts.values()], baselines: [...baselines.values()] }); },
+    getOperationLog() { return clone({ version: this.version, sessionId, startedAt, events, droppedEvents, receipts: [...receipts.values()], baselines: [...baselines.values()], imports: [...imports.values()] }); },
     async getReport(input = {}) {
       if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Pass {refresh?:boolean, notes?:string[]}.');
       if (input.notes !== undefined && (!Array.isArray(input.notes) || input.notes.some(note => typeof note !== 'string'))) throw new Error('notes must be a string array.');
@@ -784,7 +853,7 @@
     // Requests call the same public methods as the JavaScript bridge.
     const allowed = new Set(['inspect', 'describe', 'searchProducts', 'searchMany', 'getProduct',
       'getStoreCart', 'getReceipts', 'addToBasket', 'addMany', 'removeFromBasket', 'removeMany',
-      'getBasketEvidence', 'prepareBasketScreenshot']);
+      'getBasketEvidence', 'prepareBasketScreenshot', 'exportBasket', 'importBasket', 'verifyBasketImport']);
     const host = document.createElement('section');
     host.id = 'shopping-assistant-glovo-api';
     host.setAttribute('aria-label', 'Glovo adapter API');

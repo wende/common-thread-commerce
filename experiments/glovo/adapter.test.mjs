@@ -4,7 +4,9 @@ import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 
 const source = await readFile(new URL('./adapter.js', import.meta.url), 'utf8');
+let fixtureSequence = 0;
 function fixture(extraProducts = [], { nativeApi = false } = {}) {
+  const fixtureId = ++fixtureSequence;
   const calls = [], timers = new Map();
   let nextTimer = 0;
   let now = Date.now();
@@ -45,7 +47,7 @@ function fixture(extraProducts = [], { nativeApi = false } = {}) {
     append(...children) { this.children.push(...children); for (const child of children) if (child.id) nodes.set(child.id, child); },
     remove() { nodes.delete(this.id); },
   });
-  const sandbox = { Date: Clock, crypto: { randomUUID: () => `id-${++nextTimer}` }, window: { __glovoBridgeOptions: { panel: false, nativeApi } }, location: { hostname: 'glovoapp.com', pathname: '/en/pl/krakow/stores/mcdonald-s-kra', href: 'https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra' },
+  const sandbox = { Date: Clock, crypto: { randomUUID: () => `fixture-${fixtureId}-id-${++nextTimer}` }, window: { __glovoBridgeOptions: { panel: false, nativeApi } }, location: { hostname: 'glovoapp.com', pathname: '/en/pl/krakow/stores/mcdonald-s-kra', href: 'https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra' },
     document: { querySelector: () => null, querySelectorAll: () => [element], getElementById: () => null },
     setTimeout: callback => { const id = ++nextTimer; timers.set(id, callback); return id; }, clearTimeout: id => timers.delete(id) };
   if (nativeApi) Object.assign(sandbox.document, { createElement, documentElement: createElement('html'), getElementById: id => nodes.get(id) || null });
@@ -57,6 +59,58 @@ const choice = { groupId: '123', attributeId: '456' };
 const plain = value => JSON.parse(JSON.stringify(value));
 const flush = async () => { for (let i = 0; i < 30; i++) await Promise.resolve(); };
 const food = (id, name, attributeGroups = []) => ({ id, name, storeProductId: `${id}-uuid`, priceInfo: { amount: 10, currencyCode: 'PLN' }, attributeGroups });
+
+test('Basket manifests reconstruct configured quantities while preserving destination products and replay after reinjection', async () => {
+  const sourceSession = fixture([food('burger', 'Burger')]);
+  await sourceSession.bridge.addMany({ items: [{ productId: 'burger', quantity: 1 }] });
+  const manifest = plain(await sourceSession.bridge.exportBasket());
+  assert.equal(manifest.schema, 'glovo-basket/v1');
+  assert.deepEqual(manifest.items[0].choices, [{ group: 'Cup', name: 'Paper cup', quantity: 1 }]);
+  assert.ok(!/basketProductId|cookie|authorization/i.test(JSON.stringify(manifest)));
+  const destination = fixture([food('burger', 'Burger')]);
+  const result = await destination.bridge.importBasket({ basket: manifest });
+  assert.equal(result.status, 'complete'); assert.equal(result.verification.matches, true);
+  assert.deepEqual(plain(result.basket.products.map(line => [line.productId, line.quantity])), [['coffee', 4], ['burger', 1]]);
+  const writes = destination.calls.filter(([method]) => method === 'add').length;
+  vm.runInNewContext(source, destination.sandbox);
+  const replay = await destination.sandbox.window.glovoBridge.importBasket({ basket: manifest });
+  assert.equal(replay.replayed, true); assert.equal(replay.verification.matches, true);
+  assert.equal(destination.calls.filter(([method]) => method === 'add').length, writes);
+  await assert.rejects(destination.sandbox.window.glovoBridge.importBasket({ basket: { ...manifest,
+    items: [{ ...manifest.items[0], quantity: 3 }, manifest.items[1]] } }), /different import/);
+  assert.equal(destination.calls.filter(([method]) => method === 'add').length, writes);
+});
+
+test('Basket import rejects source-session and wrong-branch manifests before writes', async () => {
+  const sourceSession = fixture(), manifest = plain(await sourceSession.bridge.exportBasket());
+  await assert.rejects(sourceSession.bridge.importBasket({ basket: manifest }), /different browser session/);
+  const destination = fixture();
+  await assert.rejects(destination.bridge.importBasket({ basket: { ...manifest,
+    store: { ...manifest.store, addressId: 'other-branch' } } }), /same store branch/);
+  assert.equal(destination.calls.filter(([method]) => method === 'add').length, 0);
+});
+
+test('Basket verification detects changed quantities and a changed store branch', async () => {
+  const manifest = plain(await fixture().bridge.exportBasket());
+  const destination = fixture();
+  assert.equal((await destination.bridge.importBasket({ basket: manifest })).verification.matches, true);
+  destination.store.addressId = 999;
+  assert.equal((await destination.bridge.verifyBasketImport({ id: manifest.id })).matches, false);
+  destination.store.addressId = 210074;
+  destination.setBasket({ products: [] });
+  assert.equal((await destination.bridge.verifyBasketImport({ id: manifest.id })).matches, false);
+});
+
+test('An uncertain import is journaled and cannot resend its write on replay', async () => {
+  const manifest = plain(await fixture().bridge.exportBasket());
+  const destination = fixture();
+  destination.sdk.addProduct = async () => { destination.calls.push(['add']); throw new Error('network error'); };
+  const result = await destination.bridge.importBasket({ basket: manifest });
+  assert.equal(result.status, 'unknown'); assert.equal(result.verification.matches, false);
+  const replay = await destination.bridge.importBasket({ basket: manifest });
+  assert.equal(replay.replayed, true); assert.equal(replay.status, 'unknown');
+  assert.equal(destination.calls.filter(([method]) => method === 'add').length, 1);
+});
 
 test('Product lookup accepts both a bare ID and the DOM request object', () => {
   const { bridge } = fixture();

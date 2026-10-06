@@ -101,6 +101,60 @@ SDK basket reads use its cache by default; `{refresh:true}` fetches from the ser
 
 These are private React/webpack interfaces and can change. Missing components are reported rather than replaced with guessed endpoints. A document reload removes the adapter and in-memory history. Reinject after navigation to another store to refresh the panel. `uninstall()` removes the adapter and panel and restores any prior unrelated `window.glovoBridge`.
 
+## HTTP-only basket creation and browser reconstruction
+
+`http-basket.mjs` is a separate Node script using only built-in modules and `fetch`. It discovers the store and menu over HTTP, creates a fresh anonymous guest basket, sends native basket updates, and verifies the result with a fresh GET. It does not launch or connect to a browser and does not accept browser cookies or account authorization tokens.
+
+Provide a private JSON profile with public Glovo client headers and delivery coordinates for the intended location. The live experiment obtained these settings from the selected guest location; subsequent creation runs use only the file. The API requires a delivery location even for a basket-only operation. The public client version headers may need updating when Glovo changes its web client. Profile header names are explicitly allowlisted in the script; account/session headers are rejected. Keep coordinates out of source control.
+
+```sh
+node experiments/glovo/http-basket.mjs create \
+  --profile location-profile.json --store mcdonald-s-kra \
+  --item McChicken --item Chikker --output basket.json
+node experiments/glovo/http-basket.mjs verify --session basket.json.session.json
+```
+
+Each `--item` requests one unit by exact normalized menu name. For products with options, use `--items-file items.json` instead; the JSON file is an array of `{name or productId, quantity, choices}`. Choices accept an exact option name or `{group, name}` or `{groupId, attributeId, quantity?}`. All required groups, option IDs, quantities, duplicates and group limits are validated before writing. Product quantities are 1–20; required choices are never inferred. The exported `createBasket` function accepts the same array. The script uses a fresh guest identity whose numeric ID survives the API's JSON representation exactly.
+
+For example, the white coffee and apple pastry basket uses native menu names and explicit small size/standard cup choices:
+
+```json
+[
+  {"name":"Kawa z Mlekiem Mała","quantity":1,"choices":[
+    {"group":"Wybierz rozmiar","name":"Mały."},
+    {"group":"Wybór opakowania","name":"Kubek (opłata SUP)"}
+  ]},
+  {"name":"Ciastko Jabłkowe","quantity":1,"choices":[]}
+]
+```
+
+```sh
+node experiments/glovo/http-basket.mjs create \
+  --profile location-profile.json --store mcdonald-s-kra \
+  --items-file items.json --output coffee-apple-basket.json
+```
+
+The October 6 live HTTP test created these two configured products and confirmed them in a separate read-only process. Glovo returned a basket total of 22.40 PLN. No browser or authenticated account was used for this run; checkout was not submitted.
+
+`basket.json` is a portable `glovo-basket/v1` manifest containing the store/branch, products, quantities and choices. It has no guest basket ID, account credentials or location coordinates. `basket.json.session.json` is private state containing the guest identity, location, last confirmed response and request trace; both outputs are created with mode 0600. Use the private state only for read-only verification. Updates have no automatic retry. A timeout or an unconfirmed result stops further writes and checkpoints an `unknown` outcome. Output files must be new to prevent accidental overwrites or replay.
+
+In a signed-in browser, open the same store and delivery branch, inject `adapter.js`, then pass the manifest as an object:
+
+```js
+const imported = await glovoBridge.importBasket({ basket: manifest })
+if (imported.status !== 'complete' || !imported.verification.matches) throw Error('Reconcile the basket')
+await glovoBridge.verifyBasketImport({ id: manifest.id })
+await glovoBridge.getBasketEvidence()
+```
+
+This reconstructs the manifest's product quantities through the browser's authenticated native cart SDK. It preserves existing items and quantities; it does not change ownership of the guest basket or remove its contents. `exportBasket()` can produce the same manifest from another browser session. Import IDs prevent duplicate additions within the same document, including reinjection; a full reload loses that import journal, so reconcile the fresh basket before reimporting. The new transfer methods are directly available on `window.glovoBridge` and its native DOM transport; the older WebBridge CLI method allowlist does not expose them.
+
+Live verification on October 6, 2026: six standalone HTTP requests created McChicken ×1 and Chikker ×1 (32.10 PLN), without cookies or account tokens. A separate Node process confirmed persistence. Reconstruction in the authenticated browser preserved McDouble ×1 and Cheeseburger ×1, resulting in four products (59.30 PLN). After a full reload, the fresh server response and native cart still agreed. No checkout or order was submitted. These are observed private Glovo endpoints, not a guaranteed public API contract.
+
+```sh
+node --test experiments/glovo/http-basket.test.mjs experiments/glovo/adapter.test.mjs experiments/glovo/bridge-client.test.mjs
+```
+
 ## Verification
 
 October 5, 2026, version 0.4.0:
