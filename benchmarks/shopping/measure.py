@@ -102,13 +102,19 @@ def measure(records, task_prompt, turn_id=None):
     if usage is not None and any(v < 0 for v in usage.values() if isinstance(v, int)):
         raise ValueError('Usage counters moved backwards; refusing invalid totals.')
     generated = usage.get('output_tokens') if usage else None
+    provider_total = usage.get('total_tokens') if usage else None
+    if provider_total is None and usage and isinstance(usage.get('input_tokens'), int) and isinstance(generated, int):
+        provider_total = usage['input_tokens'] + generated
     prompt_tokens = count(task_prompt)
     work_tokens = prompt_tokens + observation_tokens + generated if generated is not None else None
     return {
-        'schema': 'shopping-task-metrics/v1', 'turn_id': turn_id, 'model': model, 'effort': effort,
+        'schema': 'shopping-task-metrics/v2', 'turn_id': turn_id, 'model': model, 'effort': effort,
         'status': 'complete' if complete else 'incomplete',
         'task_prompt_sha256': hashlib.sha256(task_prompt.encode()).hexdigest(),
         'task_work_tokens_estimate': work_tokens,
+        'primary_metric': 'provider_total_tokens_including_cache',
+        'provider_total_tokens_including_cache': provider_total,
+        'provider_token_accounting': 'Provider total input plus output tokens. Input already includes cached input: do not subtract it or add it again. Includes inherited context, tools, replayed history and multimodal input as reported by the provider. Unweighted token count, not a monetary cost.',
         'components': {'task_prompt_text_tokens_estimate': prompt_tokens,
                        'observed_tool_text_tokens_estimate': observation_tokens,
                        'generated_output_tokens': generated,
@@ -119,7 +125,7 @@ def measure(records, task_prompt, turn_id=None):
         'tool_calls': len(calls), 'tool_result_records': tool_results,
         'elapsed_seconds': complete.get('duration_ms', 0)/1000 if complete and complete.get('duration_ms') is not None else None,
         'provider_usage_including_environment': usage,
-        'accounting': 'Shopping prompt once + each observed tool text once + provider generated output (including reasoning). Excludes inherited messages, tool schemas, isolation/session instructions and replayed context. Cache-independent work estimate, not exact model billing.'
+        'accounting': 'Secondary task-work diagnostic only: shopping prompt once + each observed tool text once + provider generated output (including reasoning). Excludes inherited messages, tool schemas, isolation/session instructions and replayed context. Cache-independent work estimate, not exact model billing.'
     }
 
 

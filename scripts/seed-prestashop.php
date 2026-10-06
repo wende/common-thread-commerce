@@ -50,6 +50,7 @@ foreach($catalog['products'] as $p){
   else{$c=new Category();$c->name=localized($p['category']);$c->link_rewrite=localized(strtolower($p['category']));$c->id_parent=2;$c->active=1;$c->add();$categories[$p['category']]=$c->id;}
  }
  $id=(int)Db::getInstance()->getValue('SELECT id_product FROM '._DB_PREFIX_."product WHERE reference='".pSQL($p['sku'])."'");
+ if(!$id && $p['id']>30)$id=(int)Db::getInstance()->getValue('SELECT id_product FROM '._DB_PREFIX_."product WHERE reference='".pSQL(sprintf('CT-NOISE-%04d',$p['id']-30))."'");
  $product=$id?new Product($id):new Product();
  $product->name=localized($p['name']);$product->link_rewrite=localized($p['slug']);$product->reference=$p['sku'];
  $product->description=localized('<p>'.htmlspecialchars($p['description']).'</p>');$product->description_short=localized('<p>'.htmlspecialchars($p['short_description']).'</p>');

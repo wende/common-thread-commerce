@@ -21,6 +21,17 @@ def fixture():
 
 
 class Accounting(unittest.TestCase):
+    def test_primary_provider_total_includes_cached_input_once(self):
+        a=measure(fixture(),'Find a mug.')
+        self.assertEqual(a['primary_metric'],'provider_total_tokens_including_cache')
+        self.assertEqual(a['provider_total_tokens_including_cache'],33100)
+        self.assertEqual(a['provider_usage_including_environment']['cached_input_tokens'],32000)
+        r=fixture();r[6]['payload']['turn_token_usage']['cached_input_tokens']=0
+        self.assertEqual(measure(r,'Find a mug.')['provider_total_tokens_including_cache'],33100)
+        del r[6]['payload']['turn_token_usage']['total_tokens']
+        self.assertEqual(measure(r,'Find a mug.')['provider_total_tokens_including_cache'],33100)
+        self.assertIsNone(measure(fixture()[:-2],'Find a mug.')['provider_total_tokens_including_cache'])
+
     def test_invariant_to_environment_and_cache(self):
         a=measure(fixture(), 'Find a mug.')
         r=fixture();r[0]['payload']['base_instructions']='unrelated '*40000

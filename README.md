@@ -2,9 +2,15 @@
 
 The separate Luna browser harness has been retired. The [postmortem](POSTMORTEM_LUNA_HARNESS_2026-10-05.md) explains why its host-side tooling did not test the intended page-injected adapter.
 
-[Shop Agent](shopping-agent/README.md) is the replacement website-side experiment: one injectable JavaScript file that advertises `window.mcp.help()` on the page and exposes bounded catalog search and the browser's native basket. It has no agent-specific backend or runtime dependencies. [Benchmark accounting](benchmarks/shopping/README.md) now counts task work separately from inherited context and provider caching.
+The historical [WooCommerce Luna medium comparison](shopping-agent/WOO_LUNA_MEDIUM_PAIR_2026-10-06.md) measures an earlier page-injected script against the ordinary storefront in two isolated browser contexts.
 
-The same invented catalog of **530 products in 5 categories** (30 original products plus 500 image-free filler products), running in three independent, real e-commerce engines:
+A follow-up [six-item Luna medium run without the adapter](shopping-agent/WOO_LUNA_MEDIUM_SIX_ITEMS_2026-10-06.md) preserves the original three shopping needs and adds three original products specified by name or features.
+
+The [WooCommerce optimization campaign](shopping-agent/WOO_LUNA_OPTIMIZATION_2026-10-06.md) repeats three bare-page baselines and iterates the page script with two fresh Luna medium agents per round.
+
+[Shop Agent](shopping-agent/README.md) is the replacement website-side experiment: one injectable JavaScript file that advertises `window.mcp.help()` on the page and exposes bounded catalog search and the browser's native basket. It has no agent-specific backend or runtime dependencies. [Benchmark accounting](benchmarks/shopping/README.md) uses provider input plus output tokens, including cached input once; task-work estimates are secondary diagnostics.
+
+The same invented catalog of **530 products in 5 categories** (30 original products plus 500 plausible demo merchandise listings with reused sample illustrations), running in three independent, real e-commerce engines:
 
 | Store | Framework / native theme | Local URL |
 | --- | --- | --- |
@@ -127,3 +133,5 @@ This compares each engine's saved native product records with the shared catalog
 The original browser checks covered the rendered desktop and mobile storefronts, adding and removing a discounted item in each native cart, and opening checkout forms. No orders were placed. Screenshots and verification reports are saved in `screenshots/`. The `verify` command checks saved catalog records; it does not repeat interactive browser checks.
 
 An independent installation with new credentials and empty Docker volumes was tested on macOS / Apple Silicon with Docker `29.5.3` and Compose `2.40.3`. All three engines passed catalog comparisons and rendered all 30 products without broken images. The report is `screenshots/reproduction-verification.json`. The pinned image manifests also provide `amd64`; other host operating systems and CPUs were not physically tested in this session.
+
+The current [realistic-catalog A/B/C campaign](shopping-agent/WOO_LUNA_REAL_CATALOG_2026-10-06.md) replaces the 500 named fillers with normal merchandise and forbids catalog pruning. Rebuild/update that inventory with `python3 scripts/populate-products.py`; it preserves native product IDs while migrating the old filler SKUs.

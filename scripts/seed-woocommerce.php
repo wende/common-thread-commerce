@@ -33,6 +33,8 @@ foreach ($catalog['products'] as $p) {
   $category_ids[$p['category']] = (int) $term['term_id'];
  }
  $id = wc_get_product_id_by_sku($p['sku']);
+ // Migrate only known numbered filler records, preserving native IDs.
+ if (!$id && $p['id'] > 30) $id = wc_get_product_id_by_sku(sprintf('CT-NOISE-%04d', $p['id'] - 30));
  $product = $id ? wc_get_product($id) : new WC_Product_Simple();
  $product->set_name($p['name']); $product->set_slug($p['slug']); $product->set_sku($p['sku']);
  $product->set_description($p['description']); $product->set_short_description($p['short_description']);

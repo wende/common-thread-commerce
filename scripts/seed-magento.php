@@ -24,7 +24,12 @@ $repo=$om->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
 $setId=(int)$om->get(\Magento\Eav\Model\Config::class)->getEntityType('catalog_product')->getDefaultAttributeSetId();
 $stockRegistry=$om->get(\Magento\CatalogInventory\Api\StockRegistryInterface::class);
 foreach($catalog['products'] as $p){
- try{$product=$repo->get($p['sku'],false,0,true);}catch(\Magento\Framework\Exception\NoSuchEntityException $e){$product=$factory->create();$product->setSku($p['sku']);}
+ try{$product=$repo->get($p['sku'],false,0,true);}catch(\Magento\Framework\Exception\NoSuchEntityException $e){
+  $product=null;
+  if($p['id']>30){try{$product=$repo->get(sprintf('CT-NOISE-%04d',$p['id']-30),false,0,true);}catch(\Magento\Framework\Exception\NoSuchEntityException $ignored){}}
+  if(!$product)$product=$factory->create();
+  $product->setSku($p['sku']);
+ }
  $product->setStoreId(0)->setAttributeSetId($setId)->setTypeId('simple')->setName($p['name'])->setUrlKey($p['slug'])->setStatus(1)->setVisibility(4)->setPrice($p['price'])->setWeight($p['weight_kg'])->setTaxClassId(0)->setDescription($p['description'])->setShortDescription($p['short_description'])->setWebsiteIds([1])->setCategoryIds([$categories['Collection'],$categories[$p['category']]]);
  $product->setSpecialPrice($p['sale_price']);$product->setSpecialFromDate(null);$product->setSpecialToDate(null);
  $product->setStockData(['use_config_manage_stock'=>0,'manage_stock'=>1,'is_in_stock'=>$p['stock']>0,'qty'=>$p['stock']]);
@@ -42,7 +47,7 @@ foreach($catalog['products'] as $p){
  echo $p['sku'].' '.$p['name']."\n";
 }
 $page=$om->get(\Magento\Cms\Model\PageFactory::class)->create()->load('home','identifier');
-$page->setTitle('Common Thread — The collection')->setIdentifier('home')->setIsActive(1)->setStores([0])->setPageLayout('1column')->setContentHeading('')->setContent('<style>.ct-intro{padding:24px 0 30px;border-bottom:1px solid #ddd;margin-bottom:30px}.ct-intro h1{font-size:36px;font-weight:500;margin-bottom:12px}.ct-intro p{font-size:16px;max-width:640px}.block.widget .products-grid .product-item{width:24%!important;margin-left:0!important;padding:0 12px!important}.product-item-name{font-size:16px}.page-wrapper{font-size:16px}@media(max-width:767px){.block.widget .products-grid .product-item{width:49%!important}.ct-intro h1{font-size:28px}}</style><div class="ct-intro"><h1>Everyday, considered.</h1><p>A collection of 30 easy-wearing essentials. Find your next favorite from Common Thread.</p></div>{{widget type="Magento\\CatalogWidget\\Block\\Product\\ProductsList" title="The collection" show_pager="1" products_per_page="30" products_count="30" conditions_encoded="[]" template="Magento_CatalogWidget::product/widget/content/grid.phtml"}}');
+$page->setTitle('Common Thread — The collection')->setIdentifier('home')->setIsActive(1)->setStores([0])->setPageLayout('1column')->setContentHeading('')->setContent('<style>.ct-intro{padding:24px 0 30px;border-bottom:1px solid #ddd;margin-bottom:30px}.ct-intro h1{font-size:36px;font-weight:500;margin-bottom:12px}.ct-intro p{font-size:16px;max-width:640px}.block.widget .products-grid .product-item{width:24%!important;margin-left:0!important;padding:0 12px!important}.product-item-name{font-size:16px}.page-wrapper{font-size:16px}@media(max-width:767px){.block.widget .products-grid .product-item{width:49%!important}.ct-intro h1{font-size:28px}}</style><div class="ct-intro"><h1>Everyday, considered.</h1><p>A collection of clothing and everyday accessories. Find your next favorite from Common Thread.</p></div>{{widget type="Magento\\CatalogWidget\\Block\\Product\\ProductsList" title="The collection" show_pager="1" products_per_page="30" products_count="530" conditions_encoded="[]" template="Magento_CatalogWidget::product/widget/content/grid.phtml"}}');
 $page->save();
 $writer=$om->get(\Magento\Framework\App\Config\Storage\WriterInterface::class);
 foreach([

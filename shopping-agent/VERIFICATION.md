@@ -1,4 +1,16 @@
-# Shop Agent 0.3.0 verification
+# Shop Agent 0.5.9 verification
+
+Verified October 6, 2026 against all three native 530-product demo stores. The older records below describe historical implementations and catalogs.
+
+- 45 adapter contract tests and nine token-accounting tests passed. Current catalog checks reject category, price, stock, sale and local-match selectors before networking and retain every returned native record.
+- Independent integration contexts enumerated 530 distinct products on WooCommerce, PrestaShop and Magento. WooCommerce and Magento retained all 24 unavailable records; PrestaShop listing stock remains unknown until a fresh detail read. Two chosen sample photos loaded on each store.
+- All three stores passed native paging, bounded keyword discovery beyond the first page, query caching, three-product cart writes, request replay without duplicates, quantity updates/removal and restoration of the original test basket. PrestaShop and Magento verified cart markup from the starting page. WooCommerce returned unsupported markup there; its 30 benchmark carts were separately verified after opening the rendered cart. Unknown verification status is not a render pass.
+- Magento full enumeration initially failed because its GraphQL API requires a search or criteria argument. Version 0.5.9 supplies an empty native criteria object without any product conditions; the live scan returned all 530 records. This is a post-campaign platform correction. The final measured WooCommerce trio retains immutable 0.5.8 snapshots and its original results.
+- Native product names, categories, prices, discounts, stock and image presence matched the canonical 530-product catalog on all three stores. Tailnet HTML and assets passed: 63 WooCommerce, 59 PrestaShop and 63 Magento resources, with no localhost links or mixed HTTP assets. Browser inventory was empty after cleanup.
+
+Evidence: `output/playwright/woo-luna-real-catalog-20261006/coordinator/adapter-tests-final.txt`, `final-integration/results.json`, `native-verification-final.json`, `tailnet-verification-final.json` and `accounting-audit-final.json`. The [30-session report](WOO_LUNA_REAL_CATALOG_2026-10-06.md) includes every run, quality failures and provider tokens including cached input once. Listings are invented demo merchandise with 18 reused illustrations; configurable products are not covered by this fixture.
+
+# Historical Shop Agent 0.3.0 verification
 
 Verified October 6, 2026. This is implementation verification, not a new model benchmark.
 

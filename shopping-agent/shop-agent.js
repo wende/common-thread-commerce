@@ -1,15 +1,18 @@
-/* Shop Agent 0.3.0 — dependency-free, page-local shopping API.
+/* Shop Agent 0.5.9 — dependency-free, page-local shopping API.
  * Install: <script defer src="/shop-agent.js"></script>
  * No service, credentials, build step, or agent plugin required.
  */
 (() => {
   'use strict';
-  const VERSION = '0.3.0';
+  const VERSION = '0.5.9';
   const BRAND = 'shop-agent/page-api';
   const existing = [window.mcp, window.shopAgent].find(x => x?.brand === BRAND);
   if (existing) { existing.panel.show(); return; }
   const namespace = window.mcp === undefined ? 'mcp' : 'shopAgent';
   if (window[namespace] !== undefined) { console.warn('Shop Agent: both namespaces are occupied.'); return; }
+  const browserCatalogCode = `async page=>{const catalog=await page.evaluate(input=>window.${namespace}.data.catalogTable(input),{images:true});if(catalog.comparison?.shown?.length)await page.locator("#shop-agent-comparison").screenshot({path:"catalog.png"});return catalog}`;
+  const browserSearchCode = `async page=>{const results=await page.evaluate(input=>window.${namespace}.data.searchTable(input),{queries:[{query:"keyword from request",limit:20}],images:true});if(results.comparison?.shown?.length)await page.locator("#shop-agent-comparison").screenshot({path:"catalog.png"});return results}`;
+  const browserReviewCode = `async page=>{const write=await page.evaluate(input=>window.${namespace}.data.cart.review(input),{requestId:"unique",items:[{productId:"exact returned ID",quantity:1}]});if(write.status!=="complete"||write.handoff!=="opened")return {write};await page.waitForURL(write.basket.url);const review=await page.evaluate(()=>window.${namespace}.data.cart.verify());return {write,review}}`;
   const origin = location.origin;
   const cache = new Map(), known = new Map(), events = [];
   let adapter, panel, pending = false, nonce, storageAvailable = true;
@@ -21,6 +24,7 @@
   const own = (x, k) => Object.prototype.hasOwnProperty.call(x, k);
   const fail = (code, message) => { throw Object.assign(new Error(message), {code}); };
   const errorJSON = e => ({code:e.code || 'ERROR', message:e.message});
+  const words = text => String(text).toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
   const integer = (v, min, max, name) => Number.isInteger(v) && v >= min && v <= max ? v : fail('INVALID_ARGUMENT', `${name} must be an integer ${min}–${max}.`);
   const array = (v, max, name) => Array.isArray(v) && v.length && v.length <= max ? v : fail('INVALID_ARGUMENT', `${name} must contain 1–${max} entries.`);
   const string = (v, name, max = 200) => typeof v === 'string' && v.trim() && v.length <= max ? v : fail('INVALID_ARGUMENT', `${name} must be a nonempty string, at most ${max} characters.`);
@@ -30,6 +34,9 @@
   }
   const doc = html => new DOMParser().parseFromString(html, 'text/html');
   const plain = html => doc(String(html || '')).body.textContent.replace(/\s+/g, ' ').trim();
+  const descriptionFields = (html,limit) => {
+    const text = plain(html);return {description:text.slice(0,limit),descriptionTruncated:text.length>limit};
+  };
   const url = value => {
     const u = new URL(value, location.href);
     if (u.origin !== origin || !/^https?:$/.test(u.protocol) || u.username || u.password) fail('OUTSIDE_STORE', 'Only this store origin is supported.');
@@ -65,9 +72,12 @@
     if (value.id !== undefined && value.name && value.price && value.description !== undefined) {
       const p = {id:value.id,name:value.name,price:value.price.amount,currency:value.price.currency};
       if (value.optionsSupport === 'use-native-product-page') p.url = value.url;
-      if (value.onSale) { p.onSale = true; p.regularPrice = value.regularPrice?.amount; }
+      if (typeof value.onSale === 'boolean') p.onSale = value.onSale;
+      if (value.regularPrice) p.regularPrice = value.regularPrice.amount;
       for (const k of ['inStock','purchasable','requiresOptions','optionsSupport','quantityLimits','textMatch']) if (value[k] != null) p[k] = value[k];
-      if (value.description) p.description = value.description.slice(0,value.optionsSupport ? 1200 : 160);
+      const descriptionLimit = value.optionsSupport ? 1200 : 280;
+      if (value.description) p.description = value.description.slice(0,descriptionLimit);
+      p.descriptionTruncated = !!value.descriptionTruncated || (value.description?.length || 0)>descriptionLimit;
       for (const k of ['attributes','options','variants']) if (value[k]?.length) p[k] = value[k];
       if (value.images?.length) p.imageCount = value.images.length;
       return p;
@@ -79,6 +89,27 @@
     await Promise.all(Array.from({length:Math.min(concurrency,items.length)},async()=>{
       while (next < items.length) { const i = next++; result[i] = await fn(items[i],i); }
     })); return result;
+  }
+  function tabulate(result) {
+    const fields = [...new Set(result.products.flatMap(p=>Object.keys(p)))];
+    const core = ['id','name','price','inStock','description','onSale','regularPrice'];
+    const common = {}, columns = core.slice();
+    for (const key of fields) {
+      if (core.includes(key)) continue;
+      const values = result.products.map(p=>p[key] ?? null);
+      if (values.length && values.every(value=>JSON.stringify(value) === JSON.stringify(values[0]))) common[key] = values[0];
+      else columns.push(key);
+    }
+    const table = {common,columns,rows:result.products.map(p=>columns.map(k=>p[k] ?? null))};
+    if (result.comparison) {
+      const {shown,...metadata} = result.comparison;
+      result.comparison = {...metadata,shown:shown.map(p=>p.id),withoutImage:shown.filter(p=>!p.hasImage).map(p=>p.id)};
+    }
+    if (result.probes) {
+      const {scope,allRecordsScanned} = result.probes[0];
+      result.probes = {scope,allRecordsScanned,results:result.probes.map(({query,matchedIds,count})=>({query,matchedIds,count}))};
+    }
+    return {...result,products:table};
   }
   function saveLedger() {
     try { sessionStorage.setItem(storageKey, JSON.stringify(ledger)); }
@@ -122,22 +153,31 @@
   // Persist only public lookup references, never native payloads/tokens or stale prices.
   try {
     const saved = JSON.parse(sessionStorage.getItem(discoveryKey) || '[]');
-    for (const p of Array.isArray(saved) ? saved.slice(-500) : []) {
+    for (const p of Array.isArray(saved) ? saved.slice(-2048) : []) {
       if (p && /^\d+$/.test(String(p.id)) && typeof p.url === 'string') {
         url(p.url); known.set(String(p.id), {product:{id:String(p.id), url:p.url, sku:p.sku}});
       }
     }
   } catch { /* Reads still work if storage is unavailable or malformed. */ }
+  let discoverySavePending = false;
   function persistDiscovery() {
-    try { sessionStorage.setItem(discoveryKey, JSON.stringify([...known.values()].map(({product:p}) => ({id:p.id,url:p.url,sku:p.sku})))); } catch {}
+    if (discoverySavePending) return;
+    discoverySavePending = true;
+    // Coalesce synchronous record batches; flush before awaited reads return.
+    // Persist lookup references only. Prices, payloads and tokens remain transient.
+    Promise.resolve().then(()=>{
+      discoverySavePending = false;
+      try { sessionStorage.setItem(discoveryKey, JSON.stringify([...known.values()].map(({product:p}) => ({id:p.id,url:p.url,sku:p.sku})))); } catch {}
+    });
   }
   function remember(p, internal = {}) {
-    known.set(String(p.id), {...known.get(String(p.id)), ...internal, product:p});
-    if (known.size > 500) known.delete(known.keys().next().value);
+    const old = known.get(String(p.id)); known.delete(String(p.id));
+    known.set(String(p.id), {...old, ...internal, product:p});
+    if (known.size > 2048) known.delete(known.keys().next().value);
     persistDiscovery();
     return p;
   }
-  function record(id) { return known.get(String(id)) || fail('UNKNOWN_PRODUCT', 'Use an ID returned by search/list/products in this tab session.'); }
+  function record(id) { return known.get(String(id)) || fail('UNKNOWN_PRODUCT', `Unknown product ID ${String(id)}. Use the exact product.id from this tab's catalog/search, not a row index or shopping-list number.`); }
   function pageResult(products, total, page, limit, extra = {}) {
     return {products, total:total ?? null, page, limit, nextCursor:total == null ? null : page * limit < total ? String(page + 1) : null,
       scope:'native-catalog-query', exhaustive:total != null && page === 1 && products.length >= total, ...extra};
@@ -180,20 +220,13 @@
         price:price(p.prices), regularPrice:price({...p.prices, price:p.prices.regular_price}), onSale:p.on_sale,
         inStock:p.is_in_stock, purchasable:p.is_purchasable, requiresOptions:!!p.has_options,
         images:images(p.images), categories:p.categories?.map(c => ({id:String(c.id), name:c.name})), attributes:p.attributes || [],
-        description:plain(detail ? p.description : p.short_description).slice(0, detail ? 4000 : 280),
+        ...descriptionFields(detail ? p.description : p.short_description,detail ? 4000 : 280),
         ...(detail ? {variants:p.variations || [], quantityLimits:{min:p.add_to_cart?.minimum, max:p.add_to_cart?.maximum}, optionsSupport:p.type === 'simple' || p.type === 'variation' ? 'automatic' : 'use-native-product-page'} : {})}, {raw:p});
     }
     async function search(q) {
       const params = {per_page:q.limit, page:q.page, search:q.query || ''};
-      if (q.category) params.category = q.category;
-      const mapping = {onSale:'on_sale', inStock:'stock_status'};
-      const supported = {onSale:'on_sale', inStock:'stock_status'};
-      for (const [k,v] of Object.entries(q.filters)) {
-        if (!(k in supported)) fail('UNSUPPORTED_FILTER', `WooCommerce v1 supports onSale and inStock; received ${k}.`);
-        params[mapping[k]] = k === 'inStock' ? v ? 'instock' : 'outofstock' : v;
-      }
       const r = await request(endpoint('products', params));
-      return pageResult(r.value.map(p => product(p)), Number(r.headers.get('X-WP-Total')), q.page, q.limit, {appliedFilters:q.filters});
+      return pageResult(r.value.map(p => product(p)), Number(r.headers.get('X-WP-Total')), q.page, q.limit, {});
     }
     async function read() {
       const c = await get(endpoint('cart'));
@@ -203,7 +236,7 @@
         total:money(Number(c.totals.total_price) / 10 ** c.totals.currency_minor_unit, c.totals.currency_code),
         url:document.querySelector('a.cart-contents, a.wc-block-mini-cart__footer-cart')?.href || new URL('cart/', location.origin).href};
     }
-    return {name:'woocommerce', filters:['onSale','inStock'], search, read,
+    return {name:'woocommerce', filters:[], search, read,
       async categories() { const r = await request(endpoint('products/categories',{per_page:100})); return {categories:r.value.map(c=>({id:String(c.id),name:plain(c.name),count:c.count})),scope:'native-categories-first-100',exhaustive:Number(r.headers.get('X-WP-Total')) <= 100}; },
       async details(id) { return product(await get(endpoint('products/' + encodeURIComponent(id))), true); },
       async add(item) {
@@ -216,13 +249,13 @@
         document.body.dispatchEvent(new CustomEvent('wc-blocks_added_to_cart', {bubbles:true, detail:{preserveCartData:false}}));
       },
       nativeRows(d) {
-        if (d === document && d.querySelector('.wc-block-cart-items')) {
+        if ((d === document || d.defaultView) && d.querySelector('.wc-block-cart-items')) {
           return {rows:[...d.querySelectorAll('.wc-block-cart-items__row')].map(r => ({url:r.querySelector('a.wc-block-components-product-name')?.href,
             quantity:Number(r.querySelector('input.wc-block-components-quantity-selector__input')?.value)})), recognized:true, identity:'url'};
         }
         const rows = [...d.querySelectorAll('.woocommerce-cart-form__cart-item')].map(r => ({lineId:r.querySelector('[data-cart_item_key]')?.dataset.cart_item_key,
           quantity:Number(r.querySelector('input.qty')?.value), name:r.querySelector('.product-name')?.textContent.trim()}));
-        const renderedEmptyBlock = d === document && d.querySelector('.wc-block-cart__empty-cart__title') && !d.querySelector('.wp-block-woocommerce-cart.is-loading');
+        const renderedEmptyBlock = (d === document || d.defaultView) && d.querySelector('.wc-block-cart__empty-cart__title') && !d.querySelector('.wp-block-woocommerce-cart.is-loading');
         return {rows, recognized:!!d.querySelector('.woocommerce-cart-form, .cart-empty') || !!renderedEmptyBlock, identity:'lineId'};
       }};
   }
@@ -246,24 +279,21 @@
         purchasable:detail ? !!Number(p.available_for_order) : null, requiresOptions:detail ? requiresOptions : null,
         images:images((p.images?.length ? p.images : p.cover ? [p.cover] : []).map(i=>({url:i.bySize?.large_default?.url || i.large?.url || i.url,alt:i.legend}))),
         categories:p.category_name ? [{id:String(p.id_category_default || ''),name:p.category_name}] : [], attributes:p.features || [],
-        description:plain(detail ? p.description : p.description_short).slice(0, detail ? 4000 : 280),
+        ...descriptionFields(detail ? p.description : p.description_short,detail ? 4000 : 280),
         ...(detail ? {options, optionsSupport:requiresOptions ? 'use-native-product-page' : 'automatic', quantityLimits:{min:Number(p.minimal_quantity || 1), max:p.allow_oosp ? null : Number(p.quantity)}} : {})}, {raw:p});
     }
     async function search(q) {
-      if (Object.keys(q.filters).some(k=>k!=='onSale') || q.filters.onSale === false || (q.filters.onSale && (q.query || q.category))) fail('UNSUPPORTED_FILTER', 'PrestaShop supports {onSale:true} as a native sale listing without query/category. Filter those returned products in JavaScript; use ordinary text/category queries separately.');
       let u;
-      if (q.filters.onSale) u = endpoint('prices_drop');
-      else if (q.category) u = endpoint('category', {id_category:q.category});
-      else if (!q.query) {
+      if (!q.query) {
         const all = document.querySelector('a.all-product-link')?.href;
-        if (!all) fail('QUERY_REQUIRED','Supply a search query or category ID on this page.');
+        if (!all) fail('QUERY_REQUIRED','Supply a keyword search query on this page.');
         u = url(all);
       }
       else u = endpoint('search', {s:q.query});
       for (const [k,v] of Object.entries({ajax:1, resultsPerPage:q.limit, page:q.page})) u.searchParams.set(k, v);
       const j = await get(u);
       if (!Array.isArray(j.products)) fail('UNSUPPORTED_THEME', 'The native listing did not expose products.');
-      return pageResult(j.products.map(p => product(p)), Number(j.pagination.total_items), q.page, q.limit, {appliedFilters:q.filters, note:'Native text search may match categories and descriptions. Check relevance.'});
+      return pageResult(j.products.map(p => product(p)), Number(j.pagination.total_items), q.page, q.limit, {note:'Native text search may match categories and descriptions. Check relevance.'});
     }
     async function read() {
       const d = await html(endpoint('cart', {action:'show'}));
@@ -277,7 +307,7 @@
       if (j.hasError || j.errors) fail('STORE_REJECTED', plain(JSON.stringify(j.errors)));
       if (!j.success) fail('WRITE_UNCERTAIN', 'Cart response did not confirm the change.');
     };
-    return {name:'prestashop', filters:['onSale (native sale listing, without query/category)'], search, read,
+    return {name:'prestashop', filters:[], search, read,
       async categories() {
         const entries = [...document.querySelectorAll('[id^="category-"] > a')].flatMap(a=> {
           const id = a.parentElement.id.match(/^category-(\d+)$/)?.[1];
@@ -325,13 +355,13 @@
       return remember({id:String(p.id), sku:p.sku, name:p.name, url:new URL(p.url_key + (p.url_suffix || ''), base).href, type:p.__typename,
         price:money(prices.final_price.value, currency), regularPrice:money(prices.regular_price.value, currency), onSale:prices.final_price.value < prices.regular_price.value,
         inStock:p.stock_status === 'IN_STOCK', purchasable:p.stock_status === 'IN_STOCK', requiresOptions:p.__typename !== 'SimpleProduct',
-        images:images(p.small_image ? [p.small_image] : []), categories:p.categories.map(c => ({id:String(c.id), name:c.name})), attributes:[], description:plain(detail ? p.description.html : p.short_description.html).slice(0, detail ? 4000 : 280),
+        images:images(p.small_image ? [p.small_image] : []), categories:p.categories.map(c => ({id:String(c.id), name:c.name})), attributes:[], ...descriptionFields(detail ? p.description.html : p.short_description.html,detail ? 4000 : 280),
         ...(detail ? {optionsSupport:p.__typename === 'SimpleProduct' ? 'automatic' : 'use-native-product-page'} : {})}, {raw:p});
     }
     async function search(q) {
-      if (Object.keys(q.filters).length) fail('UNSUPPORTED_FILTER', 'Magento v1 supports native search/category; inspect sale and stock on returned products.');
-      const filter = q.category ? {category_id:{eq:String(q.category)}} : {};
-      const j = await query(`query($search:String,$filter:ProductAttributeFilterInput,$page:Int!,$size:Int!){products(search:$search,filter:$filter,currentPage:$page,pageSize:$size){total_count items{${fields}}}}`, {search:q.query || undefined, filter, page:q.page, size:q.limit});
+      // Magento requires search or filter. An empty criteria object enumerates
+      // the whole catalog; it contains no category, price, stock or SKU condition.
+      const j=await query(`query($search:String,$filter:ProductAttributeFilterInput,$page:Int!,$size:Int!){products(search:$search,filter:$filter,currentPage:$page,pageSize:$size){total_count items{${fields}}}}`,{search:q.query||undefined,filter:q.query?undefined:{},page:q.page,size:q.limit});
       return pageResult(j.products.items.map(p => product(p)), j.products.total_count, q.page, q.limit, {appliedFilters:{}});
     }
     async function read() {
@@ -390,133 +420,101 @@
     else fail('UNSUPPORTED_STORE', 'Supported: WooCommerce Store API, PrestaShop Classic, Magento Luma. Use this store’s ordinary UI.');
     return adapter;
   }
-  function normalizeQuery(q) {
+  function normalizeQuery(q, bounds = {limit:20,maxPages:10}) {
     if (typeof q === 'string') q = {query:q};
-    keys(q, ['query','category','filters','onSale','inStock','minPrice','maxPrice','limit','cursor','match','maxPages']);
+    keys(q, ['query','limit','cursor','maxPages']);
     if (q.query !== undefined && (typeof q.query !== 'string' || q.query.length > 200)) fail('INVALID_ARGUMENT','query must be a string up to 200 characters.');
-    if (q.category !== undefined) string(String(q.category),'category');
-    if (q.filters !== undefined) keys(q.filters, ['onSale','inStock','minPrice','maxPrice']);
-    const filters = {...(q.filters || {})};
-    for (const k of ['onSale','inStock','minPrice','maxPrice']) if (q[k] !== undefined) {
-      if (filters[k] !== undefined && filters[k] !== q[k]) fail('INVALID_ARGUMENT',`Conflicting ${k} filters.`);
-      filters[k] = q[k];
-    }
-    for (const [k,v] of Object.entries(filters)) {
-      if (['onSale','inStock'].includes(k) ? typeof v !== 'boolean' : typeof v !== 'number' || !Number.isFinite(v) || v < 0) fail('INVALID_ARGUMENT',`Invalid ${k} filter.`);
-    }
-    if (filters.minPrice != null && filters.maxPrice != null && filters.minPrice > filters.maxPrice) fail('INVALID_ARGUMENT','minPrice exceeds maxPrice.');
     let page = 1, offset = 0;
     if (q.cursor != null) {
       const m = String(q.cursor).match(/^(?:v3:)?(\d+)(?::(\d+))?$/);
       if (!m) fail('INVALID_ARGUMENT','Use nextCursor from the same query.');
       page = Number(m[1]); offset = Number(m[2] || 0);
     }
-    const match = q.match || 'native';
-    if (!['native','any','all'].includes(match)) fail('INVALID_ARGUMENT','match must be native, any, or all (whole words).');
-    return {query:q.query || '',category:q.category,filters,match,limit:integer(q.limit ?? 5,1,20,'limit'),
-      page:integer(page,1,10000,'cursor'),offset:integer(offset,0,19,'cursor offset'),maxPages:integer(q.maxPages ?? 3,1,10,'maxPages')};
+    return {query:q.query || '',filters:{},match:'native',limit:integer(q.limit ?? 5,1,bounds.limit,'limit'),
+      page:integer(page,1,10000,'cursor'),offset:integer(offset,0,19,'cursor offset'),maxPages:integer(q.maxPages ?? 3,1,bounds.maxPages,'maxPages')};
   }
   async function categories() { return cached('categories',()=>getAdapter().categories()); }
-  async function resolveCategory(q) {
-    if (q.category === undefined || /^\d+$/.test(String(q.category))) return q;
-    const list = (await categories()).categories;
-    const matches = list.filter(c=>c.name.toLocaleLowerCase() === String(q.category).trim().toLocaleLowerCase());
-    if (matches.length !== 1) fail('UNKNOWN_CATEGORY','Use a unique category name or ID from categories().');
-    return {...q,category:matches[0].id};
-  }
   async function queryProducts(q) {
-    q = await resolveCategory(q);
-    return cached('query:'+JSON.stringify(q),async()=>{
-      const a = getAdapter(), nativeFilters = {}, localFilters = {...q.filters};
-      if (a.name === 'woocommerce') for (const k of ['onSale','inStock']) if (localFilters[k] !== undefined) { nativeFilters[k] = localFilters[k]; delete localFilters[k]; }
-      const nativeSale = a.name === 'prestashop' && !q.category && localFilters.onSale === true;
-      if (nativeSale) { nativeFilters.onSale = true; delete localFilters.onSale; }
-      const nativeQuery = nativeSale ? '' : q.query;
-      const words = text => String(text).toLocaleLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
-      const terms = [...new Set(words(q.query))];
-      // Classic category listings do not apply a simultaneous native text query.
-      const match = a.name === 'prestashop' && (q.category || nativeSale) && terms.length && q.match === 'native' ? 'any' : q.match;
-      const textRelevant = p => {
-        const text = new Set(words([p.name,p.description,JSON.stringify(p.attributes || [])].join(' ')));
-        const matched = terms.filter(t=>text.has(t));
-        if (terms.length) p.textMatch = matched.length === terms.length ? 'all' : matched.length ? 'some' : 'none';
-        return !terms.length || match === 'native' || (match === 'all' ? matched.length === terms.length : matched.length > 0);
-      };
-      const filterMatches = (p,k,v) => {
-        const actual = k.endsWith('Price') ? p.price?.amount : p[k];
-        return actual != null && (k === 'minPrice' ? actual >= v : k === 'maxPrice' ? actual <= v : actual === v);
-      };
-      const products = []; let page = q.page, offset = q.offset, pagesRead = 0, inspected = 0, unknown = 0, total = null, nextCursor = null;
+    const result = await cached('query:'+JSON.stringify(q),async()=>{
+      const a = getAdapter(), terms = [...new Set(words(q.query))];
+      const products = []; let page=q.page,offset=q.offset,pagesRead=0,inspected=0,total=null,nextCursor=null;
       while (pagesRead < q.maxPages) {
-        const r = await cached('native:'+JSON.stringify([a.name,nativeQuery,q.category,nativeFilters,page]),()=>a.search({...q,query:nativeQuery,page,limit:20,filters:nativeFilters}));
-        total = r.total; pagesRead++;
-        const candidates = r.products.slice(offset);
-        // Cheap listing evidence first: do not fetch stock details for irrelevant filler.
-        const relevance = new Map(candidates.map(p=>[p.id,textRelevant(p)]));
-        const stockCandidates = candidates.filter(p=>relevance.get(p.id) && Object.entries(localFilters).every(([k,v])=>k === 'inStock' || filterMatches(p,k,v)));
-        if (localFilters.inStock !== undefined) await pool(stockCandidates,async p=> {
-          if (p.inStock == null) Object.assign(p,await a.details(p.id));
-        });
-        for (let i = 0; i < candidates.length; i++) {
-          const p = candidates[i]; inspected++;
-          let eligible = relevance.get(p.id);
-          for (const [k,v] of Object.entries(localFilters)) {
-            const actual = k.endsWith('Price') ? p.price?.amount : p[k];
-            if (actual == null) { unknown++; eligible = false; }
-            else if (k === 'minPrice' ? actual < v : k === 'maxPrice' ? actual > v : actual !== v) eligible = false;
+        const r=await cached('native:'+JSON.stringify([a.name,q.query,page]),()=>a.search({...q,page,limit:20,filters:{}}));
+        total=r.total;pagesRead++;
+        const candidates=r.products.slice(offset);
+        for(let i=0;i<candidates.length;i++){
+          const p=candidates[i];inspected++;
+          if(terms.length){
+            const text=new Set(words([p.name,p.description,JSON.stringify(p.attributes||[])].join(' ')));
+            const matched=terms.filter(term=>text.has(term));
+            p.textMatch=matched.length===terms.length?'all':matched.length?'some':'none';
           }
-          if (eligible) products.push(p);
-          const nextOffset = offset + i + 1;
-          nextCursor = nextOffset < r.products.length ? `v3:${page}:${nextOffset}` : r.nextCursor ? `v3:${page+1}:0` : null;
-          if (products.length >= q.limit) break;
+          // Return every native record, including unknown stock, partial lexical matches and unavailable items.
+          products.push(p);
+          const nextOffset=offset+i+1;
+          nextCursor=nextOffset<r.products.length?`v3:${page}:${nextOffset}`:r.nextCursor?`v3:${page+1}:0`:null;
+          if(products.length>=q.limit)break;
         }
-        if (!candidates.length) nextCursor = r.nextCursor ? `v3:${page+1}:0` : null;
-        if (products.length >= q.limit || !r.nextCursor) break;
-        page++; offset = 0;
+        if(!candidates.length)nextCursor=r.nextCursor?`v3:${page+1}:0`:null;
+        if(products.length>=q.limit||!r.nextCursor)break;
+        page++;offset=0;
       }
-      return {products,nativeTotal:total,total:Object.keys(localFilters).length || match !== 'native' ? null : total,
-        nextCursor,query:q.query,category:q.category,filters:q.filters,match,
-        coverage:{inspected,pagesRead,complete:q.page===1 && q.offset===0 && nextCursor===null,scope:nativeSale ? 'native-sale-listing' : a.name === 'prestashop' && q.category ? 'native-category' : 'native-query',unknownFilterValues:unknown},
-        outcome:products.length ? 'candidates' : nextCursor ? 'no-match-in-scanned-pages' : 'no-match-in-native-query',
-        note:'Search coverage is not proof of catalog-wide absence. textMatch compares whole words in supplied text, not image content or semantic similarity.'};
+      return {products,nativeTotal:total,total,nextCursor,query:q.query,
+        coverage:{inspected,pagesRead,complete:q.page===1&&q.offset===0&&nextCursor===null,exhausted:nextCursor===null,scope:q.query?'native-keyword-query':'native-catalog'},
+        outcome:products.length?'candidates':nextCursor?'no-record-in-scanned-pages':'no-record-in-native-query',
+        note:'Every native record in these pages is returned. No label, category, price, stock or lexical pruning. Keyword scope is native store search; textMatch is evidence only. Bounded/query-scoped results cannot establish catalog-wide absence.'};
     });
+    for (const p of result.products) remember(p);
+    return result;
   }
   async function view(input) {
-    keys(input,['ids','page']); const allIds = array(input.ids,100,'ids');
-    const page = integer(input.page ?? 1,1,Math.ceil(allIds.length/6),'page');
-    const ids = allIds.slice((page-1)*6,page*6);
+    keys(input,['ids','page','pageSize']); const allIds = array(input.ids,100,'ids');
+    const pageSize = integer(input.pageSize ?? 6,1,36,'pageSize'), overview = pageSize > 6;
+    const page = integer(input.page ?? 1,1,Math.ceil(allIds.length/pageSize),'page');
+    const ids = allIds.slice((page-1)*pageSize,page*pageSize);
     // Reuse details already read in this page; native mutation preflight remains fresh.
     const products = await Promise.all(ids.map(async id=>{
       const p = record(id).product;
-      return p.optionsSupport ? p : getAdapter().details(String(id));
+      return overview || p.optionsSupport ? p : getAdapter().details(String(id));
     }));
     let gallery = document.getElementById('shop-agent-comparison');
     if (!gallery) { gallery = document.createElement('section'); gallery.id = 'shop-agent-comparison'; panel.append(gallery); }
     gallery.replaceChildren(); gallery.setAttribute('aria-label','Product comparison');
     gallery.style.cssText = 'display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;';
     for (const p of products) {
-      const card = document.createElement('article'); card.style.cssText = 'width:250px;padding:10px;background:white;color:#162c45;';
+      const card = document.createElement('article'); card.style.cssText = overview ? 'width:140px;padding:6px;background:white;color:#162c45;font:12px/1.3 system-ui;' : 'width:250px;padding:10px;background:white;color:#162c45;';
       const heading = document.createElement('strong'); heading.textContent = `${p.name} (ID ${p.id})`; card.append(heading);
       if (p.images?.[0]) {
         const img = document.createElement('img'); img.src = p.images[0].url; img.alt = p.images[0].alt || p.name;
-        img.style.cssText = 'display:block;width:230px;height:230px;object-fit:contain;'; card.append(img);
+        img.dataset.productId = p.id;
+        img.style.cssText = `display:block;width:${overview ? 128 : 230}px;height:${overview ? 128 : 230}px;object-fit:contain;`; card.append(img);
       }
-      const detail = document.createElement('p'); detail.textContent = `${p.price.amount ?? '?'} ${p.price.currency || ''}${p.onSale ? ' • On sale' : ''}. ${p.description}`; card.append(detail);
+      const detail = document.createElement('p'); detail.textContent = `${p.price.amount ?? '?'} ${p.price.currency || ''}${p.onSale ? ' • On sale' : ''}${overview ? '' : '. '+p.description}`; card.append(detail);
       gallery.append(card);
     }
     gallery.scrollIntoView({block:'start'});
-    await Promise.all([...gallery.querySelectorAll('img')].map(img=>Promise.race([img.decode().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,3000))])));
-    return {page,total:allIds.length,nextPage:page*6<allIds.length ? page+1 : null,shown:products.map(p=>({id:p.id,name:p.name,hasImage:!!p.images?.length})),selector:'#shop-agent-comparison',instruction:products.some(p=>p.images?.length) ? 'Screenshot this comparison only if visual evidence is needed. No navigation needed; images do not establish fit.' : 'No product images are available in this comparison. A screenshot adds no product-image evidence.'};
+    const photoElements = [...gallery.querySelectorAll('img')];
+    await Promise.all(photoElements.map(img=>new Promise(resolve=>{
+      const timer=setTimeout(resolve,3000);
+      img.decode().catch(()=>{}).then(()=>{clearTimeout(timer);resolve();});
+    })));
+    const imageStatus = {loaded:[],failed:[],pending:[],missing:products.filter(p=>!p.images?.length).map(p=>p.id)};
+    for (const img of photoElements) imageStatus[!img.complete ? 'pending' : img.naturalWidth>0 ? 'loaded' : 'failed'].push(img.dataset.productId);
+    return {page,pageSize,total:allIds.length,nextPage:page*pageSize<allIds.length ? page+1 : null,shown:products.map(p=>({id:p.id,name:p.name,hasImage:!!p.images?.length})),imageStatus,selector:'#shop-agent-comparison',instruction:products.some(p=>p.images?.length) ? 'Screenshot this comparison only if visual evidence is needed. Failed/pending/missing images supply no visual evidence. No navigation needed; images do not establish fit. For detail, view a smaller returned ID selection.' : 'No product images are available in this comparison. A screenshot adds no product-image evidence.'};
   }
   const schemas = {
-    search:'search({queries:["scarf",{query:"bag",category:"Accessories",onSale:true,maxPrice:50,limit:5,match:"any",maxPages:3,cursor:"returned cursor"}]}) — independent bounded queries; match native/any/all. Top-level filters or filters:{...} both work.',
+    search:'search({query:"type",limit:100,maxPages:30}) or search({queries:["scarf",{query:"bag",limit:5,maxPages:3,cursor:"returned cursor"}]}) — independent bounded native keyword searches. Every returned native record is included. No exclusion/category/price/stock/local-match filters.',
     list:'list(queryObject) — one search, same fields as search queries.',
+    catalog:'catalog({query?,probes:["short names/features"],limit:100,maxPages:30,images:true,cursor?}) — at most 100 records / 30 native pages of 20. All native records are returned; no pruning. true shows up to 36 photos/page. Keep query/options for nextCursor; inspect coverage.',
+    catalogTable:'catalogTable(input) — catalog schema, lossless compact common/columns/rows product table. Merge common into each decoded row; comparison shown lists IDs. Same coverage, photos, and raw object response through data.catalogTable.',
+    searchTable:'searchTable({queries:[{query,limit?,cursor?,maxPages?}],images?}) — 1–20 independent native keyword searches in one call; every native record remains in each bounded result. Stable product tables and per-query coverage/cursors. Optional contact sheet; keyword absence is scoped.',
     categories:'categories() — category names/IDs, with coverage scope.',
     products:'products({ids:[...]}) — fresh descriptions, attributes, options, availability. Up to 100 IDs, fetched four at a time. Unknown fields stay unknown.',
-    view:'view({ids:[...],page:1}) — show six product images per comparison page; returns nextPage. Up to 100 IDs; screenshot only if visual evidence is needed.',
+    view:'view({ids:[...],page:1,pageSize:6}) — up to 36 photos per page; over six uses a compact contact sheet with listed prices/names/IDs. Default six fetches details. Returns nextPage. Up to 100 IDs; screenshot only if visual evidence is needed.',
     run:'run(async shop => { ... }) — shop returns JavaScript objects; your final returned value becomes YAML. Use Promise.all, filter/map/sort and window variables. Ordinary page JavaScript, not a sandbox.',
     'cart.read':'cart.read() — fresh basket lines, totals, revision.',
     'cart.addMany':'cart.addMany({requestId:"unique-operation-id",items:[{productId:"ID",quantity:1}],expectedRevision?}) — up to 20 simple products; increments quantities. Inspect complete/partial/unknown. Reuse requestId only for identical operations.',
+    'cart.review':'cart.review({requestId:"unique-operation-id",items:[{productId:"exact returned ID",quantity:1}],expectedRevision?}) — preflight/addMany, rendered same-origin native-cart-frame verification, then open the main cart. Partial/unknown/mismatch never opens. verification:verified certifies the frame render, not a later main-page render. Unsupported frames require main-cart verification; errors preserve confirmed writes. Same requestId replays without rewriting.',
     'cart.updateMany':'cart.updateMany({requestId:"unique-operation-id",items:[{lineId:"ID_FROM_CART",quantity:0}],expectedRevision?}) — absolute quantities; zero removes. Up to 20 lines.',
     'cart.verify':'cart.verify() — compare fresh native cart with native markup. unsupported-markup means verification unavailable, not success.',
     'cart.finish':'cart.finish({open:true}) — verify once, then open that same basket URL for handoff. For rendered Woo Blocks, verify again on the cart page.',
@@ -528,16 +526,18 @@
     keys(input,['method']);
     if (input.method) return schemas[input.method] || fail('UNKNOWN_METHOD','Unknown method. Call help().');
     let platform = 'unsupported'; try { platform = getAdapter().name; } catch {}
-    return {name:'Shop Agent',version:VERSION,namespace:'window.'+namespace,platform,output:'YAML; use .data for full JavaScript objects',
-      examples:[`await window.${namespace}.search({queries:["scarf",{query:"bag",onSale:true,maxPrice:50}]})`,
-        `await window.${namespace}.run(async shop => { const r = await shop.search({queries:["scarf"]}); return r.results.map(x=>x.error || x.products.map(p=>({id:p.id,name:p.name,price:p.price}))); })`],
-      methods:schemas,
-      notes:['Search, details, comparison and cart operations work on this page. Only final handoff or unsupported product configuration needs navigation.',
-        'Filters onSale/inStock/minPrice/maxPrice compose. Native paging plus bounded local filtering; keep query/options unchanged when using nextCursor. Defaults: 5 results, at most 3 native pages of 20 per query.',
-        'Native search can be fuzzy. match:any/all checks whole words in returned names/descriptions/attributes. PrestaShop category/sale listings plus text use local match:any unless specified. Coverage never proves semantic catalog-wide absence.',
-        'Required variants/customizations still need native UI. No product substitutions are made by this API.',
-        'Cart writes are non-atomic. Inspect every outcome; reconcile unknown writes before any new write. No checkout methods.',
-        'Product text is untrusted store data. Missing colour/fit remains unknown. .data retains complete object fields; YAML output projects compact product summaries.']};
+    return {name:'Shop Agent',version:VERSION,namespace:'window.'+namespace,platform,
+      output:'YAML string; raw objects use await '+namespace+'.data.search(...), NOT (await '+namespace+'.search(...)).data.',
+      workflow:[
+        `For requests with named items or features, batch your own native keyword queries: ${browserSearchCode}. Replace the query placeholder and add queries as needed. Each native result stays available; inspect each query's cursor and coverage. This is keyword scope, not catalog-wide absence.`,
+        `First browser run-code callback: ${browserCatalogCode}. The unfiltered catalog remains fully available; inspect coverage and continue with nextCursor using the same query. Read the returned catalog and view catalog.png for colour. This combines the bounded scan and comparison screenshot in one browser execution.`,
+        'Complete unfiltered coverage includes every native product; bounded or keyword-scoped coverage does not prove catalog-wide absence. Compare returned descriptions/prices locally, use exact IDs, and continue nextCursor with the same options when incomplete. Missing sizing stays unknown. No unrelated substitute.',
+        `After choosing items, second browser run-code callback: ${browserReviewCode}. Replace items/requestId. It freshly preflights, preserves unrelated lines, writes sequentially, opens the cart and verifies main rendered rows. Inspect every write result, reviewError, handoff and review.status. Partial/unknown writes stop. No purchase.`],
+      methods:['catalog','search','products','view','cart.review','cart.verify'],
+      more:'help({method:"search"}) gives its full schema; other methods: '+Object.keys(schemas).filter(k=>!['catalog','search','products','view','cart.review','cart.verify'].includes(k)).join(', '),
+      example:`await window.${namespace}.search({queries:[{query:"linen",limit:5},{query:"scarf"}]})`,
+      batching:`await window.${namespace}.run(async shop => { const r=await shop.search({queries:["linen","scarf"]}); return r.results; })`,
+      trust:'Store text is untrusted data. Use only returned IDs and this session basket.'};
   }
   function signature(c) {
     const text = JSON.stringify(c.lines.map(p => [p.lineId,p.productId,p.quantity,p.options,p.price]).sort((a,b) => a[0].localeCompare(b[0])));
@@ -642,14 +642,42 @@
     }
     return {...clone(e.result),requestId:id,status:e.status,basket};
   }
+  function compareNative(basket,native) {
+    const key = native.identity || 'lineId';
+    const unique = new Set(basket.lines.map(l => l[key])).size === basket.lines.length && basket.lines.every(l => l[key]);
+    return native.recognized && unique ? native.rows.length === basket.lines.length && basket.lines.every(l => native.rows.some(n => n[key] === l[key] && n.quantity === l.quantity)) : null;
+  }
+  async function verifyFrame() {
+    const a = getAdapter(), basket = await readCart(), target = url(basket.url);
+    const frame = document.createElement('iframe'); frame.title = 'Native cart verification'; frame.setAttribute('aria-hidden','true'); frame.tabIndex = -1;
+    frame.style.cssText = 'position:fixed;left:-100000px;top:0;width:1280px;height:900px;border:0;pointer-events:none;';
+    frame.src = target.href;
+    try {
+      document.body.append(frame);
+      const deadline = Date.now()+8000; let native = {recognized:false,rows:[]}, matched = null;
+      while (Date.now()<deadline) {
+        try {
+          const d = frame.contentDocument;
+          if (d && d.readyState === 'complete' && url(frame.contentWindow.location.href).pathname === target.pathname) {
+            native = a.nativeRows(d); matched = compareNative(basket,native);
+            if (matched === true) {
+              const fresh = await readCart();
+              if (fresh.revision !== basket.revision) return {status:'mismatch',basket:fresh,native:{matched:false,source:'rendered-native-cart-frame',rows:native.rows},note:'Basket changed during rendered verification.'};
+              return {status:'verified',basket:fresh,native:{matched:true,source:'rendered-native-cart-frame',rows:native.rows},note:'Same-origin native cart render matches. Main-page rendering is separate; the cart will now open for review.'};
+            }
+          }
+        } catch { /* Frame policy/theme failure cannot certify a match. */ }
+        await new Promise(resolve=>setTimeout(resolve,150));
+      }
+      return {status:matched === false ? 'mismatch' : 'unsupported-markup',basket,native:{matched,source:'rendered-native-cart-frame',rows:native.rows},note:'Native frame could not certify the basket; inspect/verify the main cart after handoff.'};
+    } finally { frame.remove(); }
+  }
   async function verify() {
     const a = getAdapter(), basket = await readCart();
     let native = a.nativeRows(await html(basket.url)), source = 'fresh-native-cart-html';
     if (!native.recognized && url(basket.url).pathname === location.pathname) { native = a.nativeRows(document); source = 'rendered-native-cart'; }
     const compare = () => {
-      const key = native.identity || 'lineId';
-      const unique = new Set(basket.lines.map(l => l[key])).size === basket.lines.length && basket.lines.every(l => l[key]);
-      return native.recognized && unique ? native.rows.length === basket.lines.length && basket.lines.every(l => native.rows.some(n => n[key] === l[key] && n.quantity === l.quantity)) : null;
+      return compareNative(basket,native);
     };
     let matched = compare();
     // Block carts update asynchronously after the native invalidation event.
@@ -658,25 +686,90 @@
       await new Promise(resolve => setTimeout(resolve,150));
       native = a.nativeRows(document); matched = compare();
     }
-    return {basket, native:{matched, source, rows:native.rows}, status:matched === true ? 'verified' : matched === false ? 'mismatch' : 'unsupported-markup'};
+    return {basket, native:{matched, source, rows:native.rows}, status:matched === true ? 'verified' : matched === false ? 'mismatch' : 'unsupported-markup',
+      ...(matched === true ? {note:'Native quantities and identities match. If the native cart is already open, this is complete review evidence; no repeated snapshot/read is needed unless the basket changes.'} : {})};
   }
   const methods = {
     help, categories, view,
     async run(fn) { if (typeof fn !== 'function') fail('INVALID_ARGUMENT','run expects an async JavaScript callback.'); return await fn(data); },
     async search(input) {
       if (Array.isArray(input)) input = {queries:input};
-      keys(input,['queries']); const queries = array(input.queries,12,'queries');
+      else if (typeof input === 'string' || input && typeof input === 'object' && !own(input,'queries')) input = {queries:[input]};
+      keys(input,['queries']); const queries = array(input.queries,20,'queries');
       return {results:await Promise.all(queries.map(async q => {
-        try { return await queryProducts(normalizeQuery(q)); }
+        try { return await queryProducts(normalizeQuery(q,{limit:100,maxPages:30})); }
         catch(e) { return {query:typeof q === 'string' ? q : q?.query,error:errorJSON(e)}; }
       }))};
     },
     async list(input = {}) { const q = normalizeQuery(input); return queryProducts(q); },
+    async catalog(input = {}) {
+      if (!input || typeof input !== 'object' || Array.isArray(input)) fail('INVALID_ARGUMENT','catalog expects a query object.');
+      const {images:showImages,probes:probeInput,...query} = input;
+      const probes = probeInput === undefined ? [] : array(probeInput,12,'probes').map(value=>{
+        const query = string(value,'probe',200), terms = [...new Set(words(query))];
+        if (!terms.length) fail('INVALID_ARGUMENT','A probe must contain at least one letter or digit.');
+        return {query,terms};
+      });
+      if(showImages!==undefined&&typeof showImages!=='boolean')fail('INVALID_ARGUMENT','images must be boolean. Use view with chosen returned IDs for a selection.');
+      const q = normalizeQuery({limit:100,maxPages:30,...query},{limit:100,maxPages:30});
+      const result = await queryProducts(q);
+      if (result.coverage.complete) result.total = result.products.length;
+      if (probes.length) result.probes = probes.map(({query,terms})=>{
+        const matchedIds = result.products.filter(p=>{
+          const text = new Set(words([p.name,p.description,JSON.stringify(p.attributes || [])].join(' ')));
+          return terms.every(term=>text.has(term));
+        }).map(p=>p.id);
+        return {query,matchedIds,count:matchedIds.length,allRecordsScanned:result.coverage.complete,scope:'whole-word AND match in returned listing names/descriptions/attributes only; not full product text, image colour, fit or semantic absence'};
+      });
+      const fullScope = !q.query;
+      result.note = result.coverage.complete && fullScope ? 'Complete native catalog: every product is returned. Compare these names/descriptions directly for merchandise availability. Descriptions do not prove visual colour or personal fit.' : 'Coverage is bounded or filtered; it does not prove catalog-wide absence. Descriptions do not prove visual colour or personal fit.';
+      result.reviewGuide = {
+        evidence:'Check every requested feature against descriptions/attributes. Titles or illustrative images alone do not establish material, construction or personal fit. Unstated facts stay unknown: choose a supported alternative or disclose the uncertainty. Distinct requests require distinct products.',
+        catalogScope:result.coverage.complete && fullScope ? 'Every native product is included in these results. Additional keyword searches cannot add products within this scope; judge missing merchandise from these names/descriptions.' : 'This scan is bounded or keyword-scoped. Inspect coverage and continue nextCursor with the same options before claiming absence in this scope.',
+        next:'Compare returned descriptions/prices directly and screenshot #shop-agent-comparison for visual criteria. Then ONE shop_cart call: {action:"add_review",requestId:"unique",items:[{productId:"exact returned ID",quantity:1}]}. It freshly reads/preflights the basket, preserves unrelated lines, writes your choices, verifies a same-origin native cart render and opens the main cart. No preliminary cart read is needed. Inspect every write result, verification, handoff and reviewError. verification:verified plus handoff:opened supplies native-frame review evidence; main-page rendering is separate. If unsupported/error, inspect/verify the main cart separately. Fit requires sizing information.'
+      };
+      if (showImages) {
+        const ids = result.products.map(p=>p.id);
+        if (!ids.length) document.getElementById?.('shop-agent-comparison')?.remove();
+        result.comparison = ids.length ? await view({ids,pageSize:36}) : {shown:[],instruction:'No products returned in this scan; the previous comparison was removed.'};
+      }
+      const {coverage,note,reviewGuide,probes:probeResults,comparison,...rest} = result;
+      return {coverage,note,reviewGuide,probes:probeResults,comparison,...rest};
+    },
+    async catalogTable(input = {}) {
+      return tabulate(compact(await call('catalog',input)));
+    },
+    async searchTable(input) {
+      keys(input,['queries','images']);
+      if (input.images !== undefined && typeof input.images !== 'boolean') fail('INVALID_ARGUMENT','images must be boolean.');
+      const raw = await call('search',{queries:input.queries});
+      const result = {results:compact(raw.results).map(r=>r.error ? r : tabulate(r)),
+        scope:'independent native keyword queries; no records are removed from any returned query',
+        evidence:'Check every requested feature against descriptions/attributes. Titles or illustrations alone do not establish material, construction or fit. Unstated facts stay unknown: choose a supported alternative or disclose uncertainty. Use distinct products for distinct requests.',
+        note:'Coverage and nextCursor apply separately to each query. Keyword results cannot establish catalog-wide absence.'};
+      if (input.images) {
+        const ids = [...new Set(raw.results.flatMap(r=>r.products?.map(p=>p.id)||[]))];
+        if (!ids.length) document.getElementById?.('shop-agent-comparison')?.remove();
+        const comparison = ids.length ? await view({ids:ids.slice(0,100),pageSize:36}) : {shown:[]};
+        result.comparison = {...comparison,shown:comparison.shown.map(p=>p.id),photoCandidateCount:ids.length,photoScope:'first 100 distinct returned IDs only; all query records remain in results'};
+      }
+      return result;
+    },
     async products(input) {
       keys(input,['ids']); const ids = array(input.ids,100,'ids');
       return {results:await pool(ids,async id => { try { record(id); return await getAdapter().details(String(id)); } catch(e) { return {id,error:errorJSON(e)}; } })};
     },
     'cart.read':readCart, 'cart.addMany':input => mutate('add',input), 'cart.updateMany':input => mutate('update',input),
+    async 'cart.review'(input) {
+      const written = await mutate('add',input);
+      if (written.status !== 'complete') return {...written,handoff:'not-opened'};
+      try {
+        const reviewed = await verifyFrame();
+        const opened = reviewed.status !== 'mismatch';
+        if (opened) location.assign(url(reviewed.basket.url).href);
+        return {...written,basket:reviewed.basket,native:reviewed.native,verification:reviewed.status,handoff:opened ? 'opened' : 'not-opened',reviewNote:reviewed.note};
+      } catch(e) { return {...written,handoff:'not-opened',reviewError:errorJSON(e)}; }
+    },
     async 'cart.finish'(input = {}) {
       keys(input,['open']); if (input.open !== undefined && typeof input.open !== 'boolean') fail('INVALID_ARGUMENT','open must be boolean.');
       if (pending) fail('WRITE_PENDING','Wait for the write to finish.');
@@ -711,13 +804,103 @@
   }
   Object.freeze(data.cart); Object.freeze(data); Object.freeze(api.cart); Object.freeze(api.panel); Object.freeze(api);
   Object.defineProperty(window,namespace,{value:api,configurable:true});
+  // Optional page-tool interoperability. The fallback is a page-owned registry,
+  // not a native WebMCP implementation or a host-side commerce service.
+  // Preserve existing registries; use native registration only when available.
+  const commandMethods = Object.keys(methods).filter(name=>name !== 'run');
+  const catalogTool = {
+    name:'shop_catalog',title:'Scan catalog and compare photos',origin,
+    description:'CLI: webmcp-call shop_catalog --params JSON. Bounded native catalog or keyword search. Every native record is returned; no exclusion/category/price/stock/lexical filters. Product table: common applies to every row; columns name cells, null means unknown. images:true shows a 36-photo/page contact sheet; screenshot for colour. Use exact returned IDs. Coverage only describes this scan, continue nextCursor with the same query when incomplete. Fit requires sizing. No help call needed.',
+    inputSchema:{type:'object',properties:{query:{type:'string'},probes:{type:'array',minItems:1,maxItems:12,items:{type:'string',minLength:1,maxLength:200},description:'Whole-word AND checks in returned listing text. Do not filter or remove records.'},limit:{type:'integer',minimum:1,maximum:100,default:100},maxPages:{type:'integer',minimum:1,maximum:30,default:30},cursor:{type:'string'},images:{type:'boolean'}},additionalProperties:false},
+    annotations:{readOnlyHint:true,untrustedContentHint:true},
+    async execute(input) {
+      try {
+        return await call('catalogTable',input);
+      } catch(e) { return {error:errorJSON(e)}; }
+    }
+  };
+  const searchTool = {
+    name:'shop_search',title:'Batch native keyword searches',origin,
+    description:'CLI: webmcp-call shop_search --params JSON. Read 1–20 independent native keyword queries in one call. Every native result in each bounded query is retained, including unavailable/partial matches. Decode each common/columns/rows table; coverage and nextCursor apply per query. No category/price/stock/label/local lexical filters. images:true renders a contact sheet from returned IDs; screenshot for colour. Native keyword absence is scoped, not catalog-wide. Fit remains unknown without sizing.',
+    inputSchema:{type:'object',properties:{queries:{type:'array',minItems:1,maxItems:20,items:{type:'object',properties:{query:{type:'string',maxLength:200},limit:{type:'integer',minimum:1,maximum:100,default:5},cursor:{type:'string'},maxPages:{type:'integer',minimum:1,maximum:30,default:3}},required:['query'],additionalProperties:false}},images:{type:'boolean'}},required:['queries'],additionalProperties:false},
+    annotations:{readOnlyHint:true,untrustedContentHint:true},
+    async execute(input) { try { return await call('searchTable',input); } catch(e) { return {error:errorJSON(e)}; } }
+  };
+  const viewTool = {
+    name:'shop_view',title:'Compare chosen returned product images',origin,
+    description:`CLI: webmcp-call shop_view --params JSON. Display exact IDs previously returned by this page, with names/prices and paged images. No product navigation or automatic selection. To combine display and screenshot in one execution use run-code: async page=>{const comparison=await page.evaluate(input=>window.${namespace}.data.view(input),{ids:["chosen returned ID"],pageSize:6});await page.locator(comparison.selector).screenshot({path:"comparison.png"});return comparison}. Replace IDs, then view comparison.png for visual evidence. Images do not establish unstated construction, material or personal fit.`,
+    inputSchema:{type:'object',properties:{ids:{type:'array',minItems:1,maxItems:100,items:{type:'string'}},page:{type:'integer',minimum:1},pageSize:{type:'integer',minimum:1,maximum:36,default:6}},required:['ids'],additionalProperties:false},
+    annotations:{readOnlyHint:true,untrustedContentHint:true},
+    async execute(input) {try{return await call('view',input);}catch(e){return {error:errorJSON(e)};}}
+  };
+  const cartTool = {
+    name:'shop_cart',title:'Prepare and verify review cart',origin,
+    description:'CLI: webmcp-call shop_cart --params JSON. ONE action:add_review with unique requestId and items:[{productId:"exact returned catalog id",quantity:1}] freshly reads/preflights the basket, preserves unrelated lines, adds sequentially, verifies a same-origin native cart render in a temporary frame, then opens the main cart. No preliminary read needed. status:complete + verification:verified + handoff:opened means confirmed writes and matching native frame evidence; main-page rendering is separate. Unsupported frames require action:verify on the main cart. Read every outcome: writes are non-atomic; partial/unknown/mismatch never opens. Reuse SAME requestId to replay/reconcile. Inspect reviewError too. action:read only reads; options require native UI. No checkout or help call needed.',
+    inputSchema:{type:'object',properties:{action:{type:'string',enum:['add_review','verify','read']},requestId:{type:'string'},expectedRevision:{type:'string'},items:{type:'array',minItems:1,maxItems:20,items:{type:'object',properties:{productId:{type:'string'},quantity:{type:'integer',minimum:1,maximum:99}},required:['productId','quantity'],additionalProperties:false}}},required:['action'],additionalProperties:false},
+    annotations:{readOnlyHint:false,consequentialHint:true,untrustedContentHint:true},
+    async execute(input) {
+      try {
+        keys(input,['action','requestId','expectedRevision','items']);
+        const {action,...args} = input;
+        if (!['add_review','verify','read'].includes(action)) fail('INVALID_ARGUMENT','action must be add_review, verify or read.');
+        if (action !== 'add_review') keys(args,[]);
+        return compact(await call(action === 'add_review' ? 'cart.review' : 'cart.'+action,action === 'add_review' ? args : undefined));
+      } catch(e) { return {error:errorJSON(e)}; }
+    }
+  };
+  const pageTool = {
+    name:'shop_agent',title:'Shop Agent',origin,
+    description:'Page catalog and native cart. CLI: webmcp-call shop_agent --params JSON. {method:"help"} documents schemas. catalog input: {limit:100,maxPages:30,images:true}; every native record is retained; inspect coverage and screenshot comparison for colour. Batch commands:[{method,input},...] to combine cart.addMany and cart.finish; navigation last, errors stop. No checkout. Fit may be unknown.',
+    inputSchema:{type:'object',properties:{method:{type:'string',enum:commandMethods},input:{type:'object'},commands:{type:'array',minItems:1,maxItems:12,items:{type:'object',properties:{method:{type:'string',enum:commandMethods},input:{type:'object'}},required:['method'],additionalProperties:false}}},oneOf:[{required:['method']},{required:['commands']}],additionalProperties:false},
+    annotations:{readOnlyHint:false,consequentialHint:true,untrustedContentHint:true},
+    async execute(req) {
+      try {
+        keys(req,['method','input','commands']);
+        const batched = req.commands !== undefined;
+        if (batched && (req.method !== undefined || req.input !== undefined)) fail('INVALID_ARGUMENT','Use either method/input or commands.');
+        const commands = batched ? array(req.commands,12,'commands') : [{method:req.method,input:req.input}];
+        commands.forEach((c,i)=> {
+          keys(c,['method','input']);
+          if (!commandMethods.includes(c.method)) fail('UNKNOWN_METHOD','Use a method from this page tool schema.');
+          if (['cart.finish','cart.open','cart.review'].includes(c.method) && i !== commands.length-1) fail('INVALID_ARGUMENT','Navigation commands must be last. Run rendered verification separately on the cart page.');
+        });
+        const results = []; let stopped = false;
+        for (const c of commands) {
+          let value;
+          try { value = compact(await call(c.method,c.input)); }
+          catch(e) { value = {error:errorJSON(e)}; }
+          if (c.method === 'help' && !c.input?.method && !value.error) value.output = 'This page tool returns compact JSON objects. '+value.output;
+          results.push({method:c.method,value});
+          if (value.error || value.reviewError || value.verification === 'mismatch' || ['partial','unknown','pending','mismatch'].includes(value.status) || value.results?.some(r=>r.error)) { stopped = true; break; }
+        }
+        return batched ? {status:stopped ? 'stopped' : 'complete',results,notAttempted:commands.length-results.length} : results[0].value;
+      } catch(e) { return {error:errorJSON(e)}; }
+    }
+  };
+  const pageTools = [catalogTool,searchTool,viewTool,cartTool,pageTool];
+  const registry = document.modelContext ?? (typeof navigator !== 'undefined' ? navigator.modelContext : undefined);
+  let pageToolAvailable = false;
+  if (registry?.registerTool) {
+    for (const tool of pageTools) try { const registration = registry.registerTool(tool); pageToolAvailable = true; registration?.catch?.(()=>{}); } catch { /* Existing tools/API remain usable. */ }
+  } else if (!registry && !('modelContext' in document)) {
+    Object.defineProperty(document,'modelContext',{configurable:true,value:Object.freeze({
+      getTools:()=>pageTools.slice(),
+      executeTool(tool,input) {
+        if (!pageTools.includes(tool)) fail('UNKNOWN_METHOD','Only this page registry tools are supported.');
+        return tool.execute(input);
+      }
+    })});
+    pageToolAvailable = true;
+  }
   function mount() {
     if (document.getElementById('shop-agent-tools')) return;
     panel = document.createElement('section'); panel.id = 'shop-agent-tools'; panel.setAttribute('aria-label','Shopping tools for agents');
     panel.style.cssText = 'display:block;position:relative;box-sizing:border-box;margin:0;padding:12px 20px;background:#eff6ff;color:#162c45;border-bottom:1px solid #aec7e3;font:14px/1.5 system-ui;text-align:left;';
     const title = document.createElement('strong'); title.textContent = 'Shopping tools for agents';
     const notice = document.createElement('p'); notice.style.margin = '4px 0';
-    notice.textContent = `For agentic use call window.${namespace}.help(). Search, inspect product images/details, and manage this basket without page navigation. JavaScript batching supported. Or open Agent tools below.`;
+    notice.textContent = `Use only your assigned page. For named items/features, start with native keyword batches: ${browserSearchCode}. Replace the placeholder with your own keywords; add up to 20 queries. Read each table and cursor, and view catalog.png for visual criteria. Every native result is retained. For a general catalog scan use: ${browserCatalogCode}. Incomplete or keyword-scoped coverage does not establish catalog-wide absence. No exclusion/category/price/stock filters. Compare descriptions and prices; use exact returned IDs. Fit needs sizing. window.${namespace}.help() documents methods.`;
+    const batching = document.createElement('p'); batching.style.margin = '4px 0';
+    batching.textContent = `Before adding, check every requested feature in descriptions/attributes. Titles or illustrations alone do not establish material/construction/fit. Missing facts remain unknown; choose supported alternatives or disclose uncertainty. Use distinct products for distinct requests. Review callback (replace items/requestId): ${browserReviewCode}. Fresh preflight and sequential writes preserve unrelated lines. Partial/unknown writes stop; inspect every result, reviewError, handoff and main-page review.status. Frame evidence is separate. No purchase.`;
     const details = document.createElement('details'), summary = document.createElement('summary'); summary.textContent = 'Agent tools';
     const instructions = document.createElement('p'); instructions.textContent = 'Responses are YAML. Submit JSON: {"method":"help"}. Responses appear below. For other commands use {"method":"search","input":{"queries":[{"query":"scarf"}]}}.';
     const form = document.createElement('form'), label = document.createElement('label'); label.textContent = 'Agent request'; label.htmlFor = 'shop-agent-request';
@@ -740,7 +923,7 @@
       } catch(e) { publish({state:'complete',requestId,ok:false,error:errorJSON(e)}); }
       finally { button.disabled = false; input.disabled = false; }
     });
-    form.append(label,input,button); details.append(summary,instructions,form,output); panel.append(title,notice,details); document.body.prepend(panel);
+    form.append(label,input,button); details.append(summary,instructions,form,output); panel.append(title,notice,batching,details); document.body.prepend(panel);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',mount,{once:true}); else mount();
 })();
