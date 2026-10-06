@@ -26,7 +26,7 @@ Total token counts include cached input once. Glovo used two runs per condition 
 - `tooling/`: test and fixture commands. [Development guide](tooling/README.md).
 - `.runtime/` and `output/`: ignored local dependencies and private run artifacts.
 
-Open the matching experiment pages: [Shopping](shop-agent.html) and [Glovo](glovo.html). Both HTML files sit beside the two page scripts and can be opened directly in a browser.
+Open the rendered experiment pages: [Shopping](https://wende.github.io/common-thread-experiment-pages/shop-agent.html) and [Glovo](https://wende.github.io/common-thread-experiment-pages/glovo.html). Both HTML files sit beside the two page scripts and can be opened directly in a browser.
 
 ## Check the scripts
 

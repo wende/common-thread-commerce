@@ -31,3 +31,5 @@ Historical benchmark transcripts and JSON retain their original recorded paths. 
 Open `shop-agent.html` or `glovo.html` from the repository root in a browser. Their charts and styles are embedded; optional Google Fonts fall back to system fonts offline.
 
 For a local preview, run `python3 tooling/preview-pages.py` from the root. It binds to loopback port 8095 and serves only the two pages, their source scripts and the two linked reports. On this workstation a background LaunchAgent keeps it running independently of chat, with private Tailscale Serve HTTPS on port 18095. Existing Serve routes remain intact.
+
+GitHub Pages publishes only the six files explicitly listed in `tooling/build-pages.py`, plus a homepage alias and `.nojekyll`. The site source lives in the public companion repository `wende/common-thread-experiment-pages`; this main repository remains private. The current account plan does not support Pages directly on the private repo. To update the site, build into an empty directory and commit only those exported files to the companion repository’s `main` branch. All other repository content stays outside the public artifact.

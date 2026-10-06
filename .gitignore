@@ -11,3 +11,5 @@ output/
 .playwright-cli/
 # Keep unrelated workspace experiments local.
 experiments/
+# GitHub Pages build output.
+/_site/
