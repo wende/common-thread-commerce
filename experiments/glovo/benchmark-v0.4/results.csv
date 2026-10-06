@@ -1,0 +1,5 @@
+run,condition,score,elapsed_seconds,input_tokens,cached_input_tokens,uncached_input_tokens,output_tokens,reasoning_output_tokens,total_tokens,uncached_input_plus_output_tokens,tool_calls
+1,UI only,6,631.02,4912965,4773376,139589,27630,16052,4940595,167219,69
+2,UI only,6,706.525,4463594,4355840,107754,32835,20002,4496429,140589,60
+3,Adapter v0.4,6,98.456,766776,696064,70712,3499,1542,770275,74211,15
+4,Adapter v0.4,6,280.037,818082,783616,34466,4374,2138,822456,38840,18

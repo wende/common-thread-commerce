@@ -1,0 +1,107 @@
+{
+  "capturedAt": "2026-10-05T15:17:49.186Z",
+  "basket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 4,
+    "itemCount": 4,
+    "total": "63,90 zł",
+    "products": [
+      {
+        "productId": "42142472715",
+        "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+        "name": "McDouble",
+        "quantity": 1,
+        "customizations": []
+      },
+      {
+        "productId": "39910402250",
+        "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+        "name": "McChicken®",
+        "quantity": 1,
+        "customizations": []
+      },
+      {
+        "productId": "42370824950",
+        "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+        "name": "Shake o smaku czekoladowym",
+        "quantity": 1,
+        "customizations": [
+          {
+            "group": "Wybierz rozmiar",
+            "name": "Mały",
+            "quantity": 1
+          },
+          {
+            "group": "Wybór opakowania",
+            "name": "Kubek (opłata SUP)",
+            "quantity": 1
+          }
+        ]
+      },
+      {
+        "productId": "41971610643",
+        "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+        "name": "Ciastko Jabłkowe",
+        "quantity": 1,
+        "customizations": []
+      }
+    ]
+  },
+  "nativeUi": {
+    "found": true,
+    "text": "Your order\n\n4 products\n\nMcDouble\n\n17,70 zł\n1\n\nMcChicken®\n\n22,70 zł\n1\n\nShake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1\n\nCiastko Jabłkowe\n\n10,90 zł\n1\nGo to checkout • 63,90 zł\nFees information",
+    "rows": [
+      {
+        "name": "McDouble",
+        "quantity": 1,
+        "text": "McDouble\n\n17,70 zł\n1"
+      },
+      {
+        "name": "McChicken®",
+        "quantity": 1,
+        "text": "McChicken®\n\n22,70 zł\n1"
+      },
+      {
+        "name": "Shake o smaku czekoladowym",
+        "quantity": 1,
+        "text": "Shake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1"
+      },
+      {
+        "name": "Ciastko Jabłkowe",
+        "quantity": 1,
+        "text": "Ciastko Jabłkowe\n\n10,90 zł\n1"
+      }
+    ],
+    "rectangle": {
+      "x": 976,
+      "y": 96,
+      "width": 384,
+      "height": 691
+    },
+    "visibleInViewport": true
+  },
+  "nativeMatchesStructured": true,
+  "panelBefore": {
+    "mounted": false,
+    "visible": false,
+    "collapsed": false,
+    "dock": "left"
+  },
+  "panel": {
+    "mounted": false,
+    "visible": false,
+    "collapsed": false,
+    "dock": "left"
+  },
+  "screenshot": {
+    "format": "png",
+    "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-basket.png",
+    "sizeBytes": 643598,
+    "mimeType": "image/png"
+  }
+}

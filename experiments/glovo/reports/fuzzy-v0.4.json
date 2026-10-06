@@ -1,0 +1,102 @@
+{
+  "store": {
+    "id": "77097",
+    "addressId": "210074",
+    "name": "McDonald's",
+    "slug": "mcdonald-s-kra"
+  },
+  "scope": "current store loaded menu",
+  "results": [
+    {
+      "query": "mcdoble",
+      "status": "matched",
+      "selectedProductId": "42142472715",
+      "total": 1,
+      "hasMore": false,
+      "products": [
+        {
+          "id": "42142472715",
+          "name": "McDouble",
+          "price": 17.7,
+          "currency": "PLN",
+          "displayPrice": "17,70 zł",
+          "kind": "product",
+          "match": {
+            "type": "fuzzy",
+            "score": 0.76
+          },
+          "optionsRequired": false,
+          "optionGroupCount": 0
+        }
+      ]
+    },
+    {
+      "query": "mcchiken",
+      "status": "ambiguous",
+      "selectedProductId": null,
+      "total": 2,
+      "hasMore": false,
+      "products": [
+        {
+          "id": "39910402250",
+          "name": "McChicken®",
+          "price": 22.7,
+          "currency": "PLN",
+          "displayPrice": "22,70 zł",
+          "kind": "product",
+          "match": {
+            "type": "fuzzy",
+            "score": 0.76
+          },
+          "optionsRequired": false,
+          "optionGroupCount": 0
+        },
+        {
+          "id": "42362503281",
+          "name": "McZestaw McChicken®",
+          "price": 33.2,
+          "currency": "PLN",
+          "displayPrice": "33,20 zł",
+          "kind": "meal",
+          "match": {
+            "type": "fuzzy",
+            "score": 0.76
+          },
+          "optionsRequired": true,
+          "optionGroupCount": 5
+        }
+      ]
+    },
+    {
+      "query": "apple pie",
+      "status": "matched",
+      "selectedProductId": "41971610643",
+      "total": 1,
+      "hasMore": false,
+      "products": [
+        {
+          "id": "41971610643",
+          "name": "Ciastko Jabłkowe",
+          "price": 10.9,
+          "currency": "PLN",
+          "displayPrice": "10,90 zł",
+          "kind": "product",
+          "match": {
+            "type": "alias",
+            "score": 0.94
+          },
+          "optionsRequired": false,
+          "optionGroupCount": 0
+        }
+      ]
+    },
+    {
+      "query": "zzzz-not-a-menu-item",
+      "status": "no_match",
+      "selectedProductId": null,
+      "total": 0,
+      "hasMore": false,
+      "products": []
+    }
+  ]
+}

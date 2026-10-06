@@ -1,0 +1,90 @@
+{
+  "1": {
+    "score": 6,
+    "maximum": 6,
+    "components": {
+      "mcDouble": true,
+      "standaloneMcChicken": true,
+      "configuredChocolateShake": true,
+      "applePie": true,
+      "nativeBasketScreenshotVerified": true,
+      "emptyCleanupVerified": true
+    },
+    "evidence": [
+      "run-1-ui-basket.png",
+      "run-1-ui-empty.png",
+      "run-1-coordinator-check.json"
+    ],
+    "assessedBy": "coordinator image inspection and native empty-state check",
+    "difficulties": [
+      "truncated accessibility snapshot and missing shake options",
+      "McDouble temporarily incremented twice and corrected"
+    ]
+  },
+  "2": {
+    "score": 6,
+    "maximum": 6,
+    "components": {
+      "mcDouble": true,
+      "standaloneMcChicken": true,
+      "configuredChocolateShake": true,
+      "applePie": true,
+      "nativeBasketScreenshotVerified": true,
+      "emptyCleanupVerified": true
+    },
+    "evidence": [
+      "run-2-ui-basket.png",
+      "run-2-ui-empty.png",
+      "run-2-coordinator-check.json"
+    ],
+    "assessedBy": "coordinator image inspection and native empty-state check",
+    "difficulties": [
+      "initial active-tab lookup failed before selecting exact existing tab",
+      "accessibility snapshot omitted shake customization dialog"
+    ]
+  },
+  "3": {
+    "score": 6,
+    "maximum": 6,
+    "components": {
+      "mcDouble": true,
+      "standaloneMcChicken": true,
+      "configuredChocolateShake": true,
+      "applePie": true,
+      "nativeBasketScreenshotVerified": true,
+      "emptyCleanupVerified": true
+    },
+    "evidence": [
+      "run-3-adapter-basket.png",
+      "run-3-adapter-empty.png",
+      "run-3-basket-evidence.json",
+      "run-3-empty-evidence.json",
+      "run-3-coordinator-check.json"
+    ],
+    "assessedBy": "coordinator image inspection, SDK/DOM evidence match, and fresh final server basket",
+    "difficulties": []
+  },
+  "4": {
+    "score": 6,
+    "maximum": 6,
+    "components": {
+      "mcDouble": true,
+      "standaloneMcChicken": true,
+      "configuredChocolateShake": true,
+      "applePie": true,
+      "nativeBasketScreenshotVerified": true,
+      "emptyCleanupVerified": true
+    },
+    "evidence": [
+      "run-4-adapter-basket.png",
+      "run-4-adapter-empty.png",
+      "run-4-adapter-basket-evidence.json",
+      "run-4-adapter-empty-evidence.json",
+      "run-4-coordinator-check.json"
+    ],
+    "assessedBy": "coordinator image inspection, SDK/DOM evidence match, and fresh final server basket",
+    "difficulties": [
+      "The initial standalone WebBridge snapshot request returned an empty response body; adapter searches and subsequent native evidence captures worked normally."
+    ]
+  }
+}

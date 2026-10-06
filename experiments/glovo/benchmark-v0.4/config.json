@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-05",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "xhigh",
+  "sequential": true,
+  "forkTurns": "none",
+  "parentThreadId": "01a10bd7-e799-7012-acda-93accb88ef79",
+  "url": "https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra",
+  "version": "0.4.0",
+  "products": [
+    "McDouble",
+    "McChicken®",
+    "Shake o smaku czekoladowym",
+    "Ciastko Jabłkowe"
+  ],
+  "quantityEach": 1,
+  "shakeOptions": [
+    "Mały",
+    "Kubek (opłata SUP)"
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "name": "glovo_v4_ui_1",
+      "condition": "UI only"
+    },
+    {
+      "run": 2,
+      "name": "glovo_v4_ui_2",
+      "condition": "UI only"
+    },
+    {
+      "run": 3,
+      "name": "glovo_v4_adapter_3",
+      "condition": "Adapter v0.4"
+    },
+    {
+      "run": 4,
+      "name": "glovo_v4_adapter_4",
+      "condition": "Adapter v0.4"
+    }
+  ],
+  "score": {
+    "maximum": 6,
+    "components": [
+      "McDouble ×1",
+      "standalone McChicken ×1",
+      "chocolate shake ×1, small, SUP cup",
+      "Ciastko Jabłkowe ×1",
+      "native basket screenshot verified",
+      "cleanup verified empty"
+    ]
+  },
+  "initialBasketPerRun": "Empty; coordinator temporarily removed Big Mac before run 1 and restores it after all four",
+  "adapterSha256": {
+    "adapter.js": "cb3c648c789231a446c11f88502d6a77e4f50d34a01c7261f4cb58e4d20d34e1",
+    "bridge-client.mjs": "365d0badbecdcce3bbcab6b741e1671fb7e9c3507112d58f072c28b19e12f6fe",
+    "bridge.mjs": "be35789c599f1b95d320f517e06c1657b5130fac3f5530cb4fade50ea45f6e7f",
+    "AGENT.md": "ee7b649bd112d02aaee2470e7908d396b51ea73f61b56b3c5a0058ec419224f7"
+  },
+  "measurementNotes": [
+    "Task_started to final task_complete includes setup, tool calls, reasoning, and report writing.",
+    "Tokens are cumulative token_count.total_token_usage: input includes cached input; output already includes reasoning.",
+    "Coordinator preparation, monitoring, and restoration are excluded.",
+    "Version 0.4 agents receive the current short AGENT.md guide and CLI; this compares the improved workflow including documentation.",
+    "Original run 1 includes an initial stop and baseline preparation; new runs all start with an empty basket."
+  ]
+}

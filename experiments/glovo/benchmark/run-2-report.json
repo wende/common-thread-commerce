@@ -1,0 +1,50 @@
+{
+  "run": 2,
+  "agent_id": "/root/glovo_ui_2",
+  "thread_id": null,
+  "started_at_utc": "2026-10-05T13:09:21Z",
+  "ended_at_utc": "2026-10-05T13:20:28Z",
+  "elapsed_seconds": 667,
+  "browser": {
+    "tool": "Kimi WebBridge",
+    "session": "glovo-webmcp",
+    "tab_id": 478099661,
+    "url": "https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra",
+    "adapter_absent_boolean_check": true,
+    "focus_emulation_disabled_at_end": true
+  },
+  "initial_basket_empty": true,
+  "items_added": [
+    {"name": "McDouble", "quantity": 1, "price_pln": 17.70},
+    {"name": "McChicken®", "quantity": 1, "price_pln": 22.70},
+    {
+      "name": "Shake o smaku czekoladowym",
+      "quantity": 1,
+      "size": "Mały",
+      "cup": "Kubek (opłata SUP)",
+      "price_pln": 12.60
+    },
+    {"name": "Ciastko Jabłkowe", "quantity": 1, "price_pln": 10.90}
+  ],
+  "basket_verification": {
+    "native_panel_product_count": 4,
+    "quantities_verified": true,
+    "shake_options_verified_in_native_panel": true,
+    "total_pln": 63.90,
+    "screenshot_path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark/run-2-ui-basket.png",
+    "screenshot_visually_inspected": true
+  },
+  "cleanup": {
+    "method": "Native order-panel remove controls",
+    "removed_exactly_requested_items": true,
+    "verified_count_after_each_removal": [3, 2, 1, 0],
+    "final_basket_empty": true,
+    "empty_state_text_verified": "When you add products from a store, they will appear here.",
+    "screenshot_path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark/run-2-ui-empty.png",
+    "screenshot_visually_inspected": true
+  },
+  "retries": 0,
+  "difficulties": [
+    "The accessibility snapshot omitted the visible configuration modal and truncated the lower product list. Located options and the apple-pie control through visible UI screenshots and DOM inspection, then used visible mouse coordinates. Each basket change was checked in the native order panel."
+  ]
+}

@@ -1,0 +1,5 @@
+run,condition,model,reasoning_effort,started_at_utc,completed_at_utc,elapsed_seconds,input_tokens,cached_input_tokens,uncached_input_tokens,output_tokens,reasoning_output_tokens,total_tokens,uncached_input_plus_output_tokens,core_task_seconds
+1,UI only,gpt-6-luna,xhigh,2026-10-05T12:51:19.579Z,2026-10-05T13:08:27.817Z,1028.238,7143298,6975232,168066,45680,28374,7188978,213746,724
+2,UI only,gpt-6-luna,xhigh,2026-10-05T13:09:06.353Z,2026-10-05T13:20:48.834Z,702.481,6161969,6027008,134961,31332,18515,6193301,166293,667
+3,Adapter,gpt-6-luna,xhigh,2026-10-05T13:21:27.342Z,2026-10-05T13:26:03.243Z,275.901,2125103,2057472,67631,11076,5226,2136179,78707,189
+4,Adapter,gpt-6-luna,xhigh,2026-10-05T13:26:35.694Z,2026-10-05T13:30:56.341Z,260.647,2237664,2165760,71904,10566,5313,2248230,82470,170

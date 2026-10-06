@@ -1,0 +1,31 @@
+{
+  "operationId": "5d34f9d8-e077-4fd6-9377-081552acf453",
+  "status": "complete",
+  "results": [
+    {
+      "status": "removed",
+      "basketProductId": "SP_8ed9fdfb-5c9b-4698-afb6-72b2e5904b32_c0f71258-7336-3a13-ab1a-f5f4d057a58d",
+      "quantity": 1
+    }
+  ],
+  "basket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 1,
+    "itemCount": 1,
+    "total": "26,90 zł",
+    "products": [
+      {
+        "productId": "41971610625",
+        "basketProductId": "SP_8ed9fdfb-5c9b-4698-afb6-72b2e5904b32_c0f71258-7336-3a13-ab1a-f5f4d057a58d",
+        "name": "Big Mac®",
+        "quantity": 1,
+        "customizations": []
+      }
+    ]
+  }
+}

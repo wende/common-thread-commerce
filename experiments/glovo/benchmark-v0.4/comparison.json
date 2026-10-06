@@ -1,0 +1,205 @@
+{
+  "measuredAt": "2026-10-05T15:23:00.824Z",
+  "qualityScore": {
+    "maximum": 6,
+    "rubric": "One point for each correctly configured product, native basket screenshot verification, and verified empty cleanup."
+  },
+  "previous": {
+    "ui": {
+      "count": 2,
+      "elapsedSeconds": 865.3595,
+      "totalTokens": 6691139.5,
+      "uncachedInputPlusOutputTokens": 190019.5,
+      "outputTokens": 38506,
+      "toolCalls": 83.5,
+      "observedToolWaitSeconds": 15.590499999999999
+    },
+    "adapter": {
+      "count": 2,
+      "elapsedSeconds": 268.274,
+      "totalTokens": 2192204.5,
+      "uncachedInputPlusOutputTokens": 80588.5,
+      "outputTokens": 10821,
+      "toolCalls": 38.5,
+      "observedToolWaitSeconds": 14.8205
+    }
+  },
+  "current": {
+    "ui": {
+      "count": 2,
+      "elapsedSeconds": 668.7725,
+      "totalTokens": 4718512,
+      "uncachedInputPlusOutputTokens": 153904,
+      "outputTokens": 30232.5,
+      "toolCalls": 64.5,
+      "observedToolWaitSeconds": 14.257000000000005
+    },
+    "adapter": {
+      "count": 2,
+      "elapsedSeconds": 189.2465,
+      "totalTokens": 796365.5,
+      "uncachedInputPlusOutputTokens": 56525.5,
+      "outputTokens": 3936.5,
+      "toolCalls": 16.5,
+      "observedToolWaitSeconds": 71.67800000000001
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "condition": "UI only",
+      "elapsedSeconds": 631.02,
+      "totalTokens": 4940595,
+      "uncachedInputPlusOutputTokens": 167219,
+      "outputTokens": 27630,
+      "toolCalls": 69,
+      "observedToolWaitSeconds": 15.311000000000005,
+      "grade": {
+        "score": 6,
+        "maximum": 6,
+        "components": {
+          "mcDouble": true,
+          "standaloneMcChicken": true,
+          "configuredChocolateShake": true,
+          "applePie": true,
+          "nativeBasketScreenshotVerified": true,
+          "emptyCleanupVerified": true
+        },
+        "evidence": [
+          "run-1-ui-basket.png",
+          "run-1-ui-empty.png",
+          "run-1-coordinator-check.json"
+        ],
+        "assessedBy": "coordinator image inspection and native empty-state check",
+        "difficulties": [
+          "truncated accessibility snapshot and missing shake options",
+          "McDouble temporarily incremented twice and corrected"
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "condition": "UI only",
+      "elapsedSeconds": 706.525,
+      "totalTokens": 4496429,
+      "uncachedInputPlusOutputTokens": 140589,
+      "outputTokens": 32835,
+      "toolCalls": 60,
+      "observedToolWaitSeconds": 13.203000000000003,
+      "grade": {
+        "score": 6,
+        "maximum": 6,
+        "components": {
+          "mcDouble": true,
+          "standaloneMcChicken": true,
+          "configuredChocolateShake": true,
+          "applePie": true,
+          "nativeBasketScreenshotVerified": true,
+          "emptyCleanupVerified": true
+        },
+        "evidence": [
+          "run-2-ui-basket.png",
+          "run-2-ui-empty.png",
+          "run-2-coordinator-check.json"
+        ],
+        "assessedBy": "coordinator image inspection and native empty-state check",
+        "difficulties": [
+          "initial active-tab lookup failed before selecting exact existing tab",
+          "accessibility snapshot omitted shake customization dialog"
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "condition": "Adapter v0.4",
+      "elapsedSeconds": 98.456,
+      "totalTokens": 770275,
+      "uncachedInputPlusOutputTokens": 74211,
+      "outputTokens": 3499,
+      "toolCalls": 15,
+      "observedToolWaitSeconds": 11.145999999999999,
+      "grade": {
+        "score": 6,
+        "maximum": 6,
+        "components": {
+          "mcDouble": true,
+          "standaloneMcChicken": true,
+          "configuredChocolateShake": true,
+          "applePie": true,
+          "nativeBasketScreenshotVerified": true,
+          "emptyCleanupVerified": true
+        },
+        "evidence": [
+          "run-3-adapter-basket.png",
+          "run-3-adapter-empty.png",
+          "run-3-basket-evidence.json",
+          "run-3-empty-evidence.json",
+          "run-3-coordinator-check.json"
+        ],
+        "assessedBy": "coordinator image inspection, SDK/DOM evidence match, and fresh final server basket",
+        "difficulties": []
+      }
+    },
+    {
+      "run": 4,
+      "condition": "Adapter v0.4",
+      "elapsedSeconds": 280.037,
+      "totalTokens": 822456,
+      "uncachedInputPlusOutputTokens": 38840,
+      "outputTokens": 4374,
+      "toolCalls": 18,
+      "observedToolWaitSeconds": 132.21000000000004,
+      "grade": {
+        "score": 6,
+        "maximum": 6,
+        "components": {
+          "mcDouble": true,
+          "standaloneMcChicken": true,
+          "configuredChocolateShake": true,
+          "applePie": true,
+          "nativeBasketScreenshotVerified": true,
+          "emptyCleanupVerified": true
+        },
+        "evidence": [
+          "run-4-adapter-basket.png",
+          "run-4-adapter-empty.png",
+          "run-4-adapter-basket-evidence.json",
+          "run-4-adapter-empty-evidence.json",
+          "run-4-coordinator-check.json"
+        ],
+        "assessedBy": "coordinator image inspection, SDK/DOM evidence match, and fresh final server basket",
+        "difficulties": [
+          "The initial standalone WebBridge snapshot request returned an empty response body; adapter searches and subsequent native evidence captures worked normally."
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Two runs per condition, sequential fixed order, same signed-in browser; descriptive, not a statistical benchmark.",
+    "Original UI run 1 included an initial safeguard stop and basket preparation. New runs start empty; coordinator preparation is excluded.",
+    "Version 0.4 includes updated documentation and CLI evidence/report workflow. This is a comparison of the whole agent experience.",
+    "Current run 4 encountered slow tool execution, including a 23-second local guide read, and an empty initial accessibility snapshot. All logged waiting remains included.",
+    "Total tokens include repeatedly cached context. Uncached input plus output is reported separately; reasoning is already included in output."
+  ],
+  "improvement": {
+    "ui": {
+      "elapsedSecondsReductionPercent": 22.71737930883061,
+      "totalTokensReductionPercent": 29.481189265296294,
+      "uncachedInputPlusOutputTokensReductionPercent": 19.006207257676188,
+      "outputTokensReductionPercent": 21.486261881265257,
+      "toolCallsReductionPercent": 22.754491017964074
+    },
+    "adapter": {
+      "elapsedSecondsReductionPercent": 29.457755876454673,
+      "totalTokensReductionPercent": 63.67284621484903,
+      "uncachedInputPlusOutputTokensReductionPercent": 29.85909900295948,
+      "outputTokensReductionPercent": 63.62166158395712,
+      "toolCallsReductionPercent": 57.14285714285714
+    }
+  },
+  "currentAdapterVersusUi": {
+    "elapsedSecondsReductionPercent": 71.70241001237342,
+    "totalTokensReductionPercent": 83.12252888198653,
+    "uncachedInputPlusOutputTokensReductionPercent": 63.27223463977545
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "run": 1,
+  "condition": "UI only through Kimi WebBridge in the existing signed-in Chrome tab; no adapter/code injection. The single permitted window.glovoBridge presence check returned absent.",
+  "core_task_start_utc": "2026-10-05T14:47:05Z",
+  "core_task_end_utc": "2026-10-05T14:56:46Z",
+  "initial_basket": {
+    "state": "empty",
+    "visible_text": "When you add products from a store, they will appear here."
+  },
+  "basket_at_capture": {
+    "product_count": 4,
+    "total_pln": 63.9,
+    "items": [
+      { "name": "McDouble", "quantity": 1 },
+      { "name": "McChicken®", "quantity": 1, "type": "standalone item, not a meal" },
+      {
+        "name": "Shake o smaku czekoladowym",
+        "quantity": 1,
+        "options": ["Mały", "Kubek (opłata SUP)"],
+        "price_pln": 12.6
+      },
+      { "name": "Ciastko Jabłkowe", "quantity": 1 }
+    ]
+  },
+  "screenshots": {
+    "basket": {
+      "path": "experiments/glovo/benchmark-v0.4/run-1-ui-basket.png",
+      "native_full_viewport": true,
+      "visually_inspected": true,
+      "verification": "All four item names and quantity 1 controls are visible; the shake shows Mały, Kubek (opłata SUP)."
+    },
+    "empty": {
+      "path": "experiments/glovo/benchmark-v0.4/run-1-ui-empty.png",
+      "native_full_viewport": true,
+      "visually_inspected": true,
+      "verification": "Native Your order panel shows the empty-basket message and no items."
+    }
+  },
+  "final_basket": { "state": "empty", "visible_remove_controls": 0 },
+  "difficulties_and_retries": [
+    "The first accessibility snapshot was truncated. The shake options were located and selected through bounded inspection of visible UI controls.",
+    "A repeated McDouble click briefly raised its quantity to 2 during interaction diagnosis; it was corrected to quantity 1 before the basket screenshot."
+  ],
+  "checkout_or_order_occurred": false,
+  "focus_emulation_disabled_before_finish": true
+}

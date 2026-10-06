@@ -1,0 +1,48 @@
+{
+  "restored": true,
+  "originalBasket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 1,
+    "itemCount": 1,
+    "total": "26,90 zł",
+    "products": [
+      {
+        "productId": "41971610625",
+        "basketProductId": "SP_8ed9fdfb-5c9b-4698-afb6-72b2e5904b32_c0f71258-7336-3a13-ab1a-f5f4d057a58d",
+        "name": "Big Mac®",
+        "quantity": 1,
+        "customizations": []
+      }
+    ]
+  },
+  "finalBasket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 1,
+    "itemCount": 1,
+    "total": "26,90 zł",
+    "products": [
+      {
+        "productId": "41971610625",
+        "basketProductId": "SP_8ed9fdfb-5c9b-4698-afb6-72b2e5904b32_1e2386b6-56af-3f46-a214-2270351aeb29",
+        "name": "Big Mac®",
+        "quantity": 1,
+        "customizations": []
+      }
+    ]
+  },
+  "nativeMatchesStructured": true,
+  "screenshotPath": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/restored-original-basket.png",
+  "adapterVersion": "0.4.0",
+  "panel": "collapsed left",
+  "coordinatorWorkExcludedFromBenchmark": true
+}

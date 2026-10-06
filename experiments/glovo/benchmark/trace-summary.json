@@ -1,0 +1,86 @@
+[
+  {
+    "run": 1,
+    "source": "/Users/wende/.codex/sessions/2026/10/05/rollout-2026-10-05T14-51-19-01a10c1e-5ed8-7df1-9e1c-6fc6e473de20.jsonl",
+    "threadId": "01a10c1e-5ed8-7df1-9e1c-6fc6e473de20",
+    "startedAt": "2026-10-05T12:51:19.579Z",
+    "completedAt": "2026-10-05T13:08:27.817Z",
+    "elapsedSeconds": 1028.238,
+    "toolCalls": 90,
+    "modelResponses": 92,
+    "observedToolWaitSeconds": 15.981,
+    "outsideToolWaitSeconds": 1012.257,
+    "textOutputCharacters": 95723,
+    "usage": {
+      "input_tokens": 7143298,
+      "cached_input_tokens": 6975232,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 45680,
+      "reasoning_output_tokens": 28374,
+      "total_tokens": 7188978
+    }
+  },
+  {
+    "run": 2,
+    "source": "/Users/wende/.codex/sessions/2026/10/05/rollout-2026-10-05T15-09-06-01a10c2e-a5e1-7051-82d9-df13003f1d22.jsonl",
+    "threadId": "01a10c2e-a5e1-7051-82d9-df13003f1d22",
+    "startedAt": "2026-10-05T13:09:06.353Z",
+    "completedAt": "2026-10-05T13:20:48.834Z",
+    "elapsedSeconds": 702.481,
+    "toolCalls": 77,
+    "modelResponses": 78,
+    "observedToolWaitSeconds": 15.2,
+    "outsideToolWaitSeconds": 687.281,
+    "textOutputCharacters": 81855,
+    "usage": {
+      "input_tokens": 6161969,
+      "cached_input_tokens": 6027008,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 31332,
+      "reasoning_output_tokens": 18515,
+      "total_tokens": 6193301
+    }
+  },
+  {
+    "run": 3,
+    "source": "/Users/wende/.codex/sessions/2026/10/05/rollout-2026-10-05T15-21-27-01a10c39-f46b-75e2-a795-f372c679a6b4.jsonl",
+    "threadId": "01a10c39-f46b-75e2-a795-f372c679a6b4",
+    "startedAt": "2026-10-05T13:21:27.342Z",
+    "completedAt": "2026-10-05T13:26:03.243Z",
+    "elapsedSeconds": 275.901,
+    "toolCalls": 38,
+    "modelResponses": 39,
+    "observedToolWaitSeconds": 15.509,
+    "outsideToolWaitSeconds": 260.392,
+    "textOutputCharacters": 73495,
+    "usage": {
+      "input_tokens": 2125103,
+      "cached_input_tokens": 2057472,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 11076,
+      "reasoning_output_tokens": 5226,
+      "total_tokens": 2136179
+    }
+  },
+  {
+    "run": 4,
+    "source": "/Users/wende/.codex/sessions/2026/10/05/rollout-2026-10-05T15-26-35-01a10c3e-a8ec-70e1-a440-19fa27d6143b.jsonl",
+    "threadId": "01a10c3e-a8ec-70e1-a440-19fa27d6143b",
+    "startedAt": "2026-10-05T13:26:35.694Z",
+    "completedAt": "2026-10-05T13:30:56.341Z",
+    "elapsedSeconds": 260.647,
+    "toolCalls": 39,
+    "modelResponses": 40,
+    "observedToolWaitSeconds": 14.132,
+    "outsideToolWaitSeconds": 246.515,
+    "textOutputCharacters": 89169,
+    "usage": {
+      "input_tokens": 2237664,
+      "cached_input_tokens": 2165760,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 10566,
+      "reasoning_output_tokens": 5313,
+      "total_tokens": 2248230
+    }
+  }
+]

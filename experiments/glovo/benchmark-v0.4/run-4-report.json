@@ -1,0 +1,1479 @@
+{
+  "version": "0.4.0",
+  "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+  "startedAt": "2026-10-05T15:16:45.545Z",
+  "events": [
+    {
+      "id": "47c5a874-bec7-4f10-819b-d8f77e04741c",
+      "operation": "searchMany",
+      "input": {
+        "queries": [
+          "mcdouble",
+          "mcchicken",
+          "chocolate shake",
+          "ciastko jablkowe"
+        ]
+      },
+      "result": {
+        "results": [
+          {
+            "query": "mcdouble",
+            "status": "matched",
+            "selectedProductId": "42142472715"
+          },
+          {
+            "query": "mcchicken",
+            "status": "matched",
+            "selectedProductId": "39910402250"
+          },
+          {
+            "query": "chocolate shake",
+            "status": "matched",
+            "selectedProductId": "42370824950"
+          },
+          {
+            "query": "ciastko jablkowe",
+            "status": "matched",
+            "selectedProductId": "41971610643"
+          }
+        ]
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:16:58.873Z",
+      "endedAt": "2026-10-05T15:16:59.504Z",
+      "durationMs": 631
+    },
+    {
+      "id": "c4a4a182-9783-46b2-864e-dcb71d27d282",
+      "operation": "getStoreCart",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "lineCount": 0,
+        "itemCount": 0,
+        "total": null,
+        "products": []
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:17:13.262Z",
+      "endedAt": "2026-10-05T15:17:13.385Z",
+      "durationMs": 123
+    },
+    {
+      "id": "e180f61f-3788-4cb6-baef-025c0ca11e17",
+      "operation": "addMany",
+      "input": {
+        "itemCount": 4
+      },
+      "result": {
+        "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+        "status": "complete",
+        "results": [
+          {
+            "status": "added",
+            "productId": "42142472715",
+            "name": "McDouble",
+            "quantity": 1,
+            "receiptId": "77d49454-d2fa-4525-b57e-4cb3af5cfad9",
+            "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27"
+          },
+          {
+            "status": "added",
+            "productId": "39910402250",
+            "name": "McChicken®",
+            "quantity": 1,
+            "receiptId": "ad6932f0-0679-4515-a261-33c28e558560",
+            "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb"
+          },
+          {
+            "status": "added",
+            "productId": "42370824950",
+            "name": "Shake o smaku czekoladowym",
+            "quantity": 1,
+            "receiptId": "ccb44826-0fb4-489c-8c51-3fa77d34f5d5",
+            "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc"
+          },
+          {
+            "status": "added",
+            "productId": "41971610643",
+            "name": "Ciastko Jabłkowe",
+            "quantity": 1,
+            "receiptId": "f8c97437-3607-44d1-9b75-4298a55045e1",
+            "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e"
+          }
+        ],
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 4,
+          "itemCount": 4,
+          "total": "63,90 zł",
+          "products": [
+            {
+              "productId": "42142472715",
+              "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+              "name": "McDouble",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "39910402250",
+              "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+              "name": "McChicken®",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "42370824950",
+              "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "customizations": [
+                {
+                  "group": "Wybierz rozmiar",
+                  "name": "Mały",
+                  "quantity": 1
+                },
+                {
+                  "group": "Wybór opakowania",
+                  "name": "Kubek (opłata SUP)",
+                  "quantity": 1
+                }
+              ]
+            },
+            {
+              "productId": "41971610643",
+              "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "customizations": []
+            }
+          ]
+        }
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:17:29.499Z",
+      "endedAt": "2026-10-05T15:17:35.429Z",
+      "durationMs": 5930
+    },
+    {
+      "id": "9ed4b957-5381-491a-a250-c10b96debbd1",
+      "operation": "getStoreCart",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "lineCount": 4,
+        "itemCount": 4,
+        "total": "63,90 zł",
+        "products": [
+          {
+            "productId": "42142472715",
+            "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+            "name": "McDouble",
+            "quantity": 1,
+            "customizations": []
+          },
+          {
+            "productId": "39910402250",
+            "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+            "name": "McChicken®",
+            "quantity": 1,
+            "customizations": []
+          },
+          {
+            "productId": "42370824950",
+            "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+            "name": "Shake o smaku czekoladowym",
+            "quantity": 1,
+            "customizations": [
+              {
+                "group": "Wybierz rozmiar",
+                "name": "Mały",
+                "quantity": 1
+              },
+              {
+                "group": "Wybór opakowania",
+                "name": "Kubek (opłata SUP)",
+                "quantity": 1
+              }
+            ]
+          },
+          {
+            "productId": "41971610643",
+            "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+            "name": "Ciastko Jabłkowe",
+            "quantity": 1,
+            "customizations": []
+          }
+        ]
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:17:48.244Z",
+      "endedAt": "2026-10-05T15:17:48.969Z",
+      "durationMs": 725
+    },
+    {
+      "id": "2d2d055a-d91a-470b-ae41-ba6805e84f88",
+      "operation": "prepareBasketScreenshot",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "capturedAt": "2026-10-05T15:17:49.186Z",
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 4,
+          "itemCount": 4,
+          "total": "63,90 zł",
+          "products": [
+            {
+              "productId": "42142472715",
+              "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+              "name": "McDouble",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "39910402250",
+              "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+              "name": "McChicken®",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "42370824950",
+              "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "customizations": [
+                {
+                  "group": "Wybierz rozmiar",
+                  "name": "Mały",
+                  "quantity": 1
+                },
+                {
+                  "group": "Wybór opakowania",
+                  "name": "Kubek (opłata SUP)",
+                  "quantity": 1
+                }
+              ]
+            },
+            {
+              "productId": "41971610643",
+              "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "customizations": []
+            }
+          ]
+        },
+        "nativeUi": {
+          "found": true,
+          "text": "Your order\n\n4 products\n\nMcDouble\n\n17,70 zł\n1\n\nMcChicken®\n\n22,70 zł\n1\n\nShake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1\n\nCiastko Jabłkowe\n\n10,90 zł\n1\nGo to checkout • 63,90 zł\nFees information",
+          "rows": [
+            {
+              "name": "McDouble",
+              "quantity": 1,
+              "text": "McDouble\n\n17,70 zł\n1"
+            },
+            {
+              "name": "McChicken®",
+              "quantity": 1,
+              "text": "McChicken®\n\n22,70 zł\n1"
+            },
+            {
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "text": "Shake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1"
+            },
+            {
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "text": "Ciastko Jabłkowe\n\n10,90 zł\n1"
+            }
+          ],
+          "rectangle": {
+            "x": 976,
+            "y": 96,
+            "width": 384,
+            "height": 691
+          },
+          "visibleInViewport": true
+        },
+        "nativeMatchesStructured": true,
+        "panelBefore": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "panel": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        }
+      },
+      "status": "verified",
+      "startedAt": "2026-10-05T15:17:48.244Z",
+      "endedAt": "2026-10-05T15:17:49.189Z",
+      "durationMs": 945
+    },
+    {
+      "id": "e3e6ad6d-65e0-4f87-8874-37be4287eddd",
+      "operation": "artifact",
+      "input": {
+        "kind": "basket-screenshot",
+        "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-basket.png"
+      },
+      "result": {
+        "capturedAt": "2026-10-05T15:17:49.186Z"
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:17:55.911Z",
+      "endedAt": "2026-10-05T15:17:55.911Z",
+      "durationMs": 0
+    },
+    {
+      "id": "e7460817-3be3-4ca6-97a8-4c621f3fe5c2",
+      "operation": "removeMany",
+      "input": {
+        "receiptIds": [
+          "77d49454-d2fa-4525-b57e-4cb3af5cfad9",
+          "ad6932f0-0679-4515-a261-33c28e558560",
+          "ccb44826-0fb4-489c-8c51-3fa77d34f5d5",
+          "f8c97437-3607-44d1-9b75-4298a55045e1"
+        ]
+      },
+      "result": {
+        "operationId": "de69978b-6909-49c9-9184-b23b593a3e02",
+        "status": "complete",
+        "results": [
+          {
+            "status": "removed",
+            "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+            "quantity": 1
+          },
+          {
+            "status": "removed",
+            "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+            "quantity": 1
+          },
+          {
+            "status": "removed",
+            "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+            "quantity": 1
+          },
+          {
+            "status": "removed",
+            "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+            "quantity": 1
+          }
+        ],
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 0,
+          "itemCount": 0,
+          "total": null,
+          "products": []
+        }
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:18:06.578Z",
+      "endedAt": "2026-10-05T15:18:16.750Z",
+      "durationMs": 10172
+    },
+    {
+      "id": "a9436752-2c30-4cb2-b086-1f7858a3d9de",
+      "operation": "getStoreCart",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "lineCount": 0,
+        "itemCount": 0,
+        "total": null,
+        "products": []
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:18:26.054Z",
+      "endedAt": "2026-10-05T15:18:26.766Z",
+      "durationMs": 712
+    },
+    {
+      "id": "fa5d529a-47ba-44bf-8115-a53e45ab749b",
+      "operation": "prepareBasketScreenshot",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "capturedAt": "2026-10-05T15:18:26.773Z",
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 0,
+          "itemCount": 0,
+          "total": null,
+          "products": []
+        },
+        "nativeUi": {
+          "found": true,
+          "text": "Your order\n\nWhen you add products from a store, they will appear here.\n\nFees information",
+          "rows": [],
+          "rectangle": {
+            "x": 976,
+            "y": 96,
+            "width": 384,
+            "height": 312
+          },
+          "visibleInViewport": true
+        },
+        "nativeMatchesStructured": true,
+        "panelBefore": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "panel": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        }
+      },
+      "status": "verified",
+      "startedAt": "2026-10-05T15:18:26.053Z",
+      "endedAt": "2026-10-05T15:18:26.773Z",
+      "durationMs": 720
+    },
+    {
+      "id": "2c2f668b-52e9-41da-b895-c71461b3fbb5",
+      "operation": "artifact",
+      "input": {
+        "kind": "basket-screenshot",
+        "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-empty.png"
+      },
+      "result": {
+        "capturedAt": "2026-10-05T15:18:26.773Z"
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:18:30.062Z",
+      "endedAt": "2026-10-05T15:18:30.062Z",
+      "durationMs": 0
+    },
+    {
+      "id": "33afed24-1dea-45a6-9a5a-250ca4e012e8",
+      "operation": "getStoreCart",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "lineCount": 0,
+        "itemCount": 0,
+        "total": null,
+        "products": []
+      },
+      "status": "complete",
+      "startedAt": "2026-10-05T15:18:49.034Z",
+      "endedAt": "2026-10-05T15:18:49.140Z",
+      "durationMs": 106
+    }
+  ],
+  "droppedEvents": 0,
+  "receipts": [
+    {
+      "id": "77d49454-d2fa-4525-b57e-4cb3af5cfad9",
+      "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+      "store": {
+        "id": "77097",
+        "addressId": "210074",
+        "name": "McDonald's",
+        "slug": "mcdonald-s-kra"
+      },
+      "productId": "42142472715",
+      "name": "McDouble",
+      "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+      "quantityAdded": 1,
+      "quantityRemaining": 0,
+      "choices": [],
+      "createdAt": "2026-10-05T15:17:30.075Z"
+    },
+    {
+      "id": "ad6932f0-0679-4515-a261-33c28e558560",
+      "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+      "store": {
+        "id": "77097",
+        "addressId": "210074",
+        "name": "McDonald's",
+        "slug": "mcdonald-s-kra"
+      },
+      "productId": "39910402250",
+      "name": "McChicken®",
+      "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+      "quantityAdded": 1,
+      "quantityRemaining": 0,
+      "choices": [],
+      "createdAt": "2026-10-05T15:17:32.583Z"
+    },
+    {
+      "id": "ccb44826-0fb4-489c-8c51-3fa77d34f5d5",
+      "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+      "store": {
+        "id": "77097",
+        "addressId": "210074",
+        "name": "McDonald's",
+        "slug": "mcdonald-s-kra"
+      },
+      "productId": "42370824950",
+      "name": "Shake o smaku czekoladowym",
+      "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+      "quantityAdded": 1,
+      "quantityRemaining": 0,
+      "choices": [
+        {
+          "group": "Wybierz rozmiar",
+          "name": "Mały",
+          "quantity": 1
+        },
+        {
+          "group": "Wybór opakowania",
+          "name": "Kubek (opłata SUP)",
+          "quantity": 1
+        }
+      ],
+      "createdAt": "2026-10-05T15:17:33.994Z"
+    },
+    {
+      "id": "f8c97437-3607-44d1-9b75-4298a55045e1",
+      "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+      "store": {
+        "id": "77097",
+        "addressId": "210074",
+        "name": "McDonald's",
+        "slug": "mcdonald-s-kra"
+      },
+      "productId": "41971610643",
+      "name": "Ciastko Jabłkowe",
+      "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+      "quantityAdded": 1,
+      "quantityRemaining": 0,
+      "choices": [],
+      "createdAt": "2026-10-05T15:17:35.429Z"
+    }
+  ],
+  "baselines": [
+    {
+      "store": {
+        "id": "77097",
+        "addressId": "210074",
+        "name": "McDonald's",
+        "slug": "mcdonald-s-kra"
+      },
+      "lineCount": 0,
+      "itemCount": 0,
+      "total": null,
+      "products": []
+    }
+  ],
+  "generatedAt": "2026-10-05T15:18:49.141Z",
+  "mutationPending": false,
+  "finalBasket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 0,
+    "itemCount": 0,
+    "total": null,
+    "products": []
+  },
+  "notes": [
+    "The initial standalone WebBridge snapshot request returned an empty response body; adapter searches and subsequent native evidence captures worked normally."
+  ],
+  "transport": [
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "inject",
+      "startedAt": "2026-10-05T15:16:21.327Z",
+      "endedAt": "2026-10-05T15:16:46.636Z",
+      "durationMs": 25259.782625,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:21.447Z",
+          "endedAt": "2026-10-05T15:16:39.820Z",
+          "durationMs": 18374.506959,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:16:39.821Z",
+          "endedAt": "2026-10-05T15:16:46.092Z",
+          "durationMs": 6270.485958000001,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:46.092Z",
+          "endedAt": "2026-10-05T15:16:46.636Z",
+          "durationMs": 543.6753330000029,
+          "status": "complete"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "inject",
+      "startedAt": "2026-10-05T15:16:48.206Z",
+      "endedAt": "2026-10-05T15:16:50.670Z",
+      "durationMs": 2433.689375,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:48.822Z",
+          "endedAt": "2026-10-05T15:16:50.073Z",
+          "durationMs": 1250.6277499999999,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:16:50.073Z",
+          "endedAt": "2026-10-05T15:16:50.502Z",
+          "durationMs": 429.12958300000014,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:50.502Z",
+          "endedAt": "2026-10-05T15:16:50.670Z",
+          "durationMs": 167.78912499999979,
+          "status": "complete"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "call",
+      "method": "searchMany",
+      "startedAt": "2026-10-05T15:16:56.952Z",
+      "endedAt": "2026-10-05T15:17:01.152Z",
+      "durationMs": 4191.778084,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:56.961Z",
+          "endedAt": "2026-10-05T15:16:57.351Z",
+          "durationMs": 389.77725,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:16:57.351Z",
+          "endedAt": "2026-10-05T15:16:59.587Z",
+          "durationMs": 2236.188791,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:16:59.587Z",
+          "endedAt": "2026-10-05T15:17:01.146Z",
+          "durationMs": 1559.0121249999997,
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "input": {
+        "queries": [
+          "mcdouble",
+          "mcchicken",
+          "chocolate shake",
+          "ciastko jablkowe"
+        ],
+        "includeOptions": "selected"
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "scope": "current store loaded menu",
+        "results": [
+          {
+            "query": "mcdouble",
+            "status": "matched",
+            "selectedProductId": "42142472715",
+            "total": 1,
+            "hasMore": false,
+            "products": [
+              {
+                "id": "42142472715",
+                "name": "McDouble",
+                "price": 17.7,
+                "currency": "PLN",
+                "displayPrice": "17,70 zł",
+                "kind": "product",
+                "match": {
+                  "type": "exact",
+                  "score": 1
+                },
+                "optionsRequired": false,
+                "optionGroupCount": 0,
+                "attributeGroups": []
+              }
+            ]
+          },
+          {
+            "query": "mcchicken",
+            "status": "matched",
+            "selectedProductId": "39910402250",
+            "total": 2,
+            "hasMore": false,
+            "products": [
+              {
+                "id": "39910402250",
+                "name": "McChicken®",
+                "price": 22.7,
+                "currency": "PLN",
+                "displayPrice": "22,70 zł",
+                "kind": "product",
+                "match": {
+                  "type": "exact",
+                  "score": 1
+                },
+                "optionsRequired": false,
+                "optionGroupCount": 0,
+                "attributeGroups": []
+              },
+              {
+                "id": "42362503281",
+                "name": "McZestaw McChicken®",
+                "price": 33.2,
+                "currency": "PLN",
+                "displayPrice": "33,20 zł",
+                "kind": "meal",
+                "match": {
+                  "type": "contains",
+                  "score": 0.88
+                },
+                "optionsRequired": true,
+                "optionGroupCount": 5
+              }
+            ]
+          },
+          {
+            "query": "chocolate shake",
+            "status": "matched",
+            "selectedProductId": "42370824950",
+            "total": 1,
+            "hasMore": false,
+            "products": [
+              {
+                "id": "42370824950",
+                "name": "Shake o smaku czekoladowym",
+                "price": 12.600000000000001,
+                "currency": "PLN",
+                "displayPrice": "12,60 zł",
+                "kind": "product",
+                "match": {
+                  "type": "alias",
+                  "score": 0.94
+                },
+                "optionsRequired": true,
+                "optionGroupCount": 2,
+                "attributeGroups": [
+                  {
+                    "id": "6243034579",
+                    "name": "Wybierz rozmiar",
+                    "min": 1,
+                    "max": 1,
+                    "multipleSelection": false,
+                    "attributes": [
+                      {
+                        "id": "13400336847",
+                        "name": "Mały",
+                        "priceImpact": 0,
+                        "displayPrice": ""
+                      },
+                      {
+                        "id": "13400336876",
+                        "name": "Duży",
+                        "priceImpact": 1.1,
+                        "displayPrice": "1,10 zł"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "6243034646",
+                    "name": "Wybór opakowania",
+                    "min": 1,
+                    "max": 1,
+                    "multipleSelection": false,
+                    "attributes": [
+                      {
+                        "id": "13400336742",
+                        "name": "Kubek (opłata SUP)",
+                        "priceImpact": 0.3,
+                        "displayPrice": "0,30 zł"
+                      },
+                      {
+                        "id": "13400336738",
+                        "name": "Kubek YourCup",
+                        "priceImpact": 15.9,
+                        "displayPrice": "15,90 zł"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "query": "ciastko jablkowe",
+            "status": "matched",
+            "selectedProductId": "41971610643",
+            "total": 1,
+            "hasMore": false,
+            "products": [
+              {
+                "id": "41971610643",
+                "name": "Ciastko Jabłkowe",
+                "price": 10.9,
+                "currency": "PLN",
+                "displayPrice": "10,90 zł",
+                "kind": "product",
+                "match": {
+                  "type": "exact",
+                  "score": 1
+                },
+                "optionsRequired": false,
+                "optionGroupCount": 0,
+                "attributeGroups": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "call",
+      "method": "getStoreCart",
+      "startedAt": "2026-10-05T15:17:12.374Z",
+      "endedAt": "2026-10-05T15:17:13.473Z",
+      "durationMs": 1086.328334,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:12.387Z",
+          "endedAt": "2026-10-05T15:17:13.246Z",
+          "durationMs": 858.842792,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:17:13.246Z",
+          "endedAt": "2026-10-05T15:17:13.393Z",
+          "durationMs": 147.51870799999995,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:13.394Z",
+          "endedAt": "2026-10-05T15:17:13.462Z",
+          "durationMs": 68.67479200000002,
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "input": {
+        "refresh": true
+      },
+      "result": {
+        "store": {
+          "id": "77097",
+          "addressId": "210074",
+          "name": "McDonald's",
+          "slug": "mcdonald-s-kra"
+        },
+        "lineCount": 0,
+        "itemCount": 0,
+        "total": null,
+        "products": []
+      }
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "call",
+      "method": "addMany",
+      "startedAt": "2026-10-05T15:17:28.913Z",
+      "endedAt": "2026-10-05T15:17:35.856Z",
+      "durationMs": 6934.999667,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:28.924Z",
+          "endedAt": "2026-10-05T15:17:29.481Z",
+          "durationMs": 557.512791,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:17:29.482Z",
+          "endedAt": "2026-10-05T15:17:35.453Z",
+          "durationMs": 5970.99225,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:35.453Z",
+          "endedAt": "2026-10-05T15:17:35.845Z",
+          "durationMs": 392.4503329999998,
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "input": {
+        "items": [
+          {
+            "productId": "42142472715",
+            "quantity": 1
+          },
+          {
+            "productId": "39910402250",
+            "quantity": 1
+          },
+          {
+            "productId": "42370824950",
+            "quantity": 1,
+            "choices": [
+              "Mały",
+              "Kubek (opłata SUP)"
+            ]
+          },
+          {
+            "productId": "41971610643",
+            "quantity": 1
+          }
+        ]
+      },
+      "result": {
+        "operationId": "bf79a4d1-8d82-43f4-876b-d14dcd230a11",
+        "status": "complete",
+        "results": [
+          {
+            "status": "added",
+            "productId": "42142472715",
+            "name": "McDouble",
+            "quantity": 1,
+            "receiptId": "77d49454-d2fa-4525-b57e-4cb3af5cfad9",
+            "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27"
+          },
+          {
+            "status": "added",
+            "productId": "39910402250",
+            "name": "McChicken®",
+            "quantity": 1,
+            "receiptId": "ad6932f0-0679-4515-a261-33c28e558560",
+            "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb"
+          },
+          {
+            "status": "added",
+            "productId": "42370824950",
+            "name": "Shake o smaku czekoladowym",
+            "quantity": 1,
+            "receiptId": "ccb44826-0fb4-489c-8c51-3fa77d34f5d5",
+            "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc"
+          },
+          {
+            "status": "added",
+            "productId": "41971610643",
+            "name": "Ciastko Jabłkowe",
+            "quantity": 1,
+            "receiptId": "f8c97437-3607-44d1-9b75-4298a55045e1",
+            "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e"
+          }
+        ],
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 4,
+          "itemCount": 4,
+          "total": "63,90 zł",
+          "products": [
+            {
+              "productId": "42142472715",
+              "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+              "name": "McDouble",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "39910402250",
+              "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+              "name": "McChicken®",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "42370824950",
+              "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "customizations": [
+                {
+                  "group": "Wybierz rozmiar",
+                  "name": "Mały",
+                  "quantity": 1
+                },
+                {
+                  "group": "Wybór opakowania",
+                  "name": "Kubek (opłata SUP)",
+                  "quantity": 1
+                }
+              ]
+            },
+            {
+              "productId": "41971610643",
+              "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "customizations": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "evidence",
+      "startedAt": "2026-10-05T15:17:42.890Z",
+      "endedAt": "2026-10-05T15:17:56.860Z",
+      "durationMs": 13965.259292,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:42.895Z",
+          "endedAt": "2026-10-05T15:17:44.052Z",
+          "durationMs": 1156.9822920000001,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:17:44.052Z",
+          "endedAt": "2026-10-05T15:17:46.070Z",
+          "durationMs": 2017.7909579999998,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:46.070Z",
+          "endedAt": "2026-10-05T15:17:46.857Z",
+          "durationMs": 786.9016659999998,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:46.857Z",
+          "endedAt": "2026-10-05T15:17:47.660Z",
+          "durationMs": 803.22125,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:17:47.660Z",
+          "endedAt": "2026-10-05T15:17:49.377Z",
+          "durationMs": 1716.9782920000007,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:49.377Z",
+          "endedAt": "2026-10-05T15:17:49.655Z",
+          "durationMs": 277.79675000000043,
+          "status": "complete"
+        },
+        {
+          "action": "screenshot",
+          "startedAt": "2026-10-05T15:17:49.655Z",
+          "endedAt": "2026-10-05T15:17:55.043Z",
+          "durationMs": 5388.01325,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:55.043Z",
+          "endedAt": "2026-10-05T15:17:55.281Z",
+          "durationMs": 237.7096249999995,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:17:55.281Z",
+          "endedAt": "2026-10-05T15:17:56.186Z",
+          "durationMs": 904.8652500000007,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:17:56.186Z",
+          "endedAt": "2026-10-05T15:17:56.856Z",
+          "durationMs": 669.9788750000007,
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "result": {
+        "capturedAt": "2026-10-05T15:17:49.186Z",
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 4,
+          "itemCount": 4,
+          "total": "63,90 zł",
+          "products": [
+            {
+              "productId": "42142472715",
+              "basketProductId": "SP_55f88f1e-fa6e-4c72-925d-1445e690e418_450b676d-aeaf-306b-b01f-f6f6d5337e27",
+              "name": "McDouble",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "39910402250",
+              "basketProductId": "SP_f8bf73f0-cd2a-4a52-b28f-08b638b1c5b3_db724f9d-2a64-35c3-a4ab-6fc5e964c5bb",
+              "name": "McChicken®",
+              "quantity": 1,
+              "customizations": []
+            },
+            {
+              "productId": "42370824950",
+              "basketProductId": "SP_bbfd03bf-c861-441b-8053-42094609883a_062ae2ae-3e99-3641-82ac-751ba8af03bc",
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "customizations": [
+                {
+                  "group": "Wybierz rozmiar",
+                  "name": "Mały",
+                  "quantity": 1
+                },
+                {
+                  "group": "Wybór opakowania",
+                  "name": "Kubek (opłata SUP)",
+                  "quantity": 1
+                }
+              ]
+            },
+            {
+              "productId": "41971610643",
+              "basketProductId": "SP_f754490d-3a8e-43ec-87d9-a7f417515750_39c09af2-c9f6-35d4-b508-64b1848a566e",
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "customizations": []
+            }
+          ]
+        },
+        "nativeUi": {
+          "found": true,
+          "text": "Your order\n\n4 products\n\nMcDouble\n\n17,70 zł\n1\n\nMcChicken®\n\n22,70 zł\n1\n\nShake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1\n\nCiastko Jabłkowe\n\n10,90 zł\n1\nGo to checkout • 63,90 zł\nFees information",
+          "rows": [
+            {
+              "name": "McDouble",
+              "quantity": 1,
+              "text": "McDouble\n\n17,70 zł\n1"
+            },
+            {
+              "name": "McChicken®",
+              "quantity": 1,
+              "text": "McChicken®\n\n22,70 zł\n1"
+            },
+            {
+              "name": "Shake o smaku czekoladowym",
+              "quantity": 1,
+              "text": "Shake o smaku czekoladowym\n\n12,60 zł\n\nMały, Kubek (opłata SUP)\n\nEdit\n1"
+            },
+            {
+              "name": "Ciastko Jabłkowe",
+              "quantity": 1,
+              "text": "Ciastko Jabłkowe\n\n10,90 zł\n1"
+            }
+          ],
+          "rectangle": {
+            "x": 976,
+            "y": 96,
+            "width": 384,
+            "height": 691
+          },
+          "visibleInViewport": true
+        },
+        "nativeMatchesStructured": true,
+        "panelBefore": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "panel": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "screenshot": {
+          "format": "png",
+          "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-basket.png",
+          "sizeBytes": 643598,
+          "mimeType": "image/png"
+        },
+        "evidencePath": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-basket-evidence.json"
+      }
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "cleanup",
+      "startedAt": "2026-10-05T15:18:05.955Z",
+      "endedAt": "2026-10-05T15:18:17.546Z",
+      "durationMs": 11573.022042,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:05.979Z",
+          "endedAt": "2026-10-05T15:18:06.393Z",
+          "durationMs": 414.12587500000006,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:18:06.393Z",
+          "endedAt": "2026-10-05T15:18:16.770Z",
+          "durationMs": 10377.325499999999,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:16.770Z",
+          "endedAt": "2026-10-05T15:18:17.542Z",
+          "durationMs": 771.8725830000003,
+          "status": "complete"
+        }
+      ],
+      "status": "complete"
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "evidence",
+      "startedAt": "2026-10-05T15:18:24.157Z",
+      "endedAt": "2026-10-05T15:18:30.134Z",
+      "durationMs": 5972.031959,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:24.162Z",
+          "endedAt": "2026-10-05T15:18:25.441Z",
+          "durationMs": 1279.057541,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:18:25.441Z",
+          "endedAt": "2026-10-05T15:18:25.471Z",
+          "durationMs": 29.37737500000003,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:25.471Z",
+          "endedAt": "2026-10-05T15:18:25.506Z",
+          "durationMs": 34.9459589999999,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:25.506Z",
+          "endedAt": "2026-10-05T15:18:25.859Z",
+          "durationMs": 353.3292919999999,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:18:25.859Z",
+          "endedAt": "2026-10-05T15:18:26.782Z",
+          "durationMs": 922.5055419999999,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:26.782Z",
+          "endedAt": "2026-10-05T15:18:26.814Z",
+          "durationMs": 32.76983300000029,
+          "status": "complete"
+        },
+        {
+          "action": "screenshot",
+          "startedAt": "2026-10-05T15:18:26.814Z",
+          "endedAt": "2026-10-05T15:18:29.514Z",
+          "durationMs": 2699.125542,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:29.514Z",
+          "endedAt": "2026-10-05T15:18:29.772Z",
+          "durationMs": 257.92762500000026,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:18:29.772Z",
+          "endedAt": "2026-10-05T15:18:30.082Z",
+          "durationMs": 310.8932500000001,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:30.082Z",
+          "endedAt": "2026-10-05T15:18:30.131Z",
+          "durationMs": 48.54541599999993,
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "result": {
+        "capturedAt": "2026-10-05T15:18:26.773Z",
+        "basket": {
+          "store": {
+            "id": "77097",
+            "addressId": "210074",
+            "name": "McDonald's",
+            "slug": "mcdonald-s-kra"
+          },
+          "lineCount": 0,
+          "itemCount": 0,
+          "total": null,
+          "products": []
+        },
+        "nativeUi": {
+          "found": true,
+          "text": "Your order\n\nWhen you add products from a store, they will appear here.\n\nFees information",
+          "rows": [],
+          "rectangle": {
+            "x": 976,
+            "y": 96,
+            "width": 384,
+            "height": 312
+          },
+          "visibleInViewport": true
+        },
+        "nativeMatchesStructured": true,
+        "panelBefore": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "panel": {
+          "mounted": false,
+          "visible": false,
+          "collapsed": false,
+          "dock": "left"
+        },
+        "screenshot": {
+          "format": "png",
+          "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-empty.png",
+          "sizeBytes": 534314,
+          "mimeType": "image/png"
+        },
+        "evidencePath": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-4-adapter-empty-evidence.json"
+      }
+    },
+    {
+      "sessionId": "437a819c-247c-4233-9f7e-258e88b7c00e",
+      "command": "report",
+      "startedAt": "2026-10-05T15:18:48.269Z",
+      "endedAt": "2026-10-05T15:18:49.175Z",
+      "durationMs": 859.010125,
+      "transport": [
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:48.318Z",
+          "endedAt": "2026-10-05T15:18:48.998Z",
+          "durationMs": 679.534208,
+          "status": "complete"
+        },
+        {
+          "action": "Runtime.evaluate",
+          "startedAt": "2026-10-05T15:18:48.998Z",
+          "endedAt": "2026-10-05T15:18:49.150Z",
+          "durationMs": 151.848834,
+          "status": "complete"
+        },
+        {
+          "action": "Emulation.setFocusEmulationEnabled",
+          "startedAt": "2026-10-05T15:18:49.151Z",
+          "endedAt": "2026-10-05T15:18:49.170Z",
+          "durationMs": 19.511167,
+          "status": "complete"
+        }
+      ],
+      "status": "complete"
+    }
+  ]
+}

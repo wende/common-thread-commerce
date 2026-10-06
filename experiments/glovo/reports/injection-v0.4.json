@@ -1,0 +1,46 @@
+{
+  "version": "0.4.0",
+  "url": "https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra",
+  "framework": "React/Next.js",
+  "searchReady": false,
+  "cartReady": true,
+  "productSearchReady": true,
+  "addToBasketReady": true,
+  "store": {
+    "id": "77097",
+    "addressId": "210074",
+    "name": "McDonald's",
+    "slug": "mcdonald-s-kra"
+  },
+  "mutationPending": false,
+  "methods": [
+    "search",
+    "suggest",
+    "searchProducts",
+    "searchMany",
+    "getProduct",
+    "addToBasket",
+    "addMany",
+    "removeFromBasket",
+    "removeMany",
+    "getStoreCart",
+    "getCart",
+    "getReceipts",
+    "getReport",
+    "getOperationLog",
+    "getBasketEvidence",
+    "prepareBasketScreenshot",
+    "recordArtifact",
+    "describe",
+    "inspect",
+    "uninstall"
+  ],
+  "panel": {
+    "mounted": true,
+    "visible": true,
+    "collapsed": true,
+    "dock": "left"
+  },
+  "sessionId": "914c1de8-9af1-4016-b10c-448ac9128d0f",
+  "searchImplementation": null
+}

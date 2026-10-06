@@ -1,0 +1,70 @@
+{
+  "run": 1,
+  "agent_identifier": "/root/glovo_ui_1",
+  "thread_id": null,
+  "condition": "UI only, without injected Glovo adapter",
+  "navigation_url": "https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra",
+  "glovo_bridge_absent": true,
+  "timestamps_utc": {
+    "initial_attempt_start": "2026-10-05T12:51:34Z",
+    "initial_safeguard_stop": "2026-10-05T12:53:08Z",
+    "basket_preparation_start": "2026-10-05T12:54:05Z",
+    "empty_baseline_verified": "2026-10-05T12:54:49Z",
+    "four_item_task_start": "2026-10-05T12:54:49Z",
+    "cleanup_verified": "2026-10-05T13:06:53Z",
+    "run_end": "2026-10-05T13:07:17Z"
+  },
+  "durations_seconds": {
+    "initial_attempt_until_safeguard_stop": 94,
+    "basket_preparation": 44,
+    "four_item_task_through_cleanup_verification": 724,
+    "initial_attempt_start_to_run_end": 943
+  },
+  "initial_basket": {
+    "unexpected_existing_items": true,
+    "items": [
+      {
+        "name": "Big Mac®",
+        "quantity": 1,
+        "price": "26,90 zł",
+        "visible_options": []
+      }
+    ],
+    "preparation": "After parent authorization, removed the single Big Mac® through Glovo's visible Remove item control and verified the empty-order message before beginning the timed item task."
+  },
+  "requested_items": [
+    { "name": "McDouble", "quantity": 1, "price": "17,70 zł" },
+    { "name": "McChicken®", "quantity": 1, "price": "22,70 zł" },
+    {
+      "name": "Shake o smaku czekoladowym",
+      "quantity": 1,
+      "price": "12,60 zł",
+      "selected_options": ["Mały", "Kubek (opłata SUP) (+0,30 zł)"]
+    },
+    { "name": "Ciastko Jabłkowe", "quantity": 1, "price": "10,90 zł" }
+  ],
+  "basket_verification": {
+    "all_four_items_present_at_quantity_one": true,
+    "total": "63,90 zł",
+    "verified_from_native_order_panel": true,
+    "screenshot_visually_inspected": true
+  },
+  "cleanup": {
+    "method": "Removed only the four requested lines using Glovo's visible Remove item controls; verified the native empty-order message and zero remove controls.",
+    "verified": true,
+    "final_basket_state": "Empty",
+    "screenshot_visually_inspected": true
+  },
+  "screenshots": {
+    "four_item_basket": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark/run-1-ui-basket.png",
+    "empty_basket": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark/run-1-ui-empty.png"
+  },
+  "retries_and_difficulties": [
+    "The initial find_tab(active:true) lookup failed because the existing Glovo tab was in the background; selected the existing tab by exact URL in the same glovo-webmcp session.",
+    "The initial safeguard found Big Mac® ×1. The first pass stopped without touching it; parent later authorized removing it for an empty benchmark baseline.",
+    "Accessibility snapshots were truncated before the shake and pie cards. Used DOM inspection only to scroll the visible native product cards into view and scope visible UI clicks.",
+    "The shake required a small/large choice and a packaging choice. Selected Mały and the cheapest listed standard cup, Kubek (opłata SUP). No optional extras were selected.",
+    "A global Remove item selector matched both product-card and cart controls. The first verified removal removed McDouble; subsequent removals were scoped to the visible order panel and verified after each action.",
+    "Page.bringToFront used focus emulation without stealing focus; Emulation.setFocusEmulationEnabled was disabled at run end."
+  ]
+}

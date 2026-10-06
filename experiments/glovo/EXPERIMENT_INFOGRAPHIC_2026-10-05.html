@@ -1,0 +1,181 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Glovo: bare page vs. adapter</title><meta name="description" content="Four Luna xhigh agents compare the bare Glovo page with an injected adapter: 3.59 times faster, with timings, tokens and browser-call counts.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: hero race bar + tiles → task line → A/B/C pipeline → per-worker times → tool calls → caveats. */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --ink: #0f141c;
+  --ink-2: #465063;
+  --muted: #6f788c;
+  --line: #dfe3ea;
+  --grid: #edf0f4;
+  --accent: #184f95;
+  --chip: #e9f0fa;
+  --sa: #a3aab8;
+  --sb: #5598e7;
+  --sc: #184f95;
+  --manual: #eb6834;
+  --tool: #8a93a6;
+  --bad: #c93434;
+  --f-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1218; --surface: #171b23; --ink: #eef1f6; --ink-2: #b4bccb; --muted: #8790a5;
+    --line: #2a303c; --grid: #20252f; --accent: #86b6ef; --chip: #1c2636;
+    --sa: #4e5666; --sb: #3987e5; --sc: #9ec5f4;
+    --manual: #d95926; --tool: #6b7487; --bad: #e66767;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1218; --surface: #171b23; --ink: #eef1f6; --ink-2: #b4bccb; --muted: #8790a5;
+  --line: #2a303c; --grid: #20252f; --accent: #86b6ef; --chip: #1c2636;
+  --sa: #4e5666; --sb: #3987e5; --sc: #9ec5f4;
+  --manual: #d95926; --tool: #6b7487; --bad: #e66767;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body); padding-inline: 16px; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 48px 64px; display: grid; gap: 48px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 5.2vw, 3.2rem); font-weight: 800; line-height: 1.04; }
+h2 { font-size: 1.4rem; font-weight: 700; line-height: 1.15; }
+h3 { font-size: 1.05rem; font-weight: 700; line-height: 1.25; }
+p { margin: 0; }
+.eyebrow { font: 500 0.74rem/1.2 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lead { font-size: 1.08rem; color: var(--ink-2); max-width: 62ch; }
+.num { font-variant-numeric: tabular-nums; }
+code { font: 0.86em var(--f-mono); background: var(--chip); padding: 0.1em 0.38em; border-radius: 4px; }
+section { display: grid; gap: 18px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; min-width: 0; }
+
+/* hero */
+.hero { display: grid; gap: 18px; }
+.race { display: grid; gap: 14px; }
+.race-row { display: grid; grid-template-columns: 9rem 1fr; gap: 14px; align-items: center; }
+.race-row .lbl { font-size: 0.86rem; color: var(--muted); line-height: 1.25; }
+.race-row .lbl b { display: block; color: var(--ink); font-weight: 600; font-size: 0.92rem; }
+.race-track { position: relative; height: 34px; }
+.race-bar { height: 100%; border-radius: 0 4px 4px 0; }
+.race-val { position: absolute; top: 50%; transform: translateY(-50%); font: 500 0.95rem var(--f-mono); white-space: nowrap; padding-left: 10px; }
+.race-val.in { transform: translate(-100%, -50%); padding-left: 0; padding-right: 10px; }
+
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 4px; }
+.tile .big { font: 800 2rem/1 var(--f-display); letter-spacing: -0.02em; }
+.tile .what { font-size: 0.88rem; color: var(--ink-2); }
+
+/* task */
+.task { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; font-size: 0.92rem; color: var(--ink-2); }
+.task b { color: var(--ink); font-weight: 600; }
+
+/* pipeline */
+.pipe { display: grid; grid-template-columns: minmax(0,1fr) 6.5rem minmax(0,1fr) 6.5rem minmax(0,1fr); }
+.stage { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.stage.final { border-color: var(--sc); box-shadow: 0 0 0 1px var(--sc) inset; }
+.stage-tag { display: flex; align-items: center; gap: 8px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.sw.a { background: var(--sa); } .sw.b { background: var(--sb); } .sw.c { background: var(--sc); }
+.stage p { font-size: 0.88rem; color: var(--ink-2); }
+.stage .stats { display: flex; gap: 16px; padding-top: 8px; border-top: 1px solid var(--line); font: 600 0.95rem var(--f-display); }
+.stage .stats span { font: 400 0.72rem var(--f-body); color: var(--muted); display: block; }
+.link { display: grid; place-content: center; text-align: center; position: relative; }
+.link::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; border-top: 1.5px dashed var(--line); }
+.link b { position: relative; background: var(--bg); padding: 0 6px; font: 700 1.2rem var(--f-display); }
+
+/* charts */
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.82rem; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart { display: grid; gap: 14px; }
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; align-items: baseline; }
+.chart-head p { font-size: 0.84rem; color: var(--muted); }
+
+.dgroup { display: grid; gap: 2px; padding: 8px 0; border-top: 1px solid var(--grid); }
+.dgroup:first-child { border-top: 0; }
+.dgroup-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.dgroup-head b { font-weight: 600; }
+.speed { font: 500 0.8rem var(--f-mono); color: var(--ink-2); }
+.drow, .daxis { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) 7.6rem; gap: 10px; align-items: center; }
+.drow { height: 24px; }
+.drow .s { font: 500 0.74rem var(--f-mono); color: var(--muted); }
+.dtrack { position: relative; height: 100%; background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px); background-size: calc(100% / 6) 100%; border-left: 1px solid var(--line); }
+.dline { position: absolute; top: 50%; height: 2px; transform: translateY(-50%); opacity: 0.55; }
+.dot { position: absolute; top: 50%; width: 11px; height: 11px; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 2px var(--surface); }
+.dot.to { background: transparent !important; box-shadow: none; width: 14px; height: 14px; }
+.dot.to::before, .dot.to::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2.5px; background: var(--bad); border-radius: 2px; }
+.dot.to::before { transform: translate(-50%, -50%) rotate(45deg); }
+.dot.to::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.drow .v { font: 0.76rem var(--f-mono); color: var(--ink-2); white-space: nowrap; text-align: right; }
+.drow .v .bad { color: var(--bad); }
+.daxis .ticks { position: relative; height: 16px; }
+.daxis .ticks span { position: absolute; transform: translateX(-50%); font: 0.7rem var(--f-mono); color: var(--muted); white-space: nowrap; }
+
+.waffles { display: grid; gap: 14px; }
+.wrow { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 12px; align-items: start; }
+.wrow .l { font-size: 0.86rem; line-height: 1.25; font-weight: 600; }
+.wrow .l small { display: block; font: 400 0.72rem var(--f-mono); color: var(--muted); }
+.waffle { display: flex; flex-wrap: wrap; gap: 2px; }
+.waffle i { width: 9px; height: 9px; border-radius: 2px; display: block; }
+.waffle i.m { background: var(--manual); }
+.waffle i.t { background: var(--tool); }
+
+.caveats { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 0.88rem; color: var(--ink-2); }
+
+@media (max-width: 880px) {
+  .pipe { grid-template-columns: 1fr; }
+  .link { padding: 12px 0; }
+  .link::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1.5px dashed var(--line); }
+}
+@media (max-width: 520px) {
+  .wrap { padding-block: 28px 40px; gap: 40px; }
+  .race-row { grid-template-columns: 6.5rem 1fr; gap: 10px; }
+  .drow, .daxis { grid-template-columns: 1.2rem minmax(0, 1fr) 6.2rem; gap: 6px; }
+  .wrow { grid-template-columns: 1fr; gap: 6px; }
+  .tiles { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+}
+
+body { margin:0; } a { color:var(--accent); text-underline-offset:3px; }
+.note { font-size:.86rem; color:var(--muted); }
+.pipe.two { grid-template-columns:minmax(0,1fr) 7rem minmax(0,1fr); }
+.toolbar,.controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+.toolbar { justify-content:space-between; }
+.controls label { font-size:.84rem; color:var(--ink-2); }
+select,button { font:inherit; color:var(--ink); border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:7px 10px; }
+button { cursor:pointer; } button:hover { border-color:var(--accent); }
+button:focus-visible,select:focus-visible,a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.table-scroll { overflow:auto; } table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th,td { text-align:right; padding:10px; border-bottom:1px solid var(--grid); white-space:nowrap; font-variant-numeric:tabular-nums; }
+th { font-weight:600; color:var(--muted); } th:first-child,td:first-child { text-align:left; }
+tr.mean td { background:var(--chip); font-weight:600; }
+.waffle i.a { background:var(--sa); } .waffle i.b { background:var(--sc); }
+.operation-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.operation { display:grid; gap:4px; border:1px solid var(--line); background:var(--surface); padding:16px; border-radius:10px; }
+.operation b { font:700 1.5rem var(--f-display); } .operation span { font-size:.82rem; color:var(--muted); }
+.source-links { display:flex; flex-wrap:wrap; gap:8px 20px; font-size:.86rem; }
+@media(max-width:880px) { .pipe.two { grid-template-columns:1fr; } }
+@media(max-width:520px) { .operation-grid { grid-template-columns:1fr; } .race-val { font-size:.8rem; } }
+@media print { body { padding:0; } .wrap { max-width:100%; padding:20px; gap:25px; } .toolbar button,.controls { display:none; } section,.panel,.stage { break-inside:avoid; } }
+</style></head><body><main class="wrap">
+<header class="hero"><div class="toolbar"><span class="eyebrow">Glovo · bare page vs. adapter · 5 Oct 2026</span><div class="controls"><button id="theme" type="button" aria-label="Toggle light and dark theme">Change theme</button><a href="EXPERIMENT_REPORT_2026-10-05.md">Full Markdown report ↗</a></div></div><h1>3.59× faster baskets<br>with the adapter</h1><p class="lead">Mean performance for the same McDonald’s basket task, using Luna with xhigh reasoning.</p><div class="panel race" id="race" aria-label="Mean runtime: bare page 292.7 seconds; with adapter 81.6 seconds"></div><div class="tiles"><div class="tile"><span class="big num">3.59×</span><span class="what">faster · 4m 53s → 1m 22s</span></div><div class="tile"><span class="big num">61.7%</span><span class="what">fewer uncached + output tokens</span></div><div class="tile"><span class="big num">73.2%</span><span class="what">fewer browser calls</span></div></div></header>
+<section><h2>The task</h2><div class="task"><span>Add <b>McDouble</b>, <b>McChicken</b>, <b>chocolate shake</b> and <b>Ciastko Jabłkowe</b></span><span>· <a href="https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra">McDonald’s Kraków</a></span><span>· Take one basket screenshot</span><span>· Clean the basket</span><span>· Report difficulties</span></div><p class="note">gpt-6-luna · xhigh reasoning · fresh contexts · Codex-native Chrome tools · two agents per condition, run sequentially.</p></section>
+<section><h2>Bare page vs. adapter</h2><div class="pipe two"><div class="stage"><div class="stage-tag"><span class="sw a"></span><h3>A · Bare page</h3></div><p>Find the product controls, configure the shake, add each item and remove the basket lines through Glovo’s UI.</p><div class="stats"><div>292.7 s<span>mean time</span></div><div>35.5<span>mean browser calls</span></div><div>101,978<span>mean uncached + output</span></div></div></div><div class="link"><b class="num">3.59×</b></div><div class="stage final"><div class="stage-tag"><span class="sw c"></span><h3>B · With adapter</h3></div><p>Search the current page in one batch, add four products, capture the basket and remove the four addition receipts.</p><div class="stats"><div>81.6 s<span>mean time</span></div><div>9.5<span>mean browser calls</span></div><div>39,069<span>mean uncached + output</span></div></div></div></div><p class="note">Same basket task and native browser interface. Product IDs and shake options were discovered during the run. The adapter exposes Glovo’s existing page JavaScript through a DOM command form.</p></section>
+<section><h2>The batch operations</h2><div class="operation-grid"><div class="operation"><b class="num">10 ms</b><span>search four products</span></div><div class="operation"><b class="num">1.28 s</b><span>add four products</span></div><div class="operation"><b class="num">1.15 s</b><span>remove four receipts</span></div></div><p class="note">Mean in-page journal timings, nested within browser calls. All requested products were added and removed successfully. Configured basket total: 62.10 PLN.</p></section>
+<section><h2>Difficulties encountered</h2><div class="panel"><p><b>Bare page:</b> selector mismatches and DOM-read timeouts required recovery. <b>With adapter:</b> no returned browser-tool errors. All baskets were completed and emptied.</p></div></section>
+<section><h2>Measurement</h2><ul class="caveats"><li>Time runs from agent start to completion. Parent tab preparation and adapter injection occurred before timing.</li><li>Tokens are cumulative agent usage. Uncached input + output excludes cached input; reasoning is already included in output.</li><li>Browser-call counts cover native browser invocations. One adapter agent’s completion message is included in its runtime/tokens, but not in its browser-call count.</li><li>Two agents per condition, fixed order and the same signed-in browser. The 3.59× result is an observed comparison, not a guaranteed multiplier.</li></ul><div class="source-links"><a href="EXPERIMENT_REPORT_2026-10-05.md">Method and sources</a></div></section>
+</main><script id="experiment-data" type="application/json">{"means": {"uiSeconds": 292.6965, "adapterSeconds": 81.611}}</script><script>
+(() => {
+'use strict';
+const {means}=JSON.parse(document.getElementById('experiment-data').textContent);
+const C={UI:'var(--sa)',Adapter:'var(--sc)'};
+const el=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;};
+const time=v=>{const n=Math.round(v);return `${Math.floor(n/60)}m ${String(n%60).padStart(2,'0')}s`;};
+for(const r of [{name:'A · Bare page',v:means.uiSeconds,key:'UI'},{name:'B · With adapter',v:means.adapterSeconds,key:'Adapter'}]){const row=el('div','race-row'),label=el('div','lbl'),track=el('div','race-track'),bar=el('div','race-bar'),pct=r.v/400*100,val=el('span','race-val num',time(r.v));label.append(el('b',null,r.name),document.createTextNode('mean per agent'));bar.style.width=`${pct}%`;bar.style.background=C[r.key];val.style.left=`${pct}%`;track.append(bar,val);row.append(label,track);document.getElementById('race').append(row);}
+document.getElementById('theme').addEventListener('click',()=>{const root=document.documentElement,dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;root.dataset.theme=dark?'light':'dark';});
+})();
+</script></body></html>

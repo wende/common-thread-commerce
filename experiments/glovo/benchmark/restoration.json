@@ -1,0 +1,14 @@
+{
+  "verifiedAtUtc": "2026-10-05T13:31:40Z",
+  "outsideAgentBenchmark": true,
+  "beforeRestoration": { "lineCount": 0, "itemCount": 0 },
+  "restoredOriginalBasket": true,
+  "verification": "Fresh server read and visually inspected native basket screenshot",
+  "afterRestoration": {
+    "lineCount": 1,
+    "itemCount": 1,
+    "total": "26,90 zł",
+    "products": [{ "productId": "41971610625", "name": "Big Mac®", "quantity": 1, "customizations": [] }]
+  },
+  "screenshot": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark/restored-original-basket.png"
+}

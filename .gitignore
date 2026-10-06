@@ -7,5 +7,6 @@ __pycache__/
 *.pyc
 # Keep workspace experiments local.
 experiments/*
+!experiments/glovo/
 # Generated browser profiles, session state, protocol logs and screenshots remain local.
 output/

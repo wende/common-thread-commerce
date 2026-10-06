@@ -1,0 +1,1307 @@
+{
+  "generatedAt": "2026-10-05T15:48:40.884Z",
+  "methodology": [
+    "Original trace inputs and outputs are unchanged. All phase spans include the gaps between calls.",
+    "Outer tool intervals are invocation-to-return intervals. Their complement includes model processing, scheduling, text generation, and any child process that continues after a yielded exec_command.",
+    "The traces do not separately identify inference, reasoning, queuing, or browser network time. In-page operations and transport intervals are nested; do not add them to the outer intervals.",
+    "Run 4 setup ends after the second injection returns. The earlier phase-audit cut off at the first wrapper return, assigning the reinjection to search. This shifts 12.960 seconds between phases and does not change total runtime."
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "condition": "UI only",
+      "elapsedSeconds": 631.02,
+      "outerToolIntervalsSeconds": 15.311,
+      "outsideOuterToolIntervalsSeconds": 615.709,
+      "phases": [
+        {
+          "phase": "Setup",
+          "startedAt": "2026-10-05T14:46:46.993Z",
+          "endedAt": "2026-10-05T14:47:36.198Z",
+          "elapsedSeconds": 49.205,
+          "outerToolIntervalsSeconds": 2.928,
+          "callIndices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "phase": "Search, configure, add, and confirm four products",
+          "startedAt": "2026-10-05T14:47:36.198Z",
+          "endedAt": "2026-10-05T14:54:38.372Z",
+          "elapsedSeconds": 422.174,
+          "outerToolIntervalsSeconds": 8.346,
+          "callIndices": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ]
+        },
+        {
+          "phase": "Native basket screenshot and image inspection",
+          "startedAt": "2026-10-05T14:54:38.372Z",
+          "endedAt": "2026-10-05T14:54:48.710Z",
+          "elapsedSeconds": 10.338,
+          "outerToolIntervalsSeconds": 0.493,
+          "callIndices": [
+            54,
+            55
+          ]
+        },
+        {
+          "phase": "Cleanup, empty screenshot, and image inspection",
+          "startedAt": "2026-10-05T14:54:48.710Z",
+          "endedAt": "2026-10-05T14:56:25.537Z",
+          "elapsedSeconds": 96.827,
+          "outerToolIntervalsSeconds": 2.361,
+          "callIndices": [
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66
+          ]
+        },
+        {
+          "phase": "Report and final checks",
+          "startedAt": "2026-10-05T14:56:25.537Z",
+          "endedAt": "2026-10-05T14:57:18.013Z",
+          "elapsedSeconds": 52.476,
+          "outerToolIntervalsSeconds": 1.183,
+          "callIndices": [
+            67,
+            68,
+            69
+          ]
+        }
+      ],
+      "textOutputCharacters": 67822,
+      "largestOuterToolIntervals": [
+        {
+          "callIndex": 4,
+          "durationSeconds": 2.219
+        },
+        {
+          "callIndex": 68,
+          "durationSeconds": 0.837
+        },
+        {
+          "callIndex": 37,
+          "durationSeconds": 0.564
+        },
+        {
+          "callIndex": 18,
+          "durationSeconds": 0.356
+        },
+        {
+          "callIndex": 54,
+          "durationSeconds": 0.342
+        },
+        {
+          "callIndex": 11,
+          "durationSeconds": 0.334
+        }
+      ],
+      "largestPrecedingGaps": [
+        {
+          "callIndex": 45,
+          "gapSeconds": 31.015
+        },
+        {
+          "callIndex": 57,
+          "gapSeconds": 27.349
+        },
+        {
+          "callIndex": 27,
+          "gapSeconds": 23.18
+        },
+        {
+          "callIndex": 31,
+          "gapSeconds": 19.564
+        },
+        {
+          "callIndex": 24,
+          "gapSeconds": 19.26
+        }
+      ],
+      "sourceTranscript": "transcript-run-1.md",
+      "sourceTrace": "trace-run-1.json",
+      "shakeWorkflow": {
+        "firstCall": 27,
+        "lastCall": 48,
+        "calls": 22,
+        "elapsedSeconds": 212.967,
+        "leadingGapSeconds": 23.18,
+        "outerToolIntervalsSeconds": 4.506
+      }
+    },
+    {
+      "run": 2,
+      "condition": "UI only",
+      "elapsedSeconds": 706.525,
+      "outerToolIntervalsSeconds": 13.203,
+      "outsideOuterToolIntervalsSeconds": 693.322,
+      "phases": [
+        {
+          "phase": "Setup",
+          "startedAt": "2026-10-05T14:58:13.567Z",
+          "endedAt": "2026-10-05T15:00:23.252Z",
+          "elapsedSeconds": 129.685,
+          "outerToolIntervalsSeconds": 4.78,
+          "callIndices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "phase": "Search, configure, add, and confirm four products",
+          "startedAt": "2026-10-05T15:00:23.252Z",
+          "endedAt": "2026-10-05T15:07:24.077Z",
+          "elapsedSeconds": 420.825,
+          "outerToolIntervalsSeconds": 5.316,
+          "callIndices": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ]
+        },
+        {
+          "phase": "Native basket screenshot and image inspection",
+          "startedAt": "2026-10-05T15:07:24.077Z",
+          "endedAt": "2026-10-05T15:07:33.233Z",
+          "elapsedSeconds": 9.156,
+          "outerToolIntervalsSeconds": 0.559,
+          "callIndices": [
+            44,
+            45
+          ]
+        },
+        {
+          "phase": "Cleanup, empty screenshot, and image inspection",
+          "startedAt": "2026-10-05T15:07:33.233Z",
+          "endedAt": "2026-10-05T15:08:57.085Z",
+          "elapsedSeconds": 83.852,
+          "outerToolIntervalsSeconds": 1.895,
+          "callIndices": [
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ]
+        },
+        {
+          "phase": "Report and final checks",
+          "startedAt": "2026-10-05T15:08:57.085Z",
+          "endedAt": "2026-10-05T15:10:00.092Z",
+          "elapsedSeconds": 63.007,
+          "outerToolIntervalsSeconds": 0.653,
+          "callIndices": [
+            56,
+            57,
+            58,
+            59,
+            60
+          ]
+        }
+      ],
+      "textOutputCharacters": 54123,
+      "largestOuterToolIntervals": [
+        {
+          "callIndex": 4,
+          "durationSeconds": 3.287
+        },
+        {
+          "callIndex": 47,
+          "durationSeconds": 0.504
+        },
+        {
+          "callIndex": 44,
+          "durationSeconds": 0.383
+        },
+        {
+          "callIndex": 9,
+          "durationSeconds": 0.267
+        },
+        {
+          "callIndex": 5,
+          "durationSeconds": 0.261
+        },
+        {
+          "callIndex": 23,
+          "durationSeconds": 0.26
+        }
+      ],
+      "largestPrecedingGaps": [
+        {
+          "callIndex": 22,
+          "gapSeconds": 39.711
+        },
+        {
+          "callIndex": 16,
+          "gapSeconds": 33.309
+        },
+        {
+          "callIndex": 8,
+          "gapSeconds": 30.76
+        },
+        {
+          "callIndex": 46,
+          "gapSeconds": 30.266
+        },
+        {
+          "callIndex": 18,
+          "gapSeconds": 28.049
+        }
+      ],
+      "sourceTranscript": "transcript-run-2.md",
+      "sourceTrace": "trace-run-2.json",
+      "shakeWorkflow": {
+        "firstCall": 18,
+        "lastCall": 39,
+        "calls": 22,
+        "elapsedSeconds": 255.171,
+        "leadingGapSeconds": 28.049,
+        "outerToolIntervalsSeconds": 3.858
+      }
+    },
+    {
+      "run": 3,
+      "condition": "Adapter v0.4",
+      "elapsedSeconds": 98.456,
+      "outerToolIntervalsSeconds": 11.146,
+      "outsideOuterToolIntervalsSeconds": 87.31,
+      "phases": [
+        {
+          "phase": "Setup",
+          "startedAt": "2026-10-05T15:10:58.860Z",
+          "endedAt": "2026-10-05T15:11:31.856Z",
+          "elapsedSeconds": 32.996,
+          "outerToolIntervalsSeconds": 4.166,
+          "callIndices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "phase": "Search, configure, add, and confirm four products",
+          "startedAt": "2026-10-05T15:11:31.856Z",
+          "endedAt": "2026-10-05T15:11:52.347Z",
+          "elapsedSeconds": 20.491,
+          "outerToolIntervalsSeconds": 2.879,
+          "callIndices": [
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "phase": "Native basket screenshot and image inspection",
+          "startedAt": "2026-10-05T15:11:52.347Z",
+          "endedAt": "2026-10-05T15:12:00.686Z",
+          "elapsedSeconds": 8.339,
+          "outerToolIntervalsSeconds": 0.699,
+          "callIndices": [
+            9,
+            10
+          ]
+        },
+        {
+          "phase": "Cleanup, empty screenshot, and image inspection",
+          "startedAt": "2026-10-05T15:12:00.686Z",
+          "endedAt": "2026-10-05T15:12:14.068Z",
+          "elapsedSeconds": 13.382,
+          "outerToolIntervalsSeconds": 2.62,
+          "callIndices": [
+            11,
+            12,
+            13
+          ]
+        },
+        {
+          "phase": "Report and final checks",
+          "startedAt": "2026-10-05T15:12:14.068Z",
+          "endedAt": "2026-10-05T15:12:37.316Z",
+          "elapsedSeconds": 23.248,
+          "outerToolIntervalsSeconds": 0.782,
+          "callIndices": [
+            14,
+            15
+          ]
+        }
+      ],
+      "textOutputCharacters": 48264,
+      "largestOuterToolIntervals": [
+        {
+          "callIndex": 3,
+          "durationSeconds": 3.143
+        },
+        {
+          "callIndex": 8,
+          "durationSeconds": 2.452
+        },
+        {
+          "callIndex": 11,
+          "durationSeconds": 2.042
+        },
+        {
+          "callIndex": 9,
+          "durationSeconds": 0.6
+        },
+        {
+          "callIndex": 5,
+          "durationSeconds": 0.592
+        },
+        {
+          "callIndex": 15,
+          "durationSeconds": 0.515
+        }
+      ],
+      "largestPrecedingGaps": [
+        {
+          "callIndex": 2,
+          "gapSeconds": 9.25
+        },
+        {
+          "callIndex": 15,
+          "gapSeconds": 7.694
+        },
+        {
+          "callIndex": 7,
+          "gapSeconds": 7.454
+        },
+        {
+          "callIndex": 14,
+          "gapSeconds": 7.128
+        },
+        {
+          "callIndex": 1,
+          "gapSeconds": 6.881
+        }
+      ],
+      "sourceTranscript": "transcript-run-3.md",
+      "sourceTrace": "trace-run-3.json",
+      "inPageCoreOperations": [
+        {
+          "operation": "searchMany",
+          "durationMs": 9,
+          "startedAt": "2026-10-05T15:11:38.677Z",
+          "endedAt": "2026-10-05T15:11:38.686Z",
+          "status": "complete"
+        },
+        {
+          "operation": "addMany",
+          "durationMs": 2256,
+          "startedAt": "2026-10-05T15:11:50.013Z",
+          "endedAt": "2026-10-05T15:11:52.269Z",
+          "status": "complete"
+        },
+        {
+          "operation": "removeMany",
+          "durationMs": 1810,
+          "startedAt": "2026-10-05T15:12:05.444Z",
+          "endedAt": "2026-10-05T15:12:07.254Z",
+          "status": "complete"
+        }
+      ],
+      "inPageCoreSeconds": 4.075,
+      "adapterTransport": [
+        {
+          "command": "inject",
+          "durationMs": 120.67108400000001,
+          "startedAt": "2026-10-05T15:11:31.351Z",
+          "endedAt": "2026-10-05T15:11:31.473Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 40.593875000000004,
+              "startedAt": "2026-10-05T15:11:31.353Z",
+              "endedAt": "2026-10-05T15:11:31.394Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 24.28470800000001,
+              "startedAt": "2026-10-05T15:11:31.394Z",
+              "endedAt": "2026-10-05T15:11:31.418Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 54.684667000000005,
+              "startedAt": "2026-10-05T15:11:31.418Z",
+              "endedAt": "2026-10-05T15:11:31.473Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "searchMany",
+          "durationMs": 68.780333,
+          "startedAt": "2026-10-05T15:11:38.633Z",
+          "endedAt": "2026-10-05T15:11:38.704Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 34.359249999999996,
+              "startedAt": "2026-10-05T15:11:38.635Z",
+              "endedAt": "2026-10-05T15:11:38.669Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 27.816875000000003,
+              "startedAt": "2026-10-05T15:11:38.669Z",
+              "endedAt": "2026-10-05T15:11:38.697Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 5.185832999999988,
+              "startedAt": "2026-10-05T15:11:38.697Z",
+              "endedAt": "2026-10-05T15:11:38.702Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "getStoreCart",
+          "durationMs": 277.46112500000004,
+          "startedAt": "2026-10-05T15:11:38.633Z",
+          "endedAt": "2026-10-05T15:11:38.912Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 33.750708,
+              "startedAt": "2026-10-05T15:11:38.635Z",
+              "endedAt": "2026-10-05T15:11:38.669Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 239.13179199999996,
+              "startedAt": "2026-10-05T15:11:38.669Z",
+              "endedAt": "2026-10-05T15:11:38.908Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 3.390083000000004,
+              "startedAt": "2026-10-05T15:11:38.908Z",
+              "endedAt": "2026-10-05T15:11:38.911Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "addMany",
+          "durationMs": 2338.0189170000003,
+          "startedAt": "2026-10-05T15:11:49.974Z",
+          "endedAt": "2026-10-05T15:11:52.313Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 33.13841599999999,
+              "startedAt": "2026-10-05T15:11:49.976Z",
+              "endedAt": "2026-10-05T15:11:50.009Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 2271.714583,
+              "startedAt": "2026-10-05T15:11:50.009Z",
+              "endedAt": "2026-10-05T15:11:52.281Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 31.399207999999817,
+              "startedAt": "2026-10-05T15:11:52.281Z",
+              "endedAt": "2026-10-05T15:11:52.312Z"
+            }
+          ]
+        },
+        {
+          "command": "evidence",
+          "durationMs": 507.733417,
+          "startedAt": "2026-10-05T15:11:57.204Z",
+          "endedAt": "2026-10-05T15:11:57.713Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 38.22125,
+              "startedAt": "2026-10-05T15:11:57.206Z",
+              "endedAt": "2026-10-05T15:11:57.244Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 13.953917000000004,
+              "startedAt": "2026-10-05T15:11:57.244Z",
+              "endedAt": "2026-10-05T15:11:57.258Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 6.040458000000001,
+              "startedAt": "2026-10-05T15:11:57.258Z",
+              "endedAt": "2026-10-05T15:11:57.264Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 10.784709000000007,
+              "startedAt": "2026-10-05T15:11:57.264Z",
+              "endedAt": "2026-10-05T15:11:57.275Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 170.28512500000002,
+              "startedAt": "2026-10-05T15:11:57.275Z",
+              "endedAt": "2026-10-05T15:11:57.445Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 4.463166000000001,
+              "startedAt": "2026-10-05T15:11:57.445Z",
+              "endedAt": "2026-10-05T15:11:57.450Z"
+            },
+            {
+              "action": "screenshot",
+              "durationMs": 241.887,
+              "startedAt": "2026-10-05T15:11:57.450Z",
+              "endedAt": "2026-10-05T15:11:57.692Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 5.726459000000034,
+              "startedAt": "2026-10-05T15:11:57.692Z",
+              "endedAt": "2026-10-05T15:11:57.697Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 7.864500000000021,
+              "startedAt": "2026-10-05T15:11:57.697Z",
+              "endedAt": "2026-10-05T15:11:57.705Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 6.770083999999997,
+              "startedAt": "2026-10-05T15:11:57.705Z",
+              "endedAt": "2026-10-05T15:11:57.712Z"
+            }
+          ]
+        },
+        {
+          "command": "cleanup",
+          "durationMs": 1928.56325,
+          "startedAt": "2026-10-05T15:12:05.394Z",
+          "endedAt": "2026-10-05T15:12:07.324Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 45.0205,
+              "startedAt": "2026-10-05T15:12:05.396Z",
+              "endedAt": "2026-10-05T15:12:05.441Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 1819.286625,
+              "startedAt": "2026-10-05T15:12:05.441Z",
+              "endedAt": "2026-10-05T15:12:07.260Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 62.35245899999995,
+              "startedAt": "2026-10-05T15:12:07.260Z",
+              "endedAt": "2026-10-05T15:12:07.323Z"
+            }
+          ]
+        },
+        {
+          "command": "evidence",
+          "durationMs": 377.20833300000004,
+          "startedAt": "2026-10-05T15:12:10.958Z",
+          "endedAt": "2026-10-05T15:12:11.336Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 29.058415999999998,
+              "startedAt": "2026-10-05T15:12:10.959Z",
+              "endedAt": "2026-10-05T15:12:10.988Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 12.725124999999998,
+              "startedAt": "2026-10-05T15:12:10.988Z",
+              "endedAt": "2026-10-05T15:12:11.001Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 4.647374999999997,
+              "startedAt": "2026-10-05T15:12:11.001Z",
+              "endedAt": "2026-10-05T15:12:11.006Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 5.479083000000003,
+              "startedAt": "2026-10-05T15:12:11.006Z",
+              "endedAt": "2026-10-05T15:12:11.011Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 95.25574999999999,
+              "startedAt": "2026-10-05T15:12:11.011Z",
+              "endedAt": "2026-10-05T15:12:11.106Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 5.313916000000006,
+              "startedAt": "2026-10-05T15:12:11.106Z",
+              "endedAt": "2026-10-05T15:12:11.112Z"
+            },
+            {
+              "action": "screenshot",
+              "durationMs": 207.96808399999998,
+              "startedAt": "2026-10-05T15:12:11.112Z",
+              "endedAt": "2026-10-05T15:12:11.320Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 5.50770799999998,
+              "startedAt": "2026-10-05T15:12:11.320Z",
+              "endedAt": "2026-10-05T15:12:11.325Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 5.652666000000011,
+              "startedAt": "2026-10-05T15:12:11.325Z",
+              "endedAt": "2026-10-05T15:12:11.331Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 4.223791000000006,
+              "startedAt": "2026-10-05T15:12:11.331Z",
+              "endedAt": "2026-10-05T15:12:11.335Z"
+            }
+          ]
+        },
+        {
+          "command": "report",
+          "durationMs": 155.357875,
+          "startedAt": "2026-10-05T15:12:21.275Z",
+          "endedAt": "2026-10-05T15:12:21.432Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 39.277542,
+              "startedAt": "2026-10-05T15:12:21.276Z",
+              "endedAt": "2026-10-05T15:12:21.316Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 106.47845900000002,
+              "startedAt": "2026-10-05T15:12:21.316Z",
+              "endedAt": "2026-10-05T15:12:21.422Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 8.249792000000014,
+              "startedAt": "2026-10-05T15:12:21.422Z",
+              "endedAt": "2026-10-05T15:12:21.430Z"
+            }
+          ]
+        }
+      ],
+      "focusCalls": 24,
+      "focusSeconds": 0.518,
+      "setupAndReportingPercent": 57.126
+    },
+    {
+      "run": 4,
+      "condition": "Adapter v0.4",
+      "elapsedSeconds": 280.037,
+      "outerToolIntervalsSeconds": 132.21,
+      "outsideOuterToolIntervalsSeconds": 147.827,
+      "phases": [
+        {
+          "phase": "Setup",
+          "startedAt": "2026-10-05T15:14:25.283Z",
+          "endedAt": "2026-10-05T15:16:51.100Z",
+          "elapsedSeconds": 145.817,
+          "outerToolIntervalsSeconds": 75.777,
+          "callIndices": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "phase": "Search, configure, add, and confirm four products",
+          "startedAt": "2026-10-05T15:16:51.100Z",
+          "endedAt": "2026-10-05T15:17:36.077Z",
+          "elapsedSeconds": 44.977,
+          "outerToolIntervalsSeconds": 15.919,
+          "callIndices": [
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "phase": "Native basket screenshot and image inspection",
+          "startedAt": "2026-10-05T15:17:36.077Z",
+          "endedAt": "2026-10-05T15:18:00.919Z",
+          "elapsedSeconds": 24.842,
+          "outerToolIntervalsSeconds": 15.929,
+          "callIndices": [
+            11,
+            12
+          ]
+        },
+        {
+          "phase": "Cleanup, empty screenshot, and image inspection",
+          "startedAt": "2026-10-05T15:18:00.919Z",
+          "endedAt": "2026-10-05T15:18:34.122Z",
+          "elapsedSeconds": 33.203,
+          "outerToolIntervalsSeconds": 22.453,
+          "callIndices": [
+            13,
+            14,
+            15
+          ]
+        },
+        {
+          "phase": "Report and final checks",
+          "startedAt": "2026-10-05T15:18:34.122Z",
+          "endedAt": "2026-10-05T15:19:05.320Z",
+          "elapsedSeconds": 31.198,
+          "outerToolIntervalsSeconds": 2.132,
+          "callIndices": [
+            16,
+            17,
+            18
+          ]
+        }
+      ],
+      "textOutputCharacters": 30566,
+      "largestOuterToolIntervals": [
+        {
+          "callIndex": 1,
+          "durationSeconds": 23.36
+        },
+        {
+          "callIndex": 5,
+          "durationSeconds": 21.179
+        },
+        {
+          "callIndex": 11,
+          "durationSeconds": 14.393
+        },
+        {
+          "callIndex": 4,
+          "durationSeconds": 13.52
+        },
+        {
+          "callIndex": 13,
+          "durationSeconds": 13.122
+        },
+        {
+          "callIndex": 3,
+          "durationSeconds": 9.834
+        }
+      ],
+      "largestPrecedingGaps": [
+        {
+          "callIndex": 2,
+          "gapSeconds": 29.917
+        },
+        {
+          "callIndex": 1,
+          "gapSeconds": 16.423
+        },
+        {
+          "callIndex": 16,
+          "gapSeconds": 10.691
+        },
+        {
+          "callIndex": 8,
+          "gapSeconds": 10.009
+        },
+        {
+          "callIndex": 18,
+          "gapSeconds": 9.709
+        }
+      ],
+      "sourceTranscript": "transcript-run-4.md",
+      "sourceTrace": "trace-run-4.json",
+      "inPageCoreOperations": [
+        {
+          "operation": "searchMany",
+          "durationMs": 631,
+          "startedAt": "2026-10-05T15:16:58.873Z",
+          "endedAt": "2026-10-05T15:16:59.504Z",
+          "status": "complete"
+        },
+        {
+          "operation": "addMany",
+          "durationMs": 5930,
+          "startedAt": "2026-10-05T15:17:29.499Z",
+          "endedAt": "2026-10-05T15:17:35.429Z",
+          "status": "complete"
+        },
+        {
+          "operation": "removeMany",
+          "durationMs": 10172,
+          "startedAt": "2026-10-05T15:18:06.578Z",
+          "endedAt": "2026-10-05T15:18:16.750Z",
+          "status": "complete"
+        }
+      ],
+      "inPageCoreSeconds": 16.733,
+      "adapterTransport": [
+        {
+          "command": "inject",
+          "durationMs": 25259.782625,
+          "startedAt": "2026-10-05T15:16:21.327Z",
+          "endedAt": "2026-10-05T15:16:46.636Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 18374.506959,
+              "startedAt": "2026-10-05T15:16:21.447Z",
+              "endedAt": "2026-10-05T15:16:39.820Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 6270.485958000001,
+              "startedAt": "2026-10-05T15:16:39.821Z",
+              "endedAt": "2026-10-05T15:16:46.092Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 543.6753330000029,
+              "startedAt": "2026-10-05T15:16:46.092Z",
+              "endedAt": "2026-10-05T15:16:46.636Z"
+            }
+          ]
+        },
+        {
+          "command": "inject",
+          "durationMs": 2433.689375,
+          "startedAt": "2026-10-05T15:16:48.206Z",
+          "endedAt": "2026-10-05T15:16:50.670Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 1250.6277499999999,
+              "startedAt": "2026-10-05T15:16:48.822Z",
+              "endedAt": "2026-10-05T15:16:50.073Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 429.12958300000014,
+              "startedAt": "2026-10-05T15:16:50.073Z",
+              "endedAt": "2026-10-05T15:16:50.502Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 167.78912499999979,
+              "startedAt": "2026-10-05T15:16:50.502Z",
+              "endedAt": "2026-10-05T15:16:50.670Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "searchMany",
+          "durationMs": 4191.778084,
+          "startedAt": "2026-10-05T15:16:56.952Z",
+          "endedAt": "2026-10-05T15:17:01.152Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 389.77725,
+              "startedAt": "2026-10-05T15:16:56.961Z",
+              "endedAt": "2026-10-05T15:16:57.351Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 2236.188791,
+              "startedAt": "2026-10-05T15:16:57.351Z",
+              "endedAt": "2026-10-05T15:16:59.587Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 1559.0121249999997,
+              "startedAt": "2026-10-05T15:16:59.587Z",
+              "endedAt": "2026-10-05T15:17:01.146Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "getStoreCart",
+          "durationMs": 1086.328334,
+          "startedAt": "2026-10-05T15:17:12.374Z",
+          "endedAt": "2026-10-05T15:17:13.473Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 858.842792,
+              "startedAt": "2026-10-05T15:17:12.387Z",
+              "endedAt": "2026-10-05T15:17:13.246Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 147.51870799999995,
+              "startedAt": "2026-10-05T15:17:13.246Z",
+              "endedAt": "2026-10-05T15:17:13.393Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 68.67479200000002,
+              "startedAt": "2026-10-05T15:17:13.394Z",
+              "endedAt": "2026-10-05T15:17:13.462Z"
+            }
+          ]
+        },
+        {
+          "command": "call",
+          "method": "addMany",
+          "durationMs": 6934.999667,
+          "startedAt": "2026-10-05T15:17:28.913Z",
+          "endedAt": "2026-10-05T15:17:35.856Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 557.512791,
+              "startedAt": "2026-10-05T15:17:28.924Z",
+              "endedAt": "2026-10-05T15:17:29.481Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 5970.99225,
+              "startedAt": "2026-10-05T15:17:29.482Z",
+              "endedAt": "2026-10-05T15:17:35.453Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 392.4503329999998,
+              "startedAt": "2026-10-05T15:17:35.453Z",
+              "endedAt": "2026-10-05T15:17:35.845Z"
+            }
+          ]
+        },
+        {
+          "command": "evidence",
+          "durationMs": 13965.259292,
+          "startedAt": "2026-10-05T15:17:42.890Z",
+          "endedAt": "2026-10-05T15:17:56.860Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 1156.9822920000001,
+              "startedAt": "2026-10-05T15:17:42.895Z",
+              "endedAt": "2026-10-05T15:17:44.052Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 2017.7909579999998,
+              "startedAt": "2026-10-05T15:17:44.052Z",
+              "endedAt": "2026-10-05T15:17:46.070Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 786.9016659999998,
+              "startedAt": "2026-10-05T15:17:46.070Z",
+              "endedAt": "2026-10-05T15:17:46.857Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 803.22125,
+              "startedAt": "2026-10-05T15:17:46.857Z",
+              "endedAt": "2026-10-05T15:17:47.660Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 1716.9782920000007,
+              "startedAt": "2026-10-05T15:17:47.660Z",
+              "endedAt": "2026-10-05T15:17:49.377Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 277.79675000000043,
+              "startedAt": "2026-10-05T15:17:49.377Z",
+              "endedAt": "2026-10-05T15:17:49.655Z"
+            },
+            {
+              "action": "screenshot",
+              "durationMs": 5388.01325,
+              "startedAt": "2026-10-05T15:17:49.655Z",
+              "endedAt": "2026-10-05T15:17:55.043Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 237.7096249999995,
+              "startedAt": "2026-10-05T15:17:55.043Z",
+              "endedAt": "2026-10-05T15:17:55.281Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 904.8652500000007,
+              "startedAt": "2026-10-05T15:17:55.281Z",
+              "endedAt": "2026-10-05T15:17:56.186Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 669.9788750000007,
+              "startedAt": "2026-10-05T15:17:56.186Z",
+              "endedAt": "2026-10-05T15:17:56.856Z"
+            }
+          ]
+        },
+        {
+          "command": "cleanup",
+          "durationMs": 11573.022042,
+          "startedAt": "2026-10-05T15:18:05.955Z",
+          "endedAt": "2026-10-05T15:18:17.546Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 414.12587500000006,
+              "startedAt": "2026-10-05T15:18:05.979Z",
+              "endedAt": "2026-10-05T15:18:06.393Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 10377.325499999999,
+              "startedAt": "2026-10-05T15:18:06.393Z",
+              "endedAt": "2026-10-05T15:18:16.770Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 771.8725830000003,
+              "startedAt": "2026-10-05T15:18:16.770Z",
+              "endedAt": "2026-10-05T15:18:17.542Z"
+            }
+          ]
+        },
+        {
+          "command": "evidence",
+          "durationMs": 5972.031959,
+          "startedAt": "2026-10-05T15:18:24.157Z",
+          "endedAt": "2026-10-05T15:18:30.134Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 1279.057541,
+              "startedAt": "2026-10-05T15:18:24.162Z",
+              "endedAt": "2026-10-05T15:18:25.441Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 29.37737500000003,
+              "startedAt": "2026-10-05T15:18:25.441Z",
+              "endedAt": "2026-10-05T15:18:25.471Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 34.9459589999999,
+              "startedAt": "2026-10-05T15:18:25.471Z",
+              "endedAt": "2026-10-05T15:18:25.506Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 353.3292919999999,
+              "startedAt": "2026-10-05T15:18:25.506Z",
+              "endedAt": "2026-10-05T15:18:25.859Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 922.5055419999999,
+              "startedAt": "2026-10-05T15:18:25.859Z",
+              "endedAt": "2026-10-05T15:18:26.782Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 32.76983300000029,
+              "startedAt": "2026-10-05T15:18:26.782Z",
+              "endedAt": "2026-10-05T15:18:26.814Z"
+            },
+            {
+              "action": "screenshot",
+              "durationMs": 2699.125542,
+              "startedAt": "2026-10-05T15:18:26.814Z",
+              "endedAt": "2026-10-05T15:18:29.514Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 257.92762500000026,
+              "startedAt": "2026-10-05T15:18:29.514Z",
+              "endedAt": "2026-10-05T15:18:29.772Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 310.8932500000001,
+              "startedAt": "2026-10-05T15:18:29.772Z",
+              "endedAt": "2026-10-05T15:18:30.082Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 48.54541599999993,
+              "startedAt": "2026-10-05T15:18:30.082Z",
+              "endedAt": "2026-10-05T15:18:30.131Z"
+            }
+          ]
+        },
+        {
+          "command": "report",
+          "durationMs": 859.010125,
+          "startedAt": "2026-10-05T15:18:48.269Z",
+          "endedAt": "2026-10-05T15:18:49.175Z",
+          "status": "complete",
+          "stages": [
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 679.534208,
+              "startedAt": "2026-10-05T15:18:48.318Z",
+              "endedAt": "2026-10-05T15:18:48.998Z"
+            },
+            {
+              "action": "Runtime.evaluate",
+              "durationMs": 151.848834,
+              "startedAt": "2026-10-05T15:18:48.998Z",
+              "endedAt": "2026-10-05T15:18:49.150Z"
+            },
+            {
+              "action": "Emulation.setFocusEmulationEnabled",
+              "durationMs": 19.511167,
+              "startedAt": "2026-10-05T15:18:49.151Z",
+              "endedAt": "2026-10-05T15:18:49.170Z"
+            }
+          ]
+        }
+      ],
+      "focusCalls": 26,
+      "focusSeconds": 31.987,
+      "setupAndReportingPercent": 63.211
+    }
+  ],
+  "slowerAdapterRun": {
+    "extraSeconds": 181.581,
+    "extraOuterToolIntervalsSeconds": 121.064,
+    "extraSetupSeconds": 112.821,
+    "extraSetupSharePercent": 62.133,
+    "firstInjectionContinuedAfterWrapperReturnSeconds": 8.496
+  }
+}

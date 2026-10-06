@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-05",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "xhigh",
+  "sequential": true,
+  "url": "https://glovoapp.com/en/pl/krakow/stores/mcdonald-s-kra",
+  "quantityEach": 1,
+  "products": [
+    "McDouble",
+    "McChicken®",
+    "Shake o smaku czekoladowym",
+    "Ciastko Jabłkowe"
+  ],
+  "shakeOptions": [
+    "Mały",
+    "Kubek (opłata SUP)"
+  ],
+  "conditions": [
+    "UI only",
+    "UI only",
+    "Adapter",
+    "Adapter"
+  ],
+  "originalBasketToRestore": [
+    {
+      "name": "Big Mac®",
+      "quantity": 1,
+      "visibleOptions": []
+    }
+  ],
+  "adapterSha256": {
+    "adapter.js": "274cd817a1e578a62999090b4d046da8e3d9595a3610a1592897f382e287891b",
+    "panel.js": "719e7fbe9d434a021cf47652671a86cb3ed38db1407183aaedd048006dc4f005",
+    "bridge.mjs": "d14c77c86badc1e7e184d10bf49a127d504c26d43b90074e5a3da0765bb93225"
+  },
+  "measurementNotes": [
+    "Per-agent logs provide cumulative input, cached input, output and reasoning usage.",
+    "Agent 1 required a second turn after initially stopping at a pre-existing basket item.",
+    "Coordinator preparation/restoration outside agents is excluded from per-agent usage."
+  ]
+}

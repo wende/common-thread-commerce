@@ -1,0 +1,46 @@
+{
+  "capturedAt": "2026-10-05T15:12:11.105Z",
+  "basket": {
+    "store": {
+      "id": "77097",
+      "addressId": "210074",
+      "name": "McDonald's",
+      "slug": "mcdonald-s-kra"
+    },
+    "lineCount": 0,
+    "itemCount": 0,
+    "total": null,
+    "products": []
+  },
+  "nativeUi": {
+    "found": true,
+    "text": "Your order\n\nWhen you add products from a store, they will appear here.\n\nFees information",
+    "rows": [],
+    "rectangle": {
+      "x": 976,
+      "y": 96,
+      "width": 384,
+      "height": 312
+    },
+    "visibleInViewport": true
+  },
+  "nativeMatchesStructured": true,
+  "panelBefore": {
+    "mounted": false,
+    "visible": false,
+    "collapsed": false,
+    "dock": "left"
+  },
+  "panel": {
+    "mounted": false,
+    "visible": false,
+    "collapsed": false,
+    "dock": "left"
+  },
+  "screenshot": {
+    "format": "png",
+    "path": "/Users/wende/projects/shopping-assistant/experiments/glovo/benchmark-v0.4/run-3-adapter-empty.png",
+    "sizeBytes": 530343,
+    "mimeType": "image/png"
+  }
+}
