@@ -1,12 +1,13 @@
+# Credentials and local runtime state.
 .env*
-!.env.example
+!**/.env.example
 .runtime/
 node_modules/
 .DS_Store
 __pycache__/
 *.pyc
-# Keep workspace experiments local.
-experiments/*
-!experiments/glovo/
-# Generated browser profiles, session state, protocol logs and screenshots remain local.
+# Generated browser profiles, session state and private experiment output.
 output/
+.playwright-cli/
+# Keep unrelated workspace experiments local.
+experiments/
