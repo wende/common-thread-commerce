@@ -1,8 +1,10 @@
 # Common Thread — three native e-commerce examples
 
-The [shopping-agent experiment summary](experiments/agent-browser/EXPERIMENT_SUMMARY_2026-10-05.md) compares browser-only shopping with session-bound API tools and catalog reuse on these three stores. It includes per-platform timings, token usage and interaction counts. The [benchmark instructions](experiments/agent-browser/README.md) describe the harness and reproduction commands.
+The separate Luna browser harness has been retired. The [postmortem](POSTMORTEM_LUNA_HARNESS_2026-10-05.md) explains why its host-side tooling did not test the intended page-injected adapter.
 
-The same invented catalog of **30 products in 5 categories**, running in three independent, real e-commerce engines:
+[Shop Agent](shopping-agent/README.md) is the replacement website-side experiment: one injectable JavaScript file that advertises `window.mcp.help()` on the page and exposes bounded catalog search and the browser's native basket. It has no agent-specific backend or runtime dependencies. [Benchmark accounting](benchmarks/shopping/README.md) now counts task work separately from inherited context and provider caching.
+
+The same invented catalog of **530 products in 5 categories** (30 original products plus 500 image-free filler products), running in three independent, real e-commerce engines:
 
 | Store | Framework / native theme | Local URL |
 | --- | --- | --- |
@@ -69,14 +71,26 @@ Then add `WOO_PORT`, `PRESTA_PORT`, and `MAGENTO_PORT` to `.env` (see `.env.exam
 
 ## Catalog
 
-`catalog/products.json` is the single source of truth. `catalog/products.csv` contains the same records for inspection. Products have matching names, SKUs, descriptions, categories, USD prices, sale prices, stock quantities, and illustrative images across all stores.
+`catalog/products.json` is the single source of truth. `catalog/products.csv` contains the same records for inspection. Products have matching names, SKUs, descriptions, categories, USD prices, sale prices and stock quantities across all stores. The original 30 products have illustrative images; the 500 filler products have none (native placeholder images may be displayed).
 
-- SKUs: `CT-001` through `CT-030`.
-- Categories: Tees, Hoodies, Shirts, Headwear, Accessories (6 products each).
+- Original SKUs: `CT-001` through `CT-030`.
+- Categories: Tees, Hoodies, Shirts, Headwear, Accessories (6 original products and 100 filler products each).
 - Sale items: `CT-003`, `CT-011`, `CT-019`, `CT-028` (20% off).
 - Out of stock: `CT-018`, `CT-030`.
 - Prices are displayed without tax; shipping is separate.
 - The invented product metadata is original demo content. Images are reused from WooCommerce's official sample catalog; attribution is in `catalog/assets/SOURCES.txt`. Some similar products intentionally share an illustrative photo.
+
+The scale experiment adds `CT-NOISE-0001` through `CT-NOISE-0500`, named `Noise Product 0001` through `Noise Product 0500`. They have generic descriptions, whole-dollar USD prices cycling from $1 to $50, stock of 100, no sale prices, no variants, and no images. They are evenly distributed across the existing categories (100 filler products per category).
+
+To generate and import the same filler products into all three installed stores, then refresh Magento indexes/caches and verify:
+
+```sh
+python3 scripts/populate-noise.py --count 500
+# Equivalent without a host Python installation:
+docker compose --profile tools run --rm -T --entrypoint python3 bootstrap /workspace/scripts/populate-noise.py --count 500
+```
+
+Reruns reuse the same SKUs and do not create duplicates. `--generate-only` updates the shared JSON/CSV without importing. The separate `catalog` command regenerates the original 30-product source files; it does not remove already imported filler products from the stores.
 
 The imports use each platform's native PHP product APIs. Rerunning setup updates the demo products by SKU. On the first PrestaShop import, its bundled sample merchandise is replaced by this catalog.
 

@@ -59,7 +59,7 @@ foreach($catalog['products'] as $p){
  $product->updateCategories([2,$categories[$p['category']]]);
  StockAvailable::setQuantity($product->id,0,$p['stock'],1);StockAvailable::setProductOutOfStock($product->id,0,1);
  $images=Image::getImages($lang,$product->id);
- if(!$images){
+ if(!empty($p['image'])&&!$images){
   $image=new Image();$image->id_product=$product->id;$image->position=1;$image->cover=1;$image->legend=localized($p['name']);$image->add();
   $path=$image->getPathForCreation();$source='/catalog/'.$p['image'];
   ImageManager::resize($source,$path.'.jpg');

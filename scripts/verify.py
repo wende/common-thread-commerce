@@ -21,7 +21,8 @@ for platform,command in commands.items():
   try: actual=json.loads(run.stdout.strip().splitlines()[-1])
   except Exception as e:errors.append(f'Invalid platform snapshot: {e}: {run.stdout[-1000:]}');actual={'products':[]}
  rows={p['sku']:p for p in actual['products']}
- if len(actual['products'])!=len(expected):errors.append(f"Expected 30 products, found {len(actual['products'])}")
+ if len(actual['products'])!=len(expected):errors.append(f"Expected {len(expected)} products, found {len(actual['products'])}")
+ if len(rows)!=len(actual['products']):errors.append('Duplicate product SKUs in platform snapshot')
  for p in expected:
   a=rows.get(p['sku'])
   if not a:errors.append(f"Missing {p['sku']}");continue
@@ -29,7 +30,7 @@ for platform,command in commands.items():
    if a[key]!=p[key]:errors.append(f"{p['sku']} {key}: {a[key]!r} != {p[key]!r}")
   for key,value in [('price',p['price']),('effective_price',p['sale_price'] if p['sale_price'] is not None else p['price'])]:
    if abs(a[key]-value)>.01:errors.append(f"{p['sku']} {key}: {a[key]} != {value}")
-  if not a['has_image']:errors.append(f"{p['sku']} missing image")
+  if bool(a['has_image'])!=bool(p.get('image')):errors.append(f"{p['sku']} image presence differs from catalog")
  report['platforms'][platform]={'version':actual.get('version'),'product_count':len(actual['products']),'passed':not errors,'errors':errors}
  print(f"{platform}: {'PASS' if not errors else 'FAIL'} — {len(actual['products'])} products")
  for error in errors:print('  '+error)

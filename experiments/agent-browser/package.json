@@ -1,1 +1,0 @@
-{"name":"codex-isolated-browser-benchmark","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node --test *.test.mjs","dual":"node run.mjs --agents 2 --sessions 2","ten":"node run.mjs --agents 10 --sessions 1"},"dependencies":{"playwright":"1.63.0"}}

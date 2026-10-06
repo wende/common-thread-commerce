@@ -28,7 +28,7 @@ foreach($catalog['products'] as $p){
  $product->setStoreId(0)->setAttributeSetId($setId)->setTypeId('simple')->setName($p['name'])->setUrlKey($p['slug'])->setStatus(1)->setVisibility(4)->setPrice($p['price'])->setWeight($p['weight_kg'])->setTaxClassId(0)->setDescription($p['description'])->setShortDescription($p['short_description'])->setWebsiteIds([1])->setCategoryIds([$categories['Collection'],$categories[$p['category']]]);
  $product->setSpecialPrice($p['sale_price']);$product->setSpecialFromDate(null);$product->setSpecialToDate(null);
  $product->setStockData(['use_config_manage_stock'=>0,'manage_stock'=>1,'is_in_stock'=>$p['stock']>0,'qty'=>$p['stock']]);
- if(!$product->getId() || !$product->getImage() || $product->getImage()==='no_selection'){
+ if(!empty($p['image'])&&(!$product->getId() || !$product->getImage() || $product->getImage()==='no_selection')){
   $importDir=BP.'/pub/media/import';if(!is_dir($importDir))mkdir($importDir,0775,true);
   $target=$importDir.'/ct-'.basename($p['image']);copy('/catalog/'.$p['image'],$target);
   $product->addImageToMediaGallery($target,['image','small_image','thumbnail'],false,false);

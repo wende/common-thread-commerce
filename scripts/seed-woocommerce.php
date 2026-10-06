@@ -44,12 +44,15 @@ foreach ($catalog['products'] as $p) {
  $product->set_stock_status($p['stock'] ? 'instock':'outofstock');
  $product->set_weight((string)$p['weight_kg']); $product->set_category_ids([$category_ids[$p['category']]]);
  $product->set_reviews_allowed(false);
- $attachment_id=(int)get_option('ct_image_'.basename($p['image']));
- if (!$attachment_id || !get_post($attachment_id)) {
-  $tmp=wp_tempnam(basename($p['image']));copy('/catalog/'.$p['image'],$tmp);
-  $attachment_id=media_handle_sideload(['name'=>basename($p['image']),'tmp_name'=>$tmp],0);
-  if(is_wp_error($attachment_id)) throw new RuntimeException($attachment_id->get_error_message());
-  update_option('ct_image_'.basename($p['image']),$attachment_id);
+ $attachment_id=0;
+ if (!empty($p['image'])) {
+  $attachment_id=(int)get_option('ct_image_'.basename($p['image']));
+  if (!$attachment_id || !get_post($attachment_id)) {
+   $tmp=wp_tempnam(basename($p['image']));copy('/catalog/'.$p['image'],$tmp);
+   $attachment_id=media_handle_sideload(['name'=>basename($p['image']),'tmp_name'=>$tmp],0);
+   if(is_wp_error($attachment_id)) throw new RuntimeException($attachment_id->get_error_message());
+   update_option('ct_image_'.basename($p['image']),$attachment_id);
+  }
  }
  $product->set_image_id($attachment_id); $product->save();
  echo $p['sku'].' '.$p['name']."\n";
