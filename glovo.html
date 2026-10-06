@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>glovo.js · experiment results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow column — claim, the line, three ratio bars, every run plotted. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #12161d;
+  --muted: #5d6675;
+  --rule: #e4e7ed;
+  --grid: #eef0f4;
+  --accent: #1f4fd8;
+  --base: #7b8494;
+  --code-bg: #12161d;
+  --code-fg: #eef1f6;
+  --font-text: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1116; --surface: #161a22; --ink: #e9edf3; --muted: #97a1b2; --rule: #262c37; --grid: #1f2530;
+    --accent: #6a8ff7; --base: #6c7586; --code-bg: #05070a; --code-fg: #e9edf3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1116; --surface: #161a22; --ink: #e9edf3; --muted: #97a1b2; --rule: #262c37; --grid: #1f2530;
+  --accent: #6a8ff7; --base: #6c7586; --code-bg: #05070a; --code-fg: #e9edf3;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-text); padding: 0 20px; }
+main { max-width: 640px; margin: 0 auto; padding-block: 64px 48px; display: grid; gap: 44px; }
+
+.name { font: 600 14px var(--font-mono); color: var(--accent); }
+h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.05; font-weight: 800; letter-spacing: -0.025em; margin: 10px 0 0; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+sup { font-size: .45em; color: var(--muted); font-weight: 500; }
+.hero { display: grid; gap: 20px; }
+
+.install { display: flex; align-items: center; gap: 12px; background: var(--code-bg); color: var(--code-fg); border-radius: 10px; padding: 14px 14px 14px 18px; min-width: 0; }
+.install code { font: 14px/1.4 var(--font-mono); flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; }
+.install .t { color: #8fb0ff; } .install .a { color: #c6d2e6; } .install .s { color: #9fe0b5; }
+.copy { font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; background: transparent; color: var(--code-fg); border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 7px 10px; cursor: pointer; flex: none; }
+.copy:hover { border-color: rgba(255,255,255,.6); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chips li { font-size: 13px; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); }
+
+.legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* Ratio bars */
+.ratios { display: grid; gap: 30px; }
+.ratio { display: grid; grid-template-columns: 1fr auto; column-gap: 20px; row-gap: 8px; align-items: center; }
+.ratio h2 { grid-column: 1 / -1; margin: 0; font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.bars { display: grid; gap: 4px; min-width: 0; }
+.row { display: flex; align-items: center; gap: 10px; }
+.bar { height: 22px; border-radius: 0 4px 4px 0; flex: none; transform-origin: left; animation: grow .9s cubic-bezier(.2,.7,.2,1) both; }
+.row.b .bar { background: var(--base); }
+.row.a .bar { background: var(--accent); animation-delay: .15s; }
+.val { font: 13px var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+.row.a .val { color: var(--ink); font-weight: 600; }
+.x { font-size: clamp(34px, 8vw, 46px); font-weight: 800; letter-spacing: -0.03em; color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; }
+.x small { display: block; font: 500 12px var(--font-text); letter-spacing: 0; color: var(--muted); text-align: right; margin-top: 4px; }
+@keyframes grow { from { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .bar { animation: none; } }
+
+/* Scatter */
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 18px 10px; display: grid; gap: 10px; position: relative; }
+.card h2 { margin: 0; font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+#scatter { width: 100%; display: block; }
+#scatter text { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); }
+#scatter .lab { font-family: var(--font-text); font-size: 13px; font-weight: 700; fill: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font: 12px/1.4 var(--font-mono); padding: 7px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); }
+
+footer { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; border-top: 1px solid var(--rule); padding-top: 16px; }
+footer p { margin: 0; flex: 1 1 100%; }
+footer a { color: var(--ink); text-underline-offset: 3px; }
+</style></head><body>
+<main>
+  <section class="hero">
+    <div><div class="name">glovo.js</div><h1>AI agents fill Glovo baskets <em>3.59× faster</em><sup>*</sup></h1></div>
+    <div class="install"><code id="snippet"><span class="t">glovoBridge</span>.describe()</code><button class="copy" id="copy" type="button">Copy</button></div>
+    <p style="margin:0;color:var(--muted);font-size:14px">Inject <a href="glovo.js" style="color:var(--accent)" download>glovo.js</a> into a loaded Glovo store page, then discover the API. One script includes the tools and panel.</p>
+    <ul class="chips"><li>Batch menu search</li><li>Explicit product options</li><li>Native basket evidence</li><li>Receipt cleanup</li></ul>
+  </section>
+  <section class="ratios" aria-label="Mean per Glovo run">
+    <div class="legend"><span><i style="background:var(--base)"></i>Plain browsing</span><span><i style="background:var(--accent)"></i>With glovo.js</span></div>
+    <div class="ratio"><h2>Tokens per run · including cache</h2><div class="bars"><div class="row b"><div class="bar" style="width:76%"></div><span class="val">2.56M</span></div><div class="row a"><div class="bar" style="width:16.8%"></div><span class="val">0.56M</span></div></div><div class="x">4.53×<small>fewer · 77.9%</small></div></div>
+    <div class="ratio"><h2>Time per run</h2><div class="bars"><div class="row b"><div class="bar" style="width:76%"></div><span class="val">293 s</span></div><div class="row a"><div class="bar" style="width:21.2%"></div><span class="val">82 s</span></div></div><div class="x">3.59×<small>faster · 72.1% less time</small></div></div>
+    <div class="ratio"><h2>Browser calls per run</h2><div class="bars"><div class="row b"><div class="bar" style="width:76%"></div><span class="val">35.5</span></div><div class="row a"><div class="bar" style="width:20.3%"></div><span class="val">9.5</span></div></div><div class="x">3.74×<small>fewer · 73.2%</small></div></div>
+  </section>
+  <section class="card"><h2>Condition means · tokens vs. seconds</h2><svg id="scatter" role="img" aria-label="Two condition means: plain browsing 2,557,466 tokens and 292.7 seconds; Glovo adapter 564,317 tokens and 81.6 seconds. Each mean uses two runs."></svg><div class="tip" id="tip" hidden></div></section>
+  <footer>
+    <p>* Four fresh Luna xhigh sessions, two per condition, on McDonald's Kraków (Oct 5, 2026), adapter 0.4.2. Add McDouble, McChicken, chocolate shake and apple pie; screenshot and empty the basket. All four runs completed.</p>
+    <p>Tokens include cached input once. Uncached input plus output fell 61.7%. Tabs and injection were prepared before timing. Fixed order and small sample; these are recorded observations. The chart shows means, not individual runs.</p>
+    <a href="glovo/reports/EXPERIMENT_REPORT_2026-10-05.md">Data ↗</a><a href="glovo.js" download>Source ↗</a><a href="shop-agent.html">Shopping comparison →</a>
+  </footer>
+</main>
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var btn = this, text = 'glovoBridge.describe()';
+  function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
+  function fallback() {
+    var range = document.createRange(); range.selectNodeContents(document.getElementById('snippet'));
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range); done('Selected');
+  }
+  try { navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback); } catch (e) { fallback(); }
+});
+
+// [condition, mean total tokens, mean seconds, completed]
+var RUNS = [["bare",2557466,292.7,1],["adapter",564317,81.6,1]];
+var svg = document.getElementById('scatter'), tip = document.getElementById('tip'), NS = 'http://www.w3.org/2000/svg';
+function el(name, attrs, parent) {
+  var n = document.createElementNS(NS, name);
+  for (var k in attrs) n.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(n); return n;
+}
+function draw() {
+  var W = svg.clientWidth || 600, H = Math.max(240, Math.min(320, W * 0.55));
+  var m = { l: 40, r: 12, t: 12, b: 34 };
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.style.height = H + 'px';
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var xMax = 350, yMax = 3e6;
+  var x = function (v) { return m.l + v / xMax * (W - m.l - m.r); };
+  var y = function (v) { return H - m.b - v / yMax * (H - m.t - m.b); };
+  [0, 1e6, 2e6, 3e6].forEach(function (v) {
+    el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: 'var(--grid)', 'stroke-width': 1 });
+    el('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end' }).textContent = v ? v / 1e6 + 'M' : '0';
+  });
+  [0, 100, 200, 300].forEach(function (v) {
+    el('text', { x: x(v), y: H - m.b + 18, 'text-anchor': v ? 'middle' : 'start' }).textContent = v + (v === 300 ? ' s' : '');
+  });
+  RUNS.forEach(function (r) {
+    var bare = r[0] === 'bare', color = bare ? 'var(--base)' : 'var(--accent)';
+    var cx = x(r[2]), cy = y(r[1]);
+    el('circle', { cx: cx, cy: cy, r: bare ? 8 : 6, fill: r[3] ? color : 'var(--surface)', stroke: r[3] ? 'var(--surface)' : color, 'stroke-width': 2 });
+    var hit = el('circle', { cx: cx, cy: cy, r: 14, fill: 'transparent', tabindex: 0, 'aria-label': (bare ? 'Plain browsing' : 'Glovo adapter') + ' mean: ' + r[1].toLocaleString() + ' tokens, ' + r[2] + ' seconds' });
+    function show() {
+      tip.hidden = false;
+      tip.textContent = (bare ? 'Plain mean' : 'Adapter mean') + ' · ' + (r[1] / 1e6).toFixed(2) + 'M tokens · ' + Math.round(r[2]) + ' s' + (r[3] ? '' : ' · wrong item');
+      var sr = svg.getBoundingClientRect(), cr = svg.parentNode.getBoundingClientRect();
+      var left = Math.min(Math.max(sr.left - cr.left + cx, 110), cr.width - 110);
+      tip.style.left = left + 'px'; tip.style.top = (sr.top - cr.top + cy) + 'px';
+    }
+    hit.addEventListener('mouseenter', show); hit.addEventListener('focus', show);
+    hit.addEventListener('mouseleave', function () { tip.hidden = true; });
+    hit.addEventListener('blur', function () { tip.hidden = true; });
+  });
+  el('text', { x: x(180), y: y(2557466) - 14, class: 'lab' }).textContent = 'Plain browsing';
+  el('text', { x: x(90), y: y(564317) - 14, class: 'lab', style: 'fill:var(--accent)' }).textContent = 'With glovo.js';
+}
+draw();
+var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 100); });
+</script></body></html>

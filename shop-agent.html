@@ -1,0 +1,217 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>shopping.js</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow column — claim, the line, three ratio bars, every run plotted. */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #12161d;
+  --muted: #5d6675;
+  --rule: #e4e7ed;
+  --grid: #eef0f4;
+  --accent: #1f4fd8;
+  --base: #7b8494;
+  --code-bg: #12161d;
+  --code-fg: #eef1f6;
+  --font-text: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1116; --surface: #161a22; --ink: #e9edf3; --muted: #97a1b2; --rule: #262c37; --grid: #1f2530;
+    --accent: #6a8ff7; --base: #6c7586; --code-bg: #05070a; --code-fg: #e9edf3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1116; --surface: #161a22; --ink: #e9edf3; --muted: #97a1b2; --rule: #262c37; --grid: #1f2530;
+  --accent: #6a8ff7; --base: #6c7586; --code-bg: #05070a; --code-fg: #e9edf3;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-text); padding: 0 20px; }
+main { max-width: 640px; margin: 0 auto; padding-block: 64px 48px; display: grid; gap: 44px; }
+
+.name { font: 600 14px var(--font-mono); color: var(--accent); }
+h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.05; font-weight: 800; letter-spacing: -0.025em; margin: 10px 0 0; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+sup { font-size: .45em; color: var(--muted); font-weight: 500; }
+.hero { display: grid; gap: 20px; }
+
+.install { display: flex; align-items: center; gap: 12px; background: var(--code-bg); color: var(--code-fg); border-radius: 10px; padding: 14px 14px 14px 18px; min-width: 0; }
+.install code { font: 14px/1.4 var(--font-mono); flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; }
+.install .t { color: #8fb0ff; } .install .a { color: #c6d2e6; } .install .s { color: #9fe0b5; }
+.copy { font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; background: transparent; color: var(--code-fg); border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 7px 10px; cursor: pointer; flex: none; }
+.copy:hover { border-color: rgba(255,255,255,.6); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chips li { font-size: 13px; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--surface); border: 1px solid var(--rule); }
+
+.legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+/* Ratio bars */
+.ratios { display: grid; gap: 30px; }
+.ratio { display: grid; grid-template-columns: 1fr auto; column-gap: 20px; row-gap: 8px; align-items: center; }
+.ratio h2 { grid-column: 1 / -1; margin: 0; font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.bars { display: grid; gap: 4px; min-width: 0; }
+.row { display: flex; align-items: center; gap: 10px; }
+.bar { height: 22px; border-radius: 0 4px 4px 0; flex: none; transform-origin: left; animation: grow .9s cubic-bezier(.2,.7,.2,1) both; }
+.row.b .bar { background: var(--base); }
+.row.a .bar { background: var(--accent); animation-delay: .15s; }
+.val { font: 13px var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+.row.a .val { color: var(--ink); font-weight: 600; }
+.x { font-size: clamp(34px, 8vw, 46px); font-weight: 800; letter-spacing: -0.03em; color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; }
+.x small { display: block; font: 500 12px var(--font-text); letter-spacing: 0; color: var(--muted); text-align: right; margin-top: 4px; }
+@keyframes grow { from { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .bar { animation: none; } }
+
+/* Scatter */
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 18px 10px; display: grid; gap: 10px; position: relative; }
+.card h2 { margin: 0; font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+#scatter { width: 100%; display: block; }
+#scatter text { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); }
+#scatter .lab { font-family: var(--font-text); font-size: 13px; font-weight: 700; fill: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font: 12px/1.4 var(--font-mono); padding: 7px 9px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); }
+
+footer { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; border-top: 1px solid var(--rule); padding-top: 16px; }
+footer p { margin: 0; flex: 1 1 100%; }
+footer a { color: var(--ink); text-underline-offset: 3px; }
+</style>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="name">shopping.js</div>
+      <h1>AI agents shop your store with <em>4.33× fewer tokens</em><sup>*</sup></h1>
+    </div>
+    <div class="install">
+      <code id="snippet"><span class="t">&lt;script</span> <span class="a">defer src=</span><span class="s">"/shopping.js"</span><span class="t">&gt;&lt;/script&gt;</span></code>
+      <button class="copy" id="copy" type="button">Copy</button>
+    </div>
+    <ul class="chips">
+      <li>Catalog as one table</li>
+      <li>Batch search &amp; photos</li>
+      <li>Verified cart</li>
+      <li>Woo · Presta · Magento</li>
+    </ul>
+  </section>
+
+  <section class="ratios" aria-label="Average per shopping run">
+    <div class="legend"><span><i style="background:var(--base)"></i>Plain browsing</span><span><i style="background:var(--accent)"></i>With shopping.js</span></div>
+
+    <div class="ratio">
+      <h2>Tokens per run</h2>
+      <div class="bars">
+        <div class="row b"><div class="bar" style="width:76%"></div><span class="val">3.32M</span></div>
+        <div class="row a"><div class="bar" style="width:17.5%"></div><span class="val">0.77M</span></div>
+      </div>
+      <div class="x">4.3×<small>fewer</small></div>
+    </div>
+
+    <div class="ratio">
+      <h2>Time per run</h2>
+      <div class="bars">
+        <div class="row b"><div class="bar" style="width:76%"></div><span class="val">260 s</span></div>
+        <div class="row a"><div class="bar" style="width:36.6%"></div><span class="val">125 s</span></div>
+      </div>
+      <div class="x">2.1×<small>faster</small></div>
+    </div>
+
+    <div class="ratio">
+      <h2>Browser actions per run</h2>
+      <div class="bars">
+        <div class="row b"><div class="bar" style="width:76%"></div><span class="val">72</span></div>
+        <div class="row a"><div class="bar" style="width:10.6%"></div><span class="val">10</span></div>
+      </div>
+      <div class="x">7.2×<small>fewer</small></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Every run · tokens vs. seconds</h2>
+    <svg id="scatter" role="img" aria-label="Tokens versus seconds for all 30 runs. Plain browsing runs sit at 2.1 to 5.3 million tokens; shop-agent runs cluster between 0.53 and 1.27 million."></svg>
+    <div class="tip" id="tip" hidden></div>
+  </section>
+
+  <footer>
+    <p>* Comparison across 30 fresh agent sessions on gpt-6-luna, medium reasoning, shopping a 530-product WooCommerce store (Oct 6, 2026): 3 plain, 27 with the script. Hollow dots picked a wrong item. One bare reference per prompt; adaptive revisions across 27 adapter runs. Tokens include cached input once; these are observed ratios, not measured dollar costs.</p>
+    <a href="shopping/reports/WOO_LUNA_REAL_CATALOG_2026-10-06.md" target="_blank" rel="noopener">Data ↗</a>
+    <a href="glovo.html">Glovo comparison →</a>
+    <a href="shopping.js" target="_blank" rel="noopener">Source ↗</a>
+  </footer>
+</main>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var btn = this, text = '<script defer src="/shopping.js"><\/script>';
+  function done(label) { btn.textContent = label; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
+  function fallback() {
+    var range = document.createRange(); range.selectNodeContents(document.getElementById('snippet'));
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range); done('Selected');
+  }
+  try { navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback); } catch (e) { fallback(); }
+});
+
+// [run, tokens, seconds, correct cart]
+var RUNS = [
+  ["r01a",2098739,144.02,1],["r01b",5272958,220.84,1],["r01c",2590718,413.78,1],
+  ["r02a",855902,113.43,1],["r02b",574620,146.23,1],["r02c",621495,176.97,1],
+  ["r03a",838194,71.56,1],["r03b",841867,158.60,1],["r03c",862381,205.90,0],
+  ["r04a",695725,117.86,1],["r04b",797334,136.53,1],["r04c",712729,182.55,0],
+  ["r05a",872733,140.70,1],["r05b",1266425,196.70,1],["r05c",669889,87.14,1],
+  ["r06a",869704,109.25,1],["r06b",618671,118.85,1],["r06c",958411,97.40,0],
+  ["r07a",958799,76.47,1],["r07b",627371,88.69,1],["r07c",816778,140.85,1],
+  ["r08a",596039,107.46,1],["r08b",586276,82.60,1],["r08c",631217,97.25,1],
+  ["r09a",704944,107.23,1],["r09b",527403,93.82,1],["r09c",647498,133.00,1],
+  ["r10a",1128913,109.59,1],["r10b",600835,56.44,1],["r10c",813400,219.26,1]
+];
+var svg = document.getElementById('scatter'), tip = document.getElementById('tip'), NS = 'http://www.w3.org/2000/svg';
+function el(name, attrs, parent) {
+  var n = document.createElementNS(NS, name);
+  for (var k in attrs) n.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(n); return n;
+}
+function draw() {
+  var W = svg.clientWidth || 600, H = Math.max(240, Math.min(320, W * 0.55));
+  var m = { l: 40, r: 12, t: 12, b: 34 };
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.style.height = H + 'px';
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var xMax = 450, yMax = 6e6;
+  var x = function (v) { return m.l + v / xMax * (W - m.l - m.r); };
+  var y = function (v) { return H - m.b - v / yMax * (H - m.t - m.b); };
+  [0, 2e6, 4e6, 6e6].forEach(function (v) {
+    el('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: 'var(--grid)', 'stroke-width': 1 });
+    el('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end' }).textContent = v ? v / 1e6 + 'M' : '0';
+  });
+  [0, 100, 200, 300, 400].forEach(function (v) {
+    el('text', { x: x(v), y: H - m.b + 18, 'text-anchor': v ? 'middle' : 'start' }).textContent = v + (v === 400 ? ' s' : '');
+  });
+  RUNS.forEach(function (r) {
+    var bare = r[0].indexOf('r01') === 0, color = bare ? 'var(--base)' : 'var(--accent)';
+    var cx = x(r[2]), cy = y(r[1]);
+    el('circle', { cx: cx, cy: cy, r: bare ? 8 : 6, fill: r[3] ? color : 'var(--surface)', stroke: r[3] ? 'var(--surface)' : color, 'stroke-width': 2 });
+    var hit = el('circle', { cx: cx, cy: cy, r: 14, fill: 'transparent', tabindex: 0, 'aria-label': r[0] });
+    function show() {
+      tip.hidden = false;
+      tip.textContent = (bare ? 'Plain' : 'shop-agent') + ' · ' + (r[1] / 1e6).toFixed(2) + 'M tokens · ' + Math.round(r[2]) + ' s' + (r[3] ? '' : ' · wrong item');
+      var sr = svg.getBoundingClientRect(), cr = svg.parentNode.getBoundingClientRect();
+      var left = Math.min(Math.max(sr.left - cr.left + cx, 110), cr.width - 110);
+      tip.style.left = left + 'px'; tip.style.top = (sr.top - cr.top + cy) + 'px';
+    }
+    hit.addEventListener('mouseenter', show); hit.addEventListener('focus', show);
+    hit.addEventListener('mouseleave', function () { tip.hidden = true; });
+    hit.addEventListener('blur', function () { tip.hidden = true; });
+  });
+  el('text', { x: x(232), y: y(5272958) + 4, class: 'lab' }).textContent = 'Plain browsing';
+  el('text', { x: x(225), y: y(1266425) - 10, class: 'lab', style: 'fill:var(--accent)' }).textContent = 'With shopping.js';
+}
+draw();
+var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 100); });
+</script>
+
+</body></html>

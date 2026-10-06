@@ -25,3 +25,9 @@ These commands resolve `demo/compose.yaml` and the ignored `demo/.env`. The fixt
 Glovo's optional bridge CLI is `node glovo/tools/bridge.mjs help`; the HTTP guest-basket helper is `node glovo/tools/http-basket.mjs --help`. Read [the operating guide](../glovo/AGENT.md) before a shopping run: the bridge CLI writes a transport journal, while measured browser runs keep their results in memory.
 
 Historical benchmark transcripts and JSON retain their original recorded paths. Active guides, loaders and measurement tools use the reorganized paths. Immutable experiment snapshots remain under the ignored `output/` directory.
+
+## Experiment pages
+
+Open `shop-agent.html` or `glovo.html` from the repository root in a browser. Their charts and styles are embedded; optional Google Fonts fall back to system fonts offline.
+
+For a local preview, run `python3 tooling/preview-pages.py` from the root. It binds to loopback port 8095 and serves only the two pages, their source scripts and the two linked reports. On this workstation a background LaunchAgent keeps it running independently of chat, with private Tailscale Serve HTTPS on port 18095. Existing Serve routes remain intact.

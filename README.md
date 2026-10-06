@@ -26,7 +26,7 @@ Total token counts include cached input once. Glovo used two runs per condition 
 - `tooling/`: test and fixture commands. [Development guide](tooling/README.md).
 - `.runtime/` and `output/`: ignored local dependencies and private run artifacts.
 
-The only regular, visible files at the root are this README and the two page scripts. Git metadata and ignore rules remain at the root.
+Open the matching experiment pages: [Shopping](shop-agent.html) and [Glovo](glovo.html). Both HTML files sit beside the two page scripts and can be opened directly in a browser.
 
 ## Check the scripts
 
