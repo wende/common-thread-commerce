@@ -1,0 +1,185 @@
+{
+  "source": "Sanitized recorded category layout from 2026-10-06. Product details are excluded; leaf responses in the tests are synthetic.",
+  "categories": [
+    {
+      "name": "Kuchnia włoska",
+      "endpoint": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mam-ochote-na-sc.51158386/kuchnia-wloska-c.51158416",
+      "content": {
+        "type": "GRID_VIEW_LAYOUT",
+        "data": {
+          "title": "Kuchnia włoska",
+          "body": [
+            {
+              "id": "wloskie-sery-s.51158626",
+              "type": "GRID",
+              "data": {
+                "title": "Włoskie sery",
+                "slug": "wloskie-sery-s.51158626",
+                "elements": []
+              }
+            },
+            {
+              "id": "cp-s-51158591",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoskie wędliny",
+                "slug": "wloskie-wedliny-s.51158591",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158591"
+              }
+            },
+            {
+              "id": "cp-s-51158842",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoskie dania",
+                "slug": "wloskie-dania-s.51158842",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158842"
+              }
+            },
+            {
+              "id": "cp-s-51158561",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoskie przekąski i słodkości",
+                "slug": "wloskie-przekaski-i-slodkosci-s.51158561",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158561"
+              }
+            },
+            {
+              "id": "cp-s-51158785",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoskie sosy i kremy",
+                "slug": "wloskie-sosy-i-kremy-s.51158785",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158785"
+              }
+            },
+            {
+              "id": "cp-s-51158510",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoskie makarony i ryże",
+                "slug": "wloskie-makarony-i-ryze-s.51158510",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158510"
+              }
+            },
+            {
+              "id": "cp-s-51158531",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Włoska spiżarnia",
+                "slug": "wloska-spizarnia-s.51158531",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158531"
+              }
+            },
+            {
+              "type": "LABEL",
+              "data": {
+                "elements": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Warzywa i zioła",
+      "endpoint": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=owoce-i-warzywa-sc.51158365/warzywa-i-ziola-c.51158443",
+      "content": {
+        "type": "GRID_VIEW_LAYOUT",
+        "data": {
+          "title": "Warzywa i zioła",
+          "body": [
+            {
+              "id": "warzywa-s.51158772",
+              "type": "GRID",
+              "data": {
+                "title": "Warzywa.",
+                "slug": "warzywa-s.51158772",
+                "elements": []
+              }
+            },
+            {
+              "id": "cp-s-51158880",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Warzywa konserwowe",
+                "slug": "warzywa-konserwowe-s.51158880",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158880"
+              }
+            },
+            {
+              "id": "cp-s-51158497",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Warzywa mrożone",
+                "slug": "warzywa-mrozone-s.51158497",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158497"
+              }
+            },
+            {
+              "id": "cp-s-51158554",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Grzyby",
+                "slug": "grzyby-s.51158554",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158554"
+              }
+            },
+            {
+              "type": "LABEL",
+              "data": {
+                "elements": []
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Mleko i śmietana",
+      "endpoint": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/mleko-i-smietana-c.51158396",
+      "content": {
+        "type": "GRID_VIEW_LAYOUT",
+        "data": {
+          "title": "Mleko i śmietana",
+          "body": [
+            {
+              "id": "smietana-s.51158615",
+              "type": "GRID",
+              "data": {
+                "title": "Śmietana",
+                "slug": "smietana-s.51158615",
+                "elements": []
+              }
+            },
+            {
+              "id": "cp-s-51158716",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Mleko",
+                "slug": "mleko-s.51158716",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158716"
+              }
+            },
+            {
+              "id": "cp-s-51158822",
+              "type": "CONTENT_PLACEHOLDER",
+              "data": {
+                "title": "Kefir i maślanka",
+                "slug": "kefir-i-maslanka-s.51158822",
+                "contentUri": "/v4/stores/207442/addresses/336099/content/partial?component=section&id=51158822"
+              }
+            },
+            {
+              "type": "LABEL",
+              "data": {
+                "elements": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

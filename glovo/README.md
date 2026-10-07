@@ -105,6 +105,59 @@ These are private React/webpack interfaces and can change. Missing components ar
 
 `http-basket.mjs` is a separate Node script using only built-in modules and `fetch`. It discovers the store and menu over HTTP, creates a fresh anonymous guest basket, sends native basket updates, and verifies the result with a fresh GET. It does not launch or connect to a browser and does not accept browser cookies or account authorization tokens.
 
+### Standalone CLI with Chrome handoff
+
+The packaged [glovo-basket.mjs](../glovo-basket.mjs) needs Node 24+ and an installed
+Google Chrome, with no npm dependencies. Run:
+
+```sh
+node glovo-basket.mjs
+```
+
+The CLI first asks for your shopping list: one item per line, with a blank line to finish.
+Each item defaults to quantity 1; 1–20 items are supported. Empty lists stop before any
+browser, model or basket operation. Explicit item arguments are also supported.
+
+It opens Chrome in `~/.common-thread-commerce/chrome`. On the first run, select a delivery
+address on Glovo; sign in there if desired. The profile remembers that selection. Enter your
+OpenRouter key at the hidden terminal prompt, or supply `OPENROUTER_API_KEY` privately.
+When `OPENROUTER_API_KEY` is set, the key prompt is skipped; blank values fall back to the
+hidden prompt. For example, after setting that variable in your shell, run the same
+`node glovo-basket.mjs` command. The shopping-list prompt remains interactive.
+Node reads only allowlisted public client/location headers from this browser's native requests;
+account cookies and authorization stay in Chrome. Jev calls run in Node. The key is not passed
+into Chrome, persisted in reports, or inherited by the Chrome process.
+
+Catalog GETs execute inside the selected Chrome tab, using the exact store and delivery branch
+mounted in that page. The CLI does not independently resolve the store slug through Node HTTP.
+Only public menu data returns to Node for Jev selection; raw JSON is parsed there to preserve
+64-bit product IDs. The mounted branch is checked before each fetch; changing it stops the run.
+
+The constructor plans the basket without creating another HTTP guest basket. After validating
+the chosen IDs against the hydrated catalog, the CLI calls **Glovo's own cart SDK running in
+the page** to add them to that browser session. This is the website's code, not a Chrome API.
+Existing products and quantities are preserved. Every update and the final fresh server read
+must match; a further read after page reload confirms persistence. Chrome remains open when
+the script exits, for manual review and checkout. No checkout operation is exposed.
+
+`--items-file shopping.json` supports quantities, features and required choices using the
+constructor's input format. `--import-plan result.json` rehydrates and imports an existing
+constructor result without another Jev request. `--open-only` opens Chrome without shopping.
+`--help` lists custom store URL, executable, browser profile, wait time and report options.
+Reports default to private files under `~/.common-thread-commerce/runs`.
+
+Unknown writes stop without retries. A private `basket-inflight.json` in the browser profile
+blocks later operations until the basket is inspected and reconciled. Saved operation records
+also prevent importing the same plan twice through this profile. Do not clear these records
+and blindly resend an operation. This uses Glovo's private cart integration; website updates
+may require maintenance.
+
+Rebuild the standalone file with `npm --prefix tooling run pack:glovo-basket`. Run offline
+unit tests with `npm --prefix tooling test`; `npm --prefix tooling run test:chrome-basket`
+checks real Chrome launch, native-cart fixture calls, reload and disconnect using a fully
+intercepted page, with no real Glovo or Jev network requests. The CLI does not require a
+browser automation extension, Puppeteer, Playwright or a running local web server.
+
 Provide a private JSON profile with public Glovo client headers and delivery coordinates for the intended location. The live experiment obtained these settings from the selected guest location; subsequent creation runs use only the file. The API requires a delivery location even for a basket-only operation. The public client version headers may need updating when Glovo changes its web client. Profile header names are explicitly allowlisted in the script; account/session headers are rejected. Keep coordinates out of source control.
 
 ```sh
@@ -154,6 +207,85 @@ Live verification on October 6, 2026: six standalone HTTP requests created McChi
 ```sh
 node --test glovo/tests/http-basket.test.mjs glovo/tests/adapter.test.mjs glovo/tests/bridge-client.test.mjs
 ```
+
+## Three-request basket constructor
+
+[`tools/basket-constructor.mjs`](tools/basket-constructor.mjs) turns a shopping list into a
+native guest basket, or a portable basket manifest. To reconstruct it in the signed-in
+browser, first load the selected products into that page's native menu, then use
+`glovoBridge.importBasket({basket: result.manifest})`.
+It uses the OpenRouter Decisions API with `typesafe/jev-1.13`, and built-in Node modules.
+Use a current Node runtime supporting the JSON reviver's source context; this preserves
+Glovo's large numeric product IDs without rounding them.
+
+A successful run makes exactly three Jev requests, with one question per input item in each:
+
+1. Read the store and its main category index; batch category selection for the complete list.
+   The recorded Biedronka index has 100 navigation targets, including 99 category tiles and Promotions.
+2. Fetch the selected unique categories; batch selection among their loaded sections and lazy subcategories.
+   Retain the winning category and at most one other category with a positive reported probability
+   from the first response. This lets an ambiguous ingredient such as basil use the spices aisle
+   when absent from vegetables, without another Jev request. Zero or missing probabilities do
+   not trigger fallback reads; this is a bounded search rather than an exhaustive catalog scan.
+   Each section includes its parent category and all already-loaded product names and descriptions,
+   so a broad label such as “Warzywa” retains its “Warzywa i zioła” context. Unfetched inventories
+   are marked unknown; exact product matching and availability are checked in the final batch.
+3. Fetch the selected unique lazy sections; batch selection of specific in-stock products, then validate
+   all native IDs, quantities and required choices before writing any basket lines.
+
+Every item remains in each batch. Shared category/section fetches are deduplicated. All available
+products in the selected section remain candidates; unrelated categories are not downloaded.
+Each question includes a `no_match` option. A missing match, malformed answer, deeper hierarchy,
+missing required option, HTTP error or exceeded quantity stops the run. The fixed three-request
+budget supports the recorded category/section/product hierarchy; additional nesting stops with
+`CATEGORY_DEPTH_BUDGET`, rather than silently issuing a fourth request or selecting from a partial catalog.
+
+The default library operation is a read-only plan:
+
+```js
+import { constructBasket, createGlovoCatalog, createJevClient } from './glovo/tools/basket-constructor.mjs';
+
+const result = await constructBasket({
+  items: ['Spaghetti', 'Passata', 'Bazylia', 'Tuna', 'Cream', 'Parsley'],
+  catalog: createGlovoCatalog({ profile: privateDeliveryProfile }),
+  jev: createJevClient({ apiKey: privateOpenRouterKey }),
+  commit: false,
+});
+// Explicitly use commit:true to create and freshly verify a new guest basket.
+```
+
+An input may also be `{query, quantity: 1, features: ['wholegrain'], choices: []}`.
+Quantity means whole native purchase increments; it is not interpreted as grams or milliliters.
+Required customizations must be supplied explicitly. Duplicate selections of the same configured SKU
+combine their quantities while retaining each input row in `matches`.
+
+The CLI requires `--live` for either network operation. Provide `OPENROUTER_API_KEY` privately in
+the process environment, and use the same private location profile described above:
+
+```sh
+# No network, no Jev key, and no real basket mutation:
+node --test glovo/tests/basket-constructor.test.mjs
+
+# Live read-only product plan; does not write a basket:
+node glovo/tools/basket-constructor.mjs plan --live \
+  --profile location-profile.json --items-file glovo/examples/pasta-basket.json --output plan.json
+
+# Explicit live guest-basket creation, followed by a fresh verification:
+node glovo/tools/basket-constructor.mjs create --live \
+  --profile location-profile.json --items-file glovo/examples/pasta-basket.json --output basket-plan.json
+```
+
+`plan.json` / `basket-plan.json` contain the manifest, matches, three decision records, provider usage,
+and fetched content paths. Creation also checkpoints private guest/location state in
+`basket-plan.json.session.json`, compatible with `http-basket.mjs verify --session ...`.
+Outputs must be new and are mode 0600. Full usage is retained; cached tokens are not subtracted,
+and a missing provider cache breakdown remains unknown. No API key or delivery coordinates are
+sent as Jev state. Native requests are serialized and paced at least 300 ms apart by default;
+neither Jev requests nor native basket writes are retried automatically. No checkout is exposed.
+
+Offline validation uses the recorded navigation and section layouts, synthetic product responses,
+mocked Jev decisions and an in-memory basket. It verifies orchestration and payload behavior;
+it does not establish Jev's live product-selection quality or today's Glovo availability.
 
 ## Verification
 

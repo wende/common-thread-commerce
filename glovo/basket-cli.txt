@@ -1,0 +1,42 @@
+Glovo basket constructor
+
+Requires Node 24+ and installed Google Chrome. No npm dependencies.
+
+Run:
+  node glovo-basket.mjs
+
+First enter one item per line and submit a blank line to finish (1–20 items).
+Each item defaults to quantity 1. Explicit item arguments also work.
+
+Chrome opens in a dedicated persistent profile. Select a delivery address there on
+the first run; optionally sign in. Enter your OpenRouter key at the hidden CLI
+prompt. Chrome fetches the menu for its exact selected store/branch; Node sends three
+batched Jev requests. Glovo's own
+cart SDK in the page adds the chosen products, preserving existing basket lines.
+The server basket is verified before and after reloading. Chrome stays open for
+you to review and check out manually. No order is placed by the script.
+
+Environment key (skips the hidden key prompt):
+  export OPENROUTER_API_KEY="your-openrouter-key"
+  node glovo-basket.mjs
+The shopping list is still prompted. Blank environment values use the hidden prompt.
+
+Custom items/features: --items-file shopping.json
+Example: [{"query":"Cream","features":["30% fat"],"quantity":1}]
+
+See all options: node glovo-basket.mjs --help
+Import an existing constructor result without Jev: --import-plan result.json
+
+The provider key stays in Node process memory and is not saved in reports or
+sent to Chrome. Delivery coordinates and account headers are not sent to Jev.
+Reports are private JSON in ~/.common-thread-commerce/runs; Chrome remembers
+your selected address/login in ~/.common-thread-commerce/chrome.
+
+Unknown outcomes stop without automatic retries. A pending-operation file
+blocks more writes until you inspect/reconcile the basket. Do not delete it
+and blindly retry: some products may already have been added. Glovo's cart SDK
+is a private integration and may change when Glovo updates its website.
+
+Validation: offline native-SDK fixtures cover existing quantities, exact product
+IDs, wrong branches, replay, rejected writes, timeout and loss of browser storage.
+The CLI's Chrome launch/disconnect is also checked using real local Chrome.

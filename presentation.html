@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agents Go Shopping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+html,body{margin:0;height:100%;background:#0B0C0E;overflow:hidden}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;box-sizing:border-box;overflow:hidden;visibility:hidden}
+.slide.on{visibility:visible}
+.slide h1,.slide h2,.slide h3,.slide p,.slide ul,.slide ol{margin:0}
+.slide [data-build-in]{opacity:0;transition:opacity .4s,transform .4s}
+.slide [data-build-in^="rise"]{transform:translateY(24px)}
+.slide [data-build-in].shown{opacity:1;transform:none}
+#notes{position:fixed;left:0;right:0;bottom:0;padding:16px 24px;background:rgba(11,12,14,.92);color:#F3F0E8;font:18px/1.45 'Space Grotesk',Arial,sans-serif;display:none}
+#notes.on{display:block}
+#hint{position:fixed;right:12px;bottom:8px;color:#6E6A62;font:12px 'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide" data-notes="Ten minutes, three experiments. Each one asks the same question from a different side: how expensive is it for an AI agent to shop a normal website, and what can the website do to make it cheaper? Stay on the question; don't reveal the one-line punchline yet." id="cover" data-transition="fade" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:end;gap:40px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#FF7A45">Three experiments in agent commerce</p>
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:128px;font-weight:700;line-height:1.02;letter-spacing:-4px;width:1500px">What happens when AI agents go shopping?</h1>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#B7B2A8">Common Thread</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#B7B2A8">October 2026</p>
+</div>
+</section>
+<section class="slide" data-notes="Experiment one: self-hosted stores, where we control everything." id="exp1" data-transition="fade" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:end;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#B7B2A8">Experiment</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:280px;font-weight:600;line-height:1;letter-spacing:-8px;color:#FF7A45">01</p>
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1.05;letter-spacing:-4px;width:1664px">Three commerce engines</h1>
+</section>
+<section class="slide" data-notes="We built the same fake clothing brand, Common Thread, three times, on the three big downloadable platforms: WooCommerce, PrestaShop and Magento. Same 530 products everywhere, with sale items, out-of-stock items and plenty of filler, so the agent can't just eyeball the first page. Everything runs locally, so the experiment is reproducible." id="stores" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 01</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">One catalog, three engines</h2>
+<div style="flex:1"></div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<img src="presentation-assets/271a2af8399ab650b01ffb5b9b20f932.jpg" alt="WooCommerce storefront showing the Common Thread collection" style="width:533px;height:300px;object-fit:cover;border-radius:14px;border:1px solid #DAD5CA">
+<h3 style="font-size:44px;font-weight:700;line-height:1.1">WooCommerce</h3>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<img src="presentation-assets/002d791a5cdaf2f29ccaba44bc50b61d.jpg" alt="PrestaShop storefront showing popular tees" style="width:533px;height:300px;object-fit:cover;border-radius:14px;border:1px solid #DAD5CA">
+<h3 style="font-size:44px;font-weight:700;line-height:1.1">PrestaShop</h3>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<img src="presentation-assets/333f0d7e4eda9740d7ca2b5c019c4599.jpg" alt="Magento storefront showing the collection page" style="width:533px;height:300px;object-fit:cover;border-radius:14px;border:1px solid #DAD5CA">
+<h3 style="font-size:44px;font-weight:700;line-height:1.1">Magento</h3>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">Same 530 products in each store</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">03</p>
+</div>
+</section>
+<section class="slide" data-notes="Same shopping task, same model, two conditions: the agent either browses the store like a human would, or the page exposes shopping.js. Averaged per run: tokens drop from 3.32 million to 0.77 million, time from 260 to 125 seconds, browser actions from 72 to 10. Tokens include cached input once. These are observed ratios from the recorded runs, not dollar costs." id="shop-stats" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 01 · Results</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">Agents shop faster with shopping.js</h2>
+<div style="display:flex;gap:40px;align-items:center">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:24px;height:24px;border-radius:6px;background:#8A857A"></div><p style="font-size:26px;color:#4E4B45">Plain browsing</p></div>
+<div style="display:flex;gap:12px;align-items:center"><div style="width:24px;height:24px;border-radius:6px;background:#E5541A"></div><p style="font-size:26px;color:#4E4B45">With shopping.js</p></div>
+<p style="font-size:26px;color:#6E6A62">Average per run</p>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:64px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Tokens</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">4.3×</p><p style="font-size:32px;color:#4E4B45">fewer</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">3.32M</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">0.77M</p><div style="width:150px;height:53px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Time</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">2.1×</p><p style="font-size:32px;color:#4E4B45">faster</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">260 s</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">125 s</p><div style="width:150px;height:111px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Browser actions</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">7.2×</p><p style="font-size:32px;color:#4E4B45">fewer</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">72</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">10</p><div style="width:150px;height:32px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+</div>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">30 fresh sessions · gpt-6-luna, medium · 530-product WooCommerce store · Oct 6, 2026</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">04</p>
+</div>
+</section>
+<section class="slide" data-notes="Each dot is one fresh agent session. The grey dots on top are plain browsing: 2.1 to 5.3 million tokens. The orange cluster is shopping.js: all 27 runs land between 0.53 and 1.27 million. The cheapest plain run still used more than the most expensive adapter run, and the spread collapses." id="shop-runs" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 01 · Every run</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">Every adapter run beat every plain run</h2>
+<div style="flex:1"></div>
+<div style="position:relative;width:1664px;height:470px">
+<svg aria-label="Tokens per run for 30 sessions. Three plain-browsing runs used 2.10M, 2.59M and 5.27M tokens. Twenty-seven shopping.js runs used between 0.53M and 1.27M tokens." width="1664" height="400" viewBox="0 0 1664 400" xmlns="http://www.w3.org/2000/svg">
+<line x1="8" y1="388" x2="1656" y2="388" stroke="#17181C" stroke-width="3"/>
+<line x1="308" y1="20" x2="308" y2="384" stroke="#E3DED3" stroke-width="2"/>
+<line x1="607" y1="20" x2="607" y2="384" stroke="#E3DED3" stroke-width="2"/>
+<line x1="907" y1="20" x2="907" y2="384" stroke="#E3DED3" stroke-width="2"/>
+<line x1="1207" y1="20" x2="1207" y2="384" stroke="#E3DED3" stroke-width="2"/>
+<line x1="1506" y1="20" x2="1506" y2="384" stroke="#E3DED3" stroke-width="2"/>
+<line x1="1003" y1="28" x2="1003" y2="92" stroke="#17181C" stroke-width="3"/>
+<line x1="238" y1="132" x2="238" y2="384" stroke="#17181C" stroke-width="3" stroke-dasharray="6 6"/>
+<circle cx="637" cy="60" r="16" fill="#8A857A" stroke="#F3F0E8" stroke-width="3"/>
+<circle cx="1588" cy="60" r="16" fill="#8A857A" stroke="#F3F0E8" stroke-width="3"/>
+<circle cx="784" cy="60" r="16" fill="#8A857A" stroke="#F3F0E8" stroke-width="3"/>
+<circle cx="166" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="180" cy="274" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="184" cy="232" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="187" cy="202" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="188" cy="298" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="193" cy="328" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="194" cy="178" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="196" cy="148" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="197" cy="358" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="202" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="209" cy="280" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="216" cy="226" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="219" cy="304" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="222" cy="196" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="247" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="252" cy="280" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="253" cy="220" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="259" cy="304" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="260" cy="196" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="264" cy="334" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="266" cy="166" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="269" cy="364" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="270" cy="262" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="295" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="295" cy="280" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="346" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+<circle cx="387" cy="250" r="11" fill="#E5541A" stroke="#F3F0E8" stroke-width="2"/>
+</svg>
+<p style="position:absolute;left:0px;top:36px;width:560px;font-size:28px;font-weight:600">Plain browsing · 3 runs</p>
+<p style="position:absolute;left:1020px;top:96px;width:360px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#4E4B45">mean 3.32M</p>
+<p style="position:absolute;left:440px;top:206px;width:760px;font-size:28px;font-weight:600;color:#17181C">With shopping.js · 27 runs</p>
+<p style="position:absolute;left:440px;top:250px;width:860px;font-size:26px;color:#4E4B45">dashed line = mean 0.77M</p>
+<p style="position:absolute;left:0px;top:410px;width:60px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">0</p>
+<p style="position:absolute;left:278px;top:410px;width:60px;text-align:center;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">1M</p>
+<p style="position:absolute;left:577px;top:410px;width:60px;text-align:center;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">2M</p>
+<p style="position:absolute;left:877px;top:410px;width:60px;text-align:center;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">3M</p>
+<p style="position:absolute;left:1177px;top:410px;width:60px;text-align:center;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">4M</p>
+<p style="position:absolute;left:1476px;top:410px;width:188px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">5M tokens</p>
+</div>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">Total tokens per session</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">05</p>
+</div>
+</section>
+<section class="slide" data-notes="Experiment two: a real store we don't control." id="exp2" data-transition="fade" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:end;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#B7B2A8">Experiment</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:280px;font-weight:600;line-height:1;letter-spacing:-8px;color:#FF7A45">02</p>
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1.05;letter-spacing:-4px;width:1664px">The Glovo AI adapter</h1>
+</section>
+<section class="slide" data-notes="Now a store we don't control: Glovo. glovo.js is injected into the live store page (1). It reads the menu that's already loaded, searches all the items in one batch, and adds to the basket through Glovo's own cart code (2), the same code the plus button calls. The panel is for humans; agents call window.glovoBridge directly." id="glovo-adapter" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 02</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">An AI adapter inside the real Glovo page</h2>
+<img src="presentation-assets/f909412c6c6c5bd97e505d59b4b7e4bb.jpg" alt="Glovo McDonald's menu with the Glovo JS adapter panel open in the lower left and one Big Mac in the native basket" style="position:absolute;left:128px;top:300px;width:907px;height:620px;object-fit:contain;border-radius:16px;border:1px solid #DAD5CA;box-shadow:0 24px 60px rgba(23,24,28,0.12)">
+<p style="position:absolute;left:366px;top:617px;width:56px;height:56px;border-radius:28px;background:#E5541A;color:#FBFAF6;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;font-weight:600;line-height:2;text-align:center">1</p>
+<p style="position:absolute;left:966px;top:333px;width:56px;height:56px;border-radius:28px;background:#E5541A;color:#FBFAF6;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;font-weight:600;line-height:2;text-align:center">2</p>
+<p style="position:absolute;left:1120px;top:500px;width:56px;height:56px;border-radius:28px;background:#E5541A;color:#FBFAF6;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;font-weight:600;line-height:2;text-align:center">1</p>
+<h3 style="position:absolute;left:1200px;top:500px;width:592px;font-size:44px;font-weight:700;line-height:1.2">glovo.js in the page</h3>
+<p style="position:absolute;left:1120px;top:620px;width:56px;height:56px;border-radius:28px;background:#E5541A;color:#FBFAF6;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;font-weight:600;line-height:2;text-align:center">2</p>
+<h3 style="position:absolute;left:1200px;top:620px;width:592px;font-size:44px;font-weight:700;line-height:1.2">Glovo's own basket</h3>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">McDonald's Kraków on glovoapp.com</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">07</p>
+</div>
+</section>
+<section class="slide" data-notes="Let it run: it loops on its own. Left: the agent clicks through the menu like a person: find the burger, add it, scroll, open the shake, pick a size, pick a cup. Right: the same agent with glovo.js: one search call for all four items, one add call. At 20x, the adapter finishes in about 4 seconds, plain browsing in about 15. The real means were 293 seconds versus 82. The screenshots are real captures of the live page; finish times are the measured means and the step timings in between are illustrative." id="glovo-race" data-transition="fade" style="display:flex; flex-direction:column; gap:24px; padding:128px 128px 160px; background:#f3f0e8">
+  <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:3px; text-transform:uppercase; color:#b33a0b">Experiment 02</p>
+  <h2 style="font-family:'Space Grotesk', Arial, sans-serif; font-size:72px; font-weight:700; line-height:1.1; letter-spacing:-2px; color:#17181c">Same basket, two agents, 20× speed</h2>
+  <video autoplay loop muted playsinline poster="presentation-assets/bc19ce7ffe04bf8c25eb8737a56a8aa0.jpg" src="presentation-assets/aafd63f5d40ee2e043ff07eede9465b6.mp4" aria-label="Race at 20x speed on real Glovo screenshots: plain browsing finishes the four-item McDonald's basket in 292.7 seconds, the agent with glovo.js in 81.6 seconds; both baskets verified at 61.50 zł" style="position:absolute; top:300px; left:128px; width:1664px; height:620px; object-fit:contain"></video>
+  <div style="position:absolute; right:128px; bottom:64px; left:128px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6e6a62">Real Glovo screenshots · finish times are benchmark means · pacing illustrative</p>
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#6e6a62">08</p>
+  </div>
+</section>
+<section class="slide" data-notes="The measured numbers behind the race. Means of two runs per condition: 293 seconds down to 82, 2.56 million tokens down to 0.56 million, 35.5 browser calls down to 9.5. Every run completed the basket and cleaned it up. Small sample, fixed order, so treat these as recorded observations, not a benchmark suite." id="glovo-stats" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 02 · Results</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">Glovo baskets, 3.6× faster with glovo.js</h2>
+<div style="display:flex;gap:40px;align-items:center">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:24px;height:24px;border-radius:6px;background:#8A857A"></div><p style="font-size:26px;color:#4E4B45">Plain browsing</p></div>
+<div style="display:flex;gap:12px;align-items:center"><div style="width:24px;height:24px;border-radius:6px;background:#E5541A"></div><p style="font-size:26px;color:#4E4B45">With glovo.js</p></div>
+<p style="font-size:26px;color:#6E6A62">Mean per run</p>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;gap:64px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Time</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">3.6×</p><p style="font-size:32px;color:#4E4B45">faster</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">293 s</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">82 s</p><div style="width:150px;height:64px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Tokens</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">4.5×</p><p style="font-size:32px;color:#4E4B45">fewer</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">2.56M</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">0.56M</p><div style="width:150px;height:50px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Browser calls</p>
+<div style="display:flex;align-items:baseline;gap:16px"><p style="font-size:120px;font-weight:700;line-height:1;letter-spacing:-4px;color:#E5541A">3.7×</p><p style="font-size:32px;color:#4E4B45">fewer</p></div>
+<div style="display:flex;align-items:end;gap:24px;height:290px;border-bottom:3px solid #17181C">
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#4E4B45">35.5</p><div style="width:150px;height:230px;background:#8A857A;border-radius:8px 8px 0 0"></div></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:150px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;font-weight:600">9.5</p><div style="width:150px;height:62px;background:#E5541A;border-radius:8px 8px 0 0"></div></div>
+</div>
+</div>
+</div>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">4 fresh sessions, 2 per condition · gpt-6-luna, xhigh · McDonald's Kraków · Oct 5, 2026</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">09</p>
+</div>
+</section>
+<section class="slide" data-notes="Pause here. Let people guess: a new backend? An API project? A partnership with every store?" id="question" data-transition="magic" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px">
+<h2 style="position:absolute;left:128px;top:470px;width:1664px;font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1.1;letter-spacing:-3px;color:#F3F0E8">How much integration is that?</h2>
+</section>
+<section class="slide" data-notes="The question shrinks away and the answer takes its place. All of experiment one was this: one script tag in the shared layout, the same way you add analytics. It works out the platform, WooCommerce, PrestaShop or Magento, and exposes search, product details and a verified cart as window.mcp. Click once for the snippet, again for the analytics comparison. On Glovo the same idea is one injected script." id="reveal" data-transition="fade" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px">
+<h2 style="position:absolute;left:128px;top:180px;width:1664px;font-family:'Space Grotesk', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1;letter-spacing:-1px;color:#8F8A80">How much integration is that?</h2>
+<h2 style="position:absolute;left:128px;top:270px;width:1664px;font-family:'Space Grotesk', Arial, sans-serif;font-size:104px;font-weight:700;line-height:1.1;letter-spacing:-3px;color:#FF7A45">It's just one line of code.</h2>
+<div data-build-in="fade 1" style="position:absolute;left:128px;top:460px;width:1664px;height:176px;background:#0B0C0E;border:1px solid #2A2C33;border-radius:20px;padding:0 56px;display:flex;align-items:center">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:56px;white-space:nowrap"><span style="color:#FF7A45">&lt;script</span> <span style="color:#B7B2A8">defer src=</span><span style="color:#9FD8B0">"/shopping.js"</span><span style="color:#FF7A45">&gt;&lt;/script&gt;</span></p>
+</div>
+<p data-build-in="rise 2" style="position:absolute;left:128px;top:700px;width:1664px;font-size:56px;font-weight:600;line-height:1.2;color:#F3F0E8">Like Google Analytics.</p>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8F8A80">No backend changes</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8F8A80">11</p>
+</div>
+</section>
+<section class="slide" data-notes="Experiment three: drop the browsing agent, keep only the decisions." id="exp3" data-transition="fade" style="background:#15161A;color:#F3F0E8;font-family:'Space Grotesk', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:end;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#B7B2A8">Experiment</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:280px;font-weight:600;line-height:1;letter-spacing:-8px;color:#FF7A45">03</p>
+<h1 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1.05;letter-spacing:-4px;width:1664px">Jev Glovo Basket</h1>
+</section>
+<section class="slide" data-notes="Experiment three drops the general-purpose agent entirely. Jev is a decision model: you hand it a question and a fixed set of options, and it answers with probabilities. So instead of an agent wandering a grocery store, we ask Jev two kinds of questions: which aisle is spaghetti in, and which of these products is spaghetti. Then Glovo's own cart code adds the winners, and we read the basket back to make sure it matches. The screenshot is a real basket it built: four products, 29.63 zł." id="jev-how" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 03</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">A shopping list in, a real basket out</h2>
+<div style="flex:1"></div>
+<div style="display:flex;gap:64px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;gap:24px;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;font-weight:600;color:#B33A0B;width:64px">01</p>
+<h3 style="flex:1;font-size:44px;font-weight:700;line-height:1.15">You type a list</h3>
+</div>
+<div style="display:flex;gap:24px;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;font-weight:600;color:#B33A0B;width:64px">02</p>
+<h3 style="flex:1;font-size:44px;font-weight:700;line-height:1.15">Jev picks the aisle</h3>
+</div>
+<div style="display:flex;gap:24px;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;font-weight:600;color:#B33A0B;width:64px">03</p>
+<h3 style="flex:1;font-size:44px;font-weight:700;line-height:1.15">Jev picks the product</h3>
+</div>
+<div style="display:flex;gap:24px;align-items:baseline">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:32px;font-weight:600;color:#B33A0B;width:64px">04</p>
+<h3 style="flex:1;font-size:44px;font-weight:700;line-height:1.15">Glovo's cart adds them</h3>
+</div>
+</div>
+<img src="presentation-assets/719833b288e6423e82146a30fb74baf1.jpg" alt="Glovo Biedronka Express store page with four products in the basket: Lubella spaghetti, raspberry tomatoes, and more, total 29.63 zł" style="width:920px;height:593px;object-fit:contain;border-radius:16px;border:1px solid #DAD5CA;box-shadow:0 24px 60px rgba(23,24,28,0.12)">
+</div>
+<div style="position:absolute;left:128px;right:128px;bottom:64px;display:flex;justify-content:space-between">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">Biedronka Express on Glovo Kraków</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#6E6A62">13</p>
+</div>
+</section>
+<section class="slide" data-notes="The clip plays on its own. node glovo-basket.mjs, type three words, blank line to finish. Chrome opens on Glovo, Jev runs, and the basket fills through the site's own cart. Then Chrome is yours: the tool never checks out. Worth pointing out the basket panel at the end: those are the exact products Jev chose." id="jev-demo" data-transition="fade" style="background:#F3F0E8;color:#17181C;font-family:'Space Grotesk', Arial, sans-serif;padding:96px 128px">
+<p style="position:absolute;left:128px;top:96px;width:1664px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:3px;text-transform:uppercase;color:#B33A0B">Experiment 03</p>
+<h2 style="position:absolute;left:128px;top:140px;width:1664px;font-family:'Space Grotesk', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;letter-spacing:-2px">One command, one basket</h2>
+<video autoplay loop muted playsinline poster="presentation-assets/bf2bc1d8826fdb999008ad8a67d44df3.jpg" src="presentation-assets/72c9ec3686e9d9b654820dddd6271094.mp4" aria-label="Screen recording: the glovo-basket CLI takes spaghetti, tuna and passata, Jev runs, and the Glovo Biedronka basket fills with three products" style="position:absolute;left:128px;top:256px;width:1180px;height:713px;object-fit:contain;border-radius:16px;border:1px solid #DAD5CA;background:#FBFAF6;box-shadow:0 24px 60px rgba(23,24,28,0.12)"></video>
+<div style="position:absolute;left:1356px;top:256px;width:436px;height:713px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">You type</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:28px;line-height:1.4">spaghetti<br>tuna<br>passata</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Jev picks</p>
+<p style="font-size:26px;line-height:1.4">Lubella Makaron spaghetti 400 g</p>
+<p style="font-size:26px;line-height:1.4">Rio Mare Tuńczyk w sosie własnym 160 g</p>
+<p style="font-size:26px;line-height:1.4">Gusto Bello Passata klasyczna 690 g</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6E6A62">Basket</p>
+<p style="font-size:26px;line-height:1.4">26,33 zł</p>
+</div>
+</div>
+</section>
+<section class="slide" data-notes="Compare this to experiment two: an agent with a good adapter needed about 80 seconds. Here the whole run, list to verified basket, is 3.46 seconds. Jev itself is only 676 milliseconds of that across 2 requests; the rest is Glovo's own network, reading the catalog and writing the basket. And the model bill is a fraction of a tenth of a cent, roughly 1,290 baskets per dollar." id="jev-stats" data-transition="fade" style="display:flex; flex-direction:column; gap:24px; padding:128px 128px 160px; background:#f0682c">
+  <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:3px; text-transform:uppercase; color:#17181c">Experiment 03</p>
+  <h2 style="font-family:'Space Grotesk', Arial, sans-serif; font-size:72px; font-weight:700; line-height:1.1; letter-spacing:-2px; color:#17181c">A full basket in 3.46 seconds<br>2,878 unique listed products<br>No search API used</h2>
+  <div style="flex:1"></div>
+  <div style="display:flex; flex-direction:row; gap:48px">
+    <div style="display:flex; flex-direction:column; gap:12px; flex:1">
+      <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; text-transform:uppercase; color:#17181c">Total time</p>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:120px; font-weight:700; line-height:1; letter-spacing:-4px; white-space:nowrap; color:#17181c">3.46 s</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; flex:1">
+      <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; text-transform:uppercase; color:#17181c">Jev · 2 requests</p>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:120px; font-weight:700; line-height:1; letter-spacing:-4px; white-space:nowrap; color:#17181c">676 ms</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; flex:1.4">
+      <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; text-transform:uppercase; color:#17181c">Cost per basket</p>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:120px; font-weight:700; line-height:1; letter-spacing:-4px; white-space:nowrap; color:#17181c">$0.000774</p>
+    </div>
+  </div>
+  <div style="flex:1"></div>
+  <div style="display:flex; flex-direction:column; gap:12px">
+    <div style="height:48px; display:flex; flex-direction:row; border-radius:10px; overflow:hidden">
+      <div style="width:325px; display:flex; flex-direction:column; background:#17181c">
+      </div>
+      <div style="display:flex; flex-direction:column; flex:1; background:#fbe3d6">
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:row; justify-content:space-between">
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:26px; font-weight:600; color:#17181c">Jev · 676 ms</p>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:26px; color:#17181c">Glovo reads and writes · 2.78 s</p>
+    </div>
+  </div>
+  <div style="position:absolute; right:128px; bottom:64px; left:128px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#17181c">Model cost as reported by the provider</p>
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#17181c">15</p>
+  </div>
+</section>
+<section class="slide" data-notes="Each step removes more of the human-shaped work. Experiment one gave agents an API instead of a page. Experiment two did it on a site we don't own. Experiment three removed the browsing agent entirely and kept only the decisions. The common thread: give the model structured choices and let the site's own code do the writing." id="recap" data-transition="fade" style="display:flex; flex-direction:column; gap:24px; padding:128px 128px 160px; background:#15161a">
+  <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; letter-spacing:3px; text-transform:uppercase; color:#ff7a45">Recap</p>
+  <h2 style="font-family:'Space Grotesk', Arial, sans-serif; font-size:72px; font-weight:700; line-height:1.1; letter-spacing:-2px; color:#f3f0e8">Three experiments, one direction</h2>
+  <div style="flex:1"></div>
+  <div style="display:flex; flex-direction:column">
+    <div style="display:flex; flex-direction:row; gap:32px; align-items:center; padding:32px 0; border-top:1px solid #34363d">
+      <p style="width:72px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:28px; font-weight:600; color:#ff7a45">01</p>
+      <h3 style="flex:1; font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; line-height:1.15; color:#f3f0e8">Three commerce engines</h3>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; text-align:right; white-space:nowrap; color:#f3f0e8">4.3× fewer tokens</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:32px; align-items:center; padding:32px 0; border-top:1px solid #34363d">
+      <p style="width:72px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:28px; font-weight:600; color:#ff7a45">02</p>
+      <h3 style="flex:1; font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; line-height:1.15; color:#f3f0e8">The Glovo AI adapter</h3>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; text-align:right; white-space:nowrap; color:#f3f0e8">3.6× faster</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:32px; align-items:center; padding:32px 0; border-top:1px solid #34363d; border-bottom:1px solid #34363d">
+      <p style="width:72px; font-family:'JetBrains Mono', 'Courier New', monospace; font-size:28px; font-weight:600; color:#ff7a45">03</p>
+      <h3 style="flex:1; font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; line-height:1.15; color:#f3f0e8">Jev Glovo Basket</h3>
+      <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; text-align:right; white-space:nowrap; color:#f3f0e8">Full shopping list done in 3.46 s</p>
+    </div>
+  </div>
+  <div style="flex:1"></div>
+  <p style="font-family:'Space Grotesk', Arial, sans-serif; font-size:44px; font-weight:700; color:#ff7a45"></p>
+  <div style="position:absolute; right:128px; bottom:64px; left:128px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8f8a80"></p>
+    <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; color:#8f8a80">16</p>
+  </div>
+</section>
+</div>
+<div id="notes"></div>
+<div id="hint">← → navigate · N notes · F fullscreen</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),stage=document.getElementById('stage'),notes=document.getElementById('notes'),i=0;
+  function builds(s){return [].slice.call(s.querySelectorAll('[data-build-in]')).sort(function(a,b){return parseInt(a.dataset.buildIn.split(' ')[1]||0)-parseInt(b.dataset.buildIn.split(' ')[1]||0)})}
+  function show(n,end){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('on',k===i);
+      s.querySelectorAll('video').forEach(function(v){k===i?v.play().catch(function(){}):v.pause()});
+      builds(s).forEach(function(b){b.classList.toggle('shown',k<i||(k===i&&!!end))})});
+    notes.textContent=slides[i].dataset.notes||'';location.hash=i+1;
+  }
+  function next(){var b=builds(slides[i]).filter(function(x){return!x.classList.contains('shown')})[0];b?b.classList.add('shown'):show(i+1)}
+  function prev(){var s=slides[i],b=builds(s).filter(function(x){return x.classList.contains('shown')}).pop();b?b.classList.remove('shown'):show(i-1,true)}
+  function fit(){var k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%,-50%) scale('+k+')'}
+  addEventListener('resize',fit);fit();
+  addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>-1){e.preventDefault();next()}
+    else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();prev()}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='n'||e.key==='N')notes.classList.toggle('on');
+    else if(e.key==='f'||e.key==='F')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  });
+  addEventListener('click',function(e){e.clientX<innerWidth/4?prev():next()});
+  show((parseInt(location.hash.slice(1))||1)-1);
+})();
+</script>
+</body>
+</html>

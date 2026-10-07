@@ -13,3 +13,7 @@ output/
 experiments/
 # GitHub Pages build output.
 /_site/
+# Runtime journals and generated verification output.
+glovo/reports/transport.jsonl
+shopping/demo/screenshots/*.json
+__pycache__/

@@ -1,0 +1,1615 @@
+{
+  "type": "GRID_VIEW_LAYOUT",
+  "data": {
+    "body": [
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Promotions",
+          "slug": "promotions-pr",
+          "action": {
+            "type": "NAVIGATION",
+            "data": {
+              "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=promotions-pr"
+            },
+            "trigger": "onInteraction"
+          },
+          "elements": []
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Odkryj wyjątkowy smak!",
+          "slug": "odkryj-wyjatkowy-smak-sc.62385510",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Odkryj wyjątkowy smak.",
+                "slug": "odkryj-wyjatkowy-smak-c.62385509",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=odkryj-wyjatkowy-smak-c.62385509"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Mam ochotę na...",
+          "slug": "mam-ochote-na-sc.51158386",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kuchnia azjatycka",
+                "slug": "kuchnia-azjatycka-c.51158415",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mam-ochote-na-sc.51158386/kuchnia-azjatycka-c.51158415"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kuchnia włoska",
+                "slug": "kuchnia-wloska-c.51158416",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mam-ochote-na-sc.51158386/kuchnia-wloska-c.51158416"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kuchnie świata",
+                "slug": "kuchnie-swiata-c.51158422",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mam-ochote-na-sc.51158386/kuchnie-swiata-c.51158422"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Tylko teraz w BIEK",
+          "slug": "tylko-teraz-w-biek-sc.51158366",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Tylko teraz!",
+                "slug": "tylko-teraz-c.51158354",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=tylko-teraz-w-biek-sc.51158366/tylko-teraz-c.51158354"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Nowości",
+          "slug": "nowosci-sc.51158374",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Nowości w BIEK",
+                "slug": "nowosci-w-biek-c.51158368",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=nowosci-sc.51158374/nowosci-w-biek-c.51158368"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "BIEK poleca",
+          "slug": "biek-poleca-sc.51158379",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Polecane produkty w BIEK",
+                "slug": "polecane-produkty-w-biek-c.51158380",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=biek-poleca-sc.51158379/polecane-produkty-w-biek-c.51158380"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Coś na ząb",
+                "slug": "cos-na-zab-c.51158395",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=biek-poleca-sc.51158379/cos-na-zab-c.51158395"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dobry początek dnia",
+                "slug": "dobry-poczatek-dnia-c.51158387",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=biek-poleca-sc.51158379/dobry-poczatek-dnia-c.51158387"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Zdrowe przekąski",
+                "slug": "zdrowe-przekaski-c.51158402",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=biek-poleca-sc.51158379/zdrowe-przekaski-c.51158402"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Fresh & Fast",
+          "slug": "fresh-fast-sc.51158394",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Fast & Fresh",
+                "slug": "fast-fresh-c.51158427",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=fresh-fast-sc.51158394/fast-fresh-c.51158427"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Szybkie dania",
+          "slug": "szybkie-dania-sc.51158334",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dania instant",
+                "slug": "dania-instant-c.51158332",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/dania-instant-c.51158332"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dania mrożone",
+                "slug": "dania-mrozone-c.51158814",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/dania-mrozone-c.51158814"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Gotowe w 5 minut",
+                "slug": "gotowe-w-5-minut-c.51158389",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/gotowe-w-5-minut-c.51158389"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "GoVege!",
+                "slug": "govege-c.51158359",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/govege-c.51158359"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Obiad raz dwa",
+                "slug": "obiad-raz-dwa-c.51158439",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/obiad-raz-dwa-c.51158439"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Surówki i sałatki",
+                "slug": "surowki-i-salatki-c.51158444",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=szybkie-dania-sc.51158334/surowki-i-salatki-c.51158444"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Styl Życia!",
+          "slug": "styl-zycia-sc.51158328",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Sport&Fitness",
+                "slug": "sport-fitness-c.51158434",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=styl-zycia-sc.51158328/sport-fitness-c.51158434"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Strefa Bez",
+                "slug": "strefa-bez-c.51158369",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=styl-zycia-sc.51158328/strefa-bez-c.51158369"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Zielona Strona",
+                "slug": "zielona-strona-c.51158438",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=styl-zycia-sc.51158328/zielona-strona-c.51158438"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Owoce i warzywa",
+          "slug": "owoce-i-warzywa-sc.51158365",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Owoce",
+                "slug": "owoce-c.51158342",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=owoce-i-warzywa-sc.51158365/owoce-c.51158342"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Warzywa i zioła",
+                "slug": "warzywa-i-ziola-c.51158443",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=owoce-i-warzywa-sc.51158365/warzywa-i-ziola-c.51158443"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Mleka, nabiały, jaja",
+          "slug": "mleka-nabialy-jaja-sc.59697687",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Mleko i śmietana",
+                "slug": "mleko-i-smietana-c.51158396",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/mleko-i-smietana-c.51158396"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Sery",
+                "slug": "sery-c.51158410",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/sery-c.51158410"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Jogurty, desery i napoje mleczne",
+                "slug": "jogurty-desery-i-napoje-mleczne-c.51158403",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/jogurty-desery-i-napoje-mleczne-c.51158403"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Jaja",
+                "slug": "jaja-c.51158417",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/jaja-c.51158417"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Tłuszcze",
+                "slug": "tluszcze-c.51158423",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/tluszcze-c.51158423"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Bez laktozy",
+                "slug": "bez-laktozy-c.51158435",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/bez-laktozy-c.51158435"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Roślinna alternatywa",
+                "slug": "roslinna-alternatywa-c.51158428",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=mleka-nabialy-jaja-sc.59697687/roslinna-alternatywa-c.51158428"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Mięsa, ryby i wędliny",
+          "slug": "miesa-ryby-i-wedliny-sc.59694800",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Mięsa",
+                "slug": "miesa-c.59710986",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=miesa-ryby-i-wedliny-sc.59694800/miesa-c.59710986"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wędliny i kiełbasy",
+                "slug": "wedliny-i-kielbasy-c.51158355",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=miesa-ryby-i-wedliny-sc.59694800/wedliny-i-kielbasy-c.51158355"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Ryby i owoce morza",
+                "slug": "ryby-i-owoce-morza-c.51158343",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=miesa-ryby-i-wedliny-sc.59694800/ryby-i-owoce-morza-c.51158343"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Piekarnia i śniadanie",
+          "slug": "piekarnia-i-sniadanie-sc.51158331",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Chleb, bułki i wypieki",
+                "slug": "chleb-bulki-i-wypieki-c.51158356",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piekarnia-i-sniadanie-sc.51158331/chleb-bulki-i-wypieki-c.51158356"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Chrupkie pieczywo, tortille i pinsy",
+                "slug": "chrupkie-pieczywo-tortille-i-pinsy-c.60070051",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piekarnia-i-sniadanie-sc.51158331/chrupkie-pieczywo-tortille-i-pinsy-c.60070051"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Do smarowania",
+                "slug": "do-smarowania-c.51158358",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piekarnia-i-sniadanie-sc.51158331/do-smarowania-c.51158358"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Ciasta.",
+                "slug": "ciasta-c.60070373",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piekarnia-i-sniadanie-sc.51158331/ciasta-c.60070373"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Płatki śniadaniowe, musli i granole",
+                "slug": "platki-sniadaniowe-musli-i-granole-c.59717275",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piekarnia-i-sniadanie-sc.51158331/platki-sniadaniowe-musli-i-granole-c.59717275"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Słodycze i lody",
+          "slug": "slodycze-i-lody-sc.51158335",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wafelki i batony",
+                "slug": "wafelki-i-batony-c.51158382",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=slodycze-i-lody-sc.51158335/wafelki-i-batony-c.51158382"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Ciastka i pierniki",
+                "slug": "ciastka-i-pierniki-c.59710457",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=slodycze-i-lody-sc.51158335/ciastka-i-pierniki-c.59710457"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Cukierki, gumy, żelki i lizaki",
+                "slug": "cukierki-gumy-zelki-i-lizaki-c.59715992",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=slodycze-i-lody-sc.51158335/cukierki-gumy-zelki-i-lizaki-c.59715992"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Czekolady i bombonierki",
+                "slug": "czekolady-i-bombonierki-c.59715959",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=slodycze-i-lody-sc.51158335/czekolady-i-bombonierki-c.59715959"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Lody",
+                "slug": "lody-c.51158429",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=slodycze-i-lody-sc.51158335/lody-c.51158429"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Przekąski",
+          "slug": "przekaski-sc.51158336",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Chipsy i chrupki",
+                "slug": "chipsy-i-chrupki-c.51158404",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=przekaski-sc.51158336/chipsy-i-chrupki-c.51158404"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Słone przekąski",
+                "slug": "slone-przekaski-c.51158411",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=przekaski-sc.51158336/slone-przekaski-c.51158411"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Orzechy i bakalie",
+                "slug": "orzechy-i-bakalie-c.59717317",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=przekaski-sc.51158336/orzechy-i-bakalie-c.59717317"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Napoje",
+          "slug": "napoje-sc.51158351",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Napoje gazowane",
+                "slug": "napoje-gazowane-c.59710917",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-sc.51158351/napoje-gazowane-c.59710917"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Napoje energetyczne i izotoniki",
+                "slug": "napoje-energetyczne-i-izotoniki-c.51158424",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-sc.51158351/napoje-energetyczne-i-izotoniki-c.51158424"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Napoje niegazowane",
+                "slug": "napoje-niegazowane-c.59710918",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-sc.51158351/napoje-niegazowane-c.59710918"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Soki i nektary",
+                "slug": "soki-i-nektary-c.51158419",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-sc.51158351/soki-i-nektary-c.51158419"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wody",
+                "slug": "wody-c.59716038",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-sc.51158351/wody-c.59716038"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Alkohole",
+          "slug": "alkohole-sc.51158337",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Piwa w puszce",
+                "slug": "piwa-w-puszce-c.59716925",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piwa-w-puszce-c.59716925"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Piwa w butelce",
+                "slug": "piwa-w-butelce-c.51158481",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=piwa-w-butelce-c.51158481"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Cydry!",
+                "slug": "cydry-c.51158346",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=cydry-c.51158346"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Drinki!",
+                "slug": "drinki-c.51158347",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drinki-c.51158347"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wina białe",
+                "slug": "wina-biale-c.59716954",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wina-biale-c.59716954"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wina czerwone",
+                "slug": "wina-czerwone-c.59717042",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wina-czerwone-c.59717042"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wina różowe",
+                "slug": "wina-rozowe-c.59717017",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wina-rozowe-c.59717017"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wina musujące i szampany",
+                "slug": "wina-musujace-i-szampany-c.59718967",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wina-musujace-i-szampany-c.59718967"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Gin",
+                "slug": "gin-c.51158468",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=gin-c.51158468"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Likiery",
+                "slug": "likiery-c.51158360",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=likiery-c.51158360"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wermuty",
+                "slug": "wermuty-c.51158345",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wermuty-c.51158345"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wódki czyste",
+                "slug": "wodki-czyste-c.59717159",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wodki-czyste-c.59717159"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Wódki smakowe",
+                "slug": "wodki-smakowe-c.59717110",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wodki-smakowe-c.59717110"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Napoje bezalkoholowe",
+                "slug": "napoje-bezalkoholowe-c.51158430",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=napoje-bezalkoholowe-c.51158430"
+                  }
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Rum, tequila i brandy",
+                "slug": "rum-tequila-i-brandy-c.51158383",
+                "action": {
+                  "type": "POPUP",
+                  "data": {
+                    "id": "RESTRICTIONS",
+                    "redirectPath": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=rum-tequila-i-brandy-c.51158383"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Produkty mrożone",
+          "slug": "produkty-mrozone-sc.51158338",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dania gotowe",
+                "slug": "dania-gotowe-c.51158406",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-mrozone-sc.51158338/dania-gotowe-c.51158406"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Ryby, owoce morza",
+                "slug": "ryby-owoce-morza-c.51158412",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-mrozone-sc.51158338/ryby-owoce-morza-c.51158412"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Mrożone owoce i warzywa",
+                "slug": "mrozone-owoce-i-warzywa-c.51158405",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-mrozone-sc.51158338/mrozone-owoce-i-warzywa-c.51158405"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Lody i lód",
+                "slug": "lody-i-lod-c.51158400",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-mrozone-sc.51158338/lody-i-lod-c.51158400"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Kawy, herbaty i kakao",
+          "slug": "kawy-herbaty-i-kakao-sc.59679633",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kawy",
+                "slug": "kawy-c.59716807",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=kawy-herbaty-i-kakao-sc.59679633/kawy-c.59716807"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Herbaty",
+                "slug": "herbaty-c.59716806",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=kawy-herbaty-i-kakao-sc.59679633/herbaty-c.59716806"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kakao i czekolady",
+                "slug": "kakao-i-czekolady-c.59716868",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=kawy-herbaty-i-kakao-sc.59679633/kakao-i-czekolady-c.59716868"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Spiżarnia",
+          "slug": "spizarnia-sc.51158353",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Makarony, ryże i kasze",
+                "slug": "makarony-ryze-i-kasze-c.59718828",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/makarony-ryze-i-kasze-c.59718828"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Produkty konserwowe",
+                "slug": "produkty-konserwowe-c.51158425",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/produkty-konserwowe-c.51158425"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Sosy",
+                "slug": "sosy-c.51158437",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/sosy-c.51158437"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Ketchup, majonez, musztarda, chrzan",
+                "slug": "ketchup-majonez-musztarda-chrzan-c.51158420",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/ketchup-majonez-musztarda-chrzan-c.51158420"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Do smażenia i wypieków",
+                "slug": "do-smazenia-i-wypiekow-c.51158441",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/do-smazenia-i-wypiekow-c.51158441"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Produkty w proszku",
+                "slug": "produkty-w-proszku-c.51158448",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/produkty-w-proszku-c.51158448"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Przyprawy, sól i pieprz",
+                "slug": "przyprawy-sol-i-pieprz-c.51158453",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=spizarnia-sc.51158353/przyprawy-sol-i-pieprz-c.51158453"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Drogeria",
+          "slug": "drogeria-sc.51158339",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pielęgnacja ciała",
+                "slug": "pielegnacja-ciala-c.51158378",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/pielegnacja-ciala-c.51158378"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pielęgnacja twarzy",
+                "slug": "pielegnacja-twarzy-c.51158449",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/pielegnacja-twarzy-c.51158449"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pielęgnacja włosów",
+                "slug": "pielegnacja-wlosow-c.51158349",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/pielegnacja-wlosow-c.51158349"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dezodoranty i perfumy",
+                "slug": "dezodoranty-i-perfumy-c.51158454",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/dezodoranty-i-perfumy-c.51158454"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Higiena jamy ustnej",
+                "slug": "higiena-jamy-ustnej-c.51158432",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/higiena-jamy-ustnej-c.51158432"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Kąpiel i prysznic",
+                "slug": "kapiel-i-prysznic-c.59718920",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/kapiel-i-prysznic-c.59718920"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Golenie i depilacja",
+                "slug": "golenie-i-depilacja-c.51158413",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/golenie-i-depilacja-c.51158413"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Higiena osobista",
+                "slug": "higiena-osobista-c.51158393",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/higiena-osobista-c.51158393"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Papier toaletowy i chusteczki",
+                "slug": "papier-toaletowy-i-chusteczki-c.51158401",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/papier-toaletowy-i-chusteczki-c.51158401"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Suplementy",
+                "slug": "suplementy-c.51158407",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=drogeria-sc.51158339/suplementy-c.51158407"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Produkty dla dzieci",
+          "slug": "produkty-dla-dzieci-sc.59679595",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Jedzenie dla dzieci",
+                "slug": "jedzenie-dla-dzieci-c.51158421",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-dla-dzieci-sc.59679595/jedzenie-dla-dzieci-c.51158421"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pielęgnacja dziecka",
+                "slug": "pielegnacja-dziecka-c.51158426",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-dla-dzieci-sc.59679595/pielegnacja-dziecka-c.51158426"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pieluchy",
+                "slug": "pieluchy-c.51158761",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=produkty-dla-dzieci-sc.59679595/pieluchy-c.51158761"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAROUSEL",
+        "data": {
+          "title": "Wszystko dla domu",
+          "slug": "wszystko-dla-domu-sc.51158341",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Sprzątanie",
+                "slug": "sprzatanie-c.51158362",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wszystko-dla-domu-sc.51158341/sprzatanie-c.51158362"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Pranie",
+                "slug": "pranie-c.51158363",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wszystko-dla-domu-sc.51158341/pranie-c.51158363"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Domowy niezbędnik",
+                "slug": "domowy-niezbednik-c.51158364",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wszystko-dla-domu-sc.51158341/domowy-niezbednik-c.51158364"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Domowa apteczka",
+                "slug": "domowa-apteczka-c.51158433",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wszystko-dla-domu-sc.51158341/domowa-apteczka-c.51158433"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Inne",
+                "slug": "inne-c.51158638",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=wszystko-dla-domu-sc.51158341/inne-c.51158638"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "GRID",
+        "data": {
+          "title": "Dla pupili",
+          "slug": "dla-pupili-sc.51158367",
+          "elements": [
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dla psa",
+                "slug": "dla-psa-c.51158442",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=dla-pupili-sc.51158367/dla-psa-c.51158442"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            },
+            {
+              "type": "COLLECTION_TILE",
+              "data": {
+                "title": "Dla kota",
+                "slug": "dla-kota-c.51158373",
+                "action": {
+                  "type": "NAVIGATION",
+                  "data": {
+                    "path": "/v4/stores/207442/addresses/336099/content/main?nodeType=DEEP_LINK&link=dla-pupili-sc.51158367/dla-kota-c.51158373"
+                  },
+                  "trigger": "onInteraction"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

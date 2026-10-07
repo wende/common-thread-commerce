@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTES = {
+    '/glovo-race/': ('glovo/tooling/glovo-race.html', 'text/html; charset=utf-8'),
     '/': ('shop-agent.html', 'text/html; charset=utf-8'),
     '/shop-agent.html': ('shop-agent.html', 'text/html; charset=utf-8'),
     '/glovo.html': ('glovo.html', 'text/html; charset=utf-8'),
@@ -17,6 +18,21 @@ ROUTES = {
     '/glovo/reports/EXPERIMENT_REPORT_2026-10-05.md': (
         'glovo/reports/EXPERIMENT_REPORT_2026-10-05.md', 'text/plain; charset=utf-8'),
 }
+for name, mime in {
+    'data.json': 'application/json',
+    'race.mp4': 'video/mp4',
+    'race.gif': 'image/gif',
+    'poster.jpg': 'image/jpeg',
+    'contact-sheet.jpg': 'image/jpeg',
+    'steps.zip': 'application/zip',
+    'native-capture.json': 'application/json',
+    'native-baseline.zip': 'application/zip',
+}.items():
+    ROUTES[f'/glovo-race/{name}'] = (f'output/glovo-race/{name}', mime)
+for lane, count in [('bare', 12), ('adapter', 6)]:
+    for index in range(count):
+        name = f'{lane}-{index:02d}.jpg'
+        ROUTES[f'/glovo-race/real-steps/{name}'] = (f'output/glovo-race/real-steps/{name}', 'image/jpeg')
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):

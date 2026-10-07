@@ -4,14 +4,19 @@
   "private": true,
   "description": "Tests and local commerce fixture commands for the Glovo and Shopping page adapters.",
   "scripts": {
+    "pack:glovo-basket": "node pack-glovo-basket.mjs",
+    "test:chrome-basket": "node ../glovo/tests/chrome-basket.smoke.mjs",
     "test": "node --test ../glovo/tests/*.test.mjs ../shopping/tests/*.test.mjs",
     "test:glovo": "node --test ../glovo/tests/*.test.mjs",
     "test:shopping": "node --test ../shopping/tests/*.test.mjs",
-    "setup": "bash ../demo/scripts/setup.sh",
-    "start": "docker compose --project-directory ../demo -f ../demo/compose.yaml up -d",
-    "stop": "docker compose --project-directory ../demo -f ../demo/compose.yaml down",
-    "status": "docker compose --project-directory ../demo -f ../demo/compose.yaml ps",
-    "verify": "docker compose --project-directory ../demo -f ../demo/compose.yaml --profile tools run --rm -T bootstrap verify",
-    "catalog": "docker compose --project-directory ../demo -f ../demo/compose.yaml --profile tools run --rm -T bootstrap catalog"
+    "setup": "bash ../shopping/demo/scripts/setup.sh",
+    "start": "docker compose --project-directory ../shopping/demo -f ../shopping/demo/compose.yaml up -d",
+    "stop": "docker compose --project-directory ../shopping/demo -f ../shopping/demo/compose.yaml down",
+    "status": "docker compose --project-directory ../shopping/demo -f ../shopping/demo/compose.yaml ps",
+    "verify": "docker compose --project-directory ../shopping/demo -f ../shopping/demo/compose.yaml --profile tools run --rm -T bootstrap verify",
+    "catalog": "docker compose --project-directory ../shopping/demo -f ../shopping/demo/compose.yaml --profile tools run --rm -T bootstrap catalog"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
   }
 }

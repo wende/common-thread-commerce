@@ -7,10 +7,11 @@ import { pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 
 const API = 'https://api.glovoapp.com';
-const allowedHeaders = new Set(['glovo-app-platform', 'glovo-client-info', 'glovo-app-type',
+export const PUBLIC_PROFILE_HEADERS = Object.freeze(['glovo-app-platform', 'glovo-client-info', 'glovo-app-type',
   'glovo-app-development-state', 'glovo-app-context', 'glovo-app-version', 'glovo-language-code',
   'glovo-location-city-code', 'glovo-location-country-code', 'glovo-api-version',
   'glovo-delivery-location-longitude', 'glovo-delivery-location-latitude', 'glovo-delivery-location-accuracy']);
+const allowedHeaders = new Set(PUBLIC_PROFILE_HEADERS);
 const normalize = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   .replace(/ł/gi, 'l').toLowerCase().replace(/[®™‎]/g, '').trim();
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -173,10 +174,23 @@ export async function createBasket({ profile, slug, requested, fetchImpl, checkp
     throw new Error('The selected native store is unavailable or did not match the slug.');
   const menu = menuProducts(await client.request('GET', `/v4/stores/${store.id}/addresses/${store.addressId}/content/main`));
   const selected = selectProducts(menu, requested);
+  return createBasketFromSelected({ client, profile, store, selected, checkpoint });
+}
+
+// Reuse the same verified guest writer after a lazy catalog has been hydrated.
+// Revalidate every native product and customization before the first basket request.
+export async function createBasketFromSelected({ client, profile, store, selected, checkpoint = async () => {} }) {
+  if (!(client instanceof GuestHttpClient) || !store?.id || !store.addressId || store.open === false || store.enabled === false)
+    throw new Error('A guest client and an available native store are required.');
+  if (!Array.isArray(selected) || !selected.length) throw new Error('Select products before creating the basket.');
+  const requested = selected.map(item => ({ productId: String(item.product?.id), quantity: item.quantity,
+    choices: (item.customizations || []).map(choice => ({ groupId: choice.ids?.groupLegacyId ?? choice.ids?.groupId,
+      attributeId: choice.ids?.legacyId, quantity: choice.quantity?.increments })) }));
+  selected = selectProducts(new Map(selected.map(item => [String(item.product?.id), item.product])), requested);
   let basket = await client.request('GET', client.basketPath(store));
   if (!basket.basketId || String(basket.customerId) !== client.identity.customerId || (basket.products || []).length)
     throw new Error('The new guest identity did not receive an empty basket.');
-  const state = { schema: 'glovo-http-session/v1', phase: 'prepared', profile, identity: client.identity,
+  const state = { schema: 'glovo-http-session/v1', phase: 'prepared', profile: profile || { headers: client.baseHeaders }, identity: client.identity,
     store: { id: store.id, addressId: store.addressId, name: store.name, slug: store.slug },
     selected, basket, requests: client.requests };
   await checkpoint(state);

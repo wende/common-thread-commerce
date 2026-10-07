@@ -1,41 +1,21 @@
-# Glovo and Shopping page adapters
+# Common Thread Commerce
 
-Two dependency-free JavaScript scripts expose shopping tools inside an existing storefront page. They search the native catalog and operate on that browser's basket.
+Dependency-free JavaScript that lets an AI agent shop inside a storefront it can already open in a browser.
 
-| Script | Storefronts | Guide |
+| File | What it is | How it works |
 | --- | --- | --- |
-| [glovo.js](glovo.js) | Glovo's loaded store menu and native cart SDK | [Glovo](glovo/README.md) · [Agent workflow](glovo/AGENT.md) |
-| [shopping.js](shopping.js) | WooCommerce, PrestaShop Classic and Magento Luma | [Shopping](shopping/README.md) |
+| [`shopping.js`](shopping.js) | Adapter for **WooCommerce, PrestaShop Classic and Magento Luma** | Add `<script defer src="/shopping.js"></script>` to the storefront. It detects the platform and exposes `shop_catalog` / `shop_cart` tools on `window.mcp` (or `window.shopAgent`). Call `window.mcp.help()`. |
+| [`glovo.js`](glovo.js) | Adapter for **Glovo** | Inject it into a loaded Glovo store page. It wraps the page's own menu and cart SDK as `window.glovoBridge`. Call `glovoBridge.describe()`. |
+| [`glovo-basket.mjs`](glovo-basket.mjs) | **Jev** basket builder for Glovo | Run `node glovo-basket.mjs` (Node 24+, Chrome). Chrome fetches the store menu, Jev picks products for your shopping list, and Glovo's own cart adds them. No checkout. |
 
-For Glovo, inject `glovo.js` into the loaded store page's main JavaScript world, then call `window.glovoBridge.describe()`. For Shopping, add `<script defer src="/shopping.js"></script>` to the shared storefront layout and call `window.mcp.help()` (or `window.shopAgent.help()` if the page already owns `window.mcp`). Temporary injection also works; reinject after full navigation. Use IDs and required options discovered from the current storefront.
+Both adapters search the storefront's native catalog and change only that browser's basket. No order is ever placed.
 
-## Experiment results
+## Layout
 
-| Experiment | Observed improvement over bare browsing | Evidence |
-| --- | --- | --- |
-| Glovo, adapter 0.4.2 | **3.59× faster**, **77.9% fewer total tokens**, **73.2% fewer browser calls**; all baskets completed and cleaned up | [Report](glovo/reports/EXPERIMENT_REPORT_2026-10-05.md) · [Infographic](glovo/reports/EXPERIMENT_INFOGRAPHIC_2026-10-05.html) |
-| Shopping, final benchmark revision 0.5.8 | **2.02× faster**, **3.92× fewer total tokens** across the final six/twelve/sixteen-need trio; **3/3 quality passes** | [Full 30-session campaign](shopping/reports/WOO_LUNA_REAL_CATALOG_2026-10-06.md) |
+- `shopping/`: the three e-commerce adapters' guide, tests, benchmarks, reports, and `demo/` (Docker fixture with all three stores).
+- `glovo/`: the Glovo adapter's guide, bridge tools, tests, benchmarks, reports, and the Jev basket-builder source.
+- `tooling/`: test runner, bundler and the page build/preview scripts shared by both.
+- `glovo.html`, `shop-agent.html`: the two published experiment pages.
+- `presentation.html` (+ `presentation-assets/`): the "Agents Go Shopping" slide deck. Open it in a browser; arrows or click to navigate, `N` shows speaker notes, `F` goes fullscreen.
 
-Total token counts include cached input once. Glovo used two runs per condition with Luna xhigh. Shopping used one bare reference per prompt with Luna medium and adaptive adapter revisions; all 27 adapter sessions averaged 2.08× faster and 4.33× fewer tokens, with 24/27 quality passes. These describe the recorded runs. Shipped Shopping version 0.5.9 includes a later Magento integration correction, tested separately from the benchmark.
-
-## Repository layout
-
-- `glovo/`: operating guide, CLI/client helpers, tests, historical benchmarks and evidence.
-- `shopping/`: API guide, tests, offline measurement tools, fixed prompts and experiment reports.
-- `demo/`: Docker storefront fixtures, shared catalog, setup/import scripts and verification screenshots. [Setup guide](demo/README.md).
-- `tooling/`: test and fixture commands. [Development guide](tooling/README.md).
-- `.runtime/` and `output/`: ignored local dependencies and private run artifacts.
-
-Open the rendered experiment pages: [Shopping](https://wende.github.io/common-thread-experiment-pages/shop-agent.html) and [Glovo](https://wende.github.io/common-thread-experiment-pages/glovo.html). Both HTML files sit beside the two page scripts and can be opened directly in a browser.
-
-## Check the scripts
-
-Requires Node.js 22 or newer; no npm install is needed.
-
-```sh
-npm --prefix tooling test
-```
-
-The suite covers both page adapters, Glovo's browser transport and HTTP guest-basket helper. Shopping's offline accounting tests require the Python dependencies listed in [its measurement guide](shopping/benchmarks/README.md).
-
-The local three-platform storefront fixture is optional. Run its Compose commands from `demo/`, or use `npm --prefix tooling run setup`. The Compose project name remains `common-thread-commerce`; local credentials are in the ignored `demo/.env`. No orders are placed by the experiment workflows.
+Results: [Glovo](glovo/reports/EXPERIMENT_REPORT_2026-10-05.md) · [Shopping](shopping/reports/WOO_LUNA_REAL_CATALOG_2026-10-06.md). Tests: `npm --prefix tooling test` (Node 22+).
